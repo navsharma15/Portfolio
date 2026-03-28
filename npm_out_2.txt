@@ -1,0 +1,45 @@
+npm error code ERESOLVE
+npm error ERESOLVE could not resolve
+npm error
+npm error While resolving: postprocessing@6.39.0
+npm error Found: three@0.160.0
+npm error node_modules/three
+npm error   three@"^0.160.0" from the root project
+npm error   peer three@">=0.126" from @react-spring/three@9.6.1
+npm error   node_modules/@react-spring/three
+npm error     @react-spring/three@"~9.6.1" from @react-three/drei@9.88.17
+npm error     node_modules/@react-three/drei
+npm error       @react-three/drei@"^9.88.17" from the root project
+npm error   12 more (@react-three/drei, @react-three/fiber, ...)
+npm error
+npm error Could not resolve dependency:
+npm error peer three@">= 0.168.0 < 0.184.0" from postprocessing@6.39.0
+npm error node_modules/postprocessing
+npm error   postprocessing@"^6.39.0" from the root project
+npm error   peer postprocessing@">=6.30.0" from n8ao@1.10.1
+npm error   node_modules/n8ao
+npm error     n8ao@"^1.6.6" from @react-three/postprocessing@2.19.1
+npm error     node_modules/@react-three/postprocessing
+npm error       @react-three/postprocessing@"^2.19.0" from the root project
+npm error   1 more (@react-three/postprocessing)
+npm error
+npm error Conflicting peer dependency: three@0.183.2
+npm error node_modules/three
+npm error   peer three@">= 0.168.0 < 0.184.0" from postprocessing@6.39.0
+npm error   node_modules/postprocessing
+npm error     postprocessing@"^6.39.0" from the root project
+npm error     peer postprocessing@">=6.30.0" from n8ao@1.10.1
+npm error     node_modules/n8ao
+npm error       n8ao@"^1.6.6" from @react-three/postprocessing@2.19.1
+npm error       node_modules/@react-three/postprocessing
+npm error         @react-three/postprocessing@"^2.19.0" from the root project
+npm error     1 more (@react-three/postprocessing)
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error C:\Users\navdh\AppData\Local\npm-cache\_logs\2026-03-28T19_43_34_902Z-eresolve-report.txt
+npm error A complete log of this run can be found in: C:\Users\navdh\AppData\Local\npm-cache\_logs\2026-03-28T19_43_34_902Z-debug-0.log

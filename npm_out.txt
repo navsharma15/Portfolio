@@ -1,0 +1,33 @@
+npm error code ERESOLVE
+npm error ERESOLVE could not resolve
+npm error
+npm error While resolving: @react-three/postprocessing@3.0.4
+npm error Found: @react-three/fiber@8.15.19
+npm error node_modules/@react-three/fiber
+npm error   @react-three/fiber@"^8.15.19" from the root project
+npm error   peer @react-three/fiber@">=6.0" from @react-spring/three@9.6.1
+npm error   node_modules/@react-spring/three
+npm error     @react-spring/three@"~9.6.1" from @react-three/drei@9.88.17
+npm error     node_modules/@react-three/drei
+npm error       @react-three/drei@"^9.88.17" from the root project
+npm error   1 more (@react-three/drei)
+npm error
+npm error Could not resolve dependency:
+npm error peer @react-three/fiber@"^9.0.0" from @react-three/postprocessing@3.0.4
+npm error node_modules/@react-three/postprocessing
+npm error   @react-three/postprocessing@"^3.0.4" from the root project
+npm error
+npm error Conflicting peer dependency: @react-three/fiber@9.5.0
+npm error node_modules/@react-three/fiber
+npm error   peer @react-three/fiber@"^9.0.0" from @react-three/postprocessing@3.0.4
+npm error   node_modules/@react-three/postprocessing
+npm error     @react-three/postprocessing@"^3.0.4" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error C:\Users\navdh\AppData\Local\npm-cache\_logs\2026-03-28T19_42_23_837Z-eresolve-report.txt
+npm error A complete log of this run can be found in: C:\Users\navdh\AppData\Local\npm-cache\_logs\2026-03-28T19_42_23_837Z-debug-0.log

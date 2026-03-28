@@ -1,0 +1,39 @@
+npm error code ERESOLVE
+npm error ERESOLVE unable to resolve dependency tree
+npm error
+npm error While resolving: portfolio@0.0.0
+npm error Found: react@18.3.1
+npm error node_modules/react
+npm error   react@"^18.3.1" from the root project
+npm error   peer react@"*" from expo@55.0.9
+npm error   node_modules/expo
+npm error     peerOptional expo@">=43.0" from @react-three/fiber@9.5.0
+npm error     node_modules/@react-three/fiber
+npm error       @react-three/fiber@"^9.5.0" from the root project
+npm error       1 more (@react-three/drei)
+npm error     peer expo@"*" from expo-asset@55.0.10
+npm error     node_modules/expo-asset
+npm error       peerOptional expo-asset@">=8.4" from @react-three/fiber@9.5.0
+npm error       node_modules/@react-three/fiber
+npm error         @react-three/fiber@"^9.5.0" from the root project
+npm error         1 more (@react-three/drei)
+npm error       1 more (expo)
+npm error     2 more (expo-file-system, expo-gl)
+npm error   9 more (@expo/dom-webview, @expo/metro-runtime, react-dom, ...)
+npm error
+npm error Could not resolve dependency:
+npm error peer react@">=19 <19.3" from @react-three/fiber@9.5.0
+npm error node_modules/@react-three/fiber
+npm error   @react-three/fiber@"^9.5.0" from the root project
+npm error   peer @react-three/fiber@"^9.0.0" from @react-three/drei@10.7.7
+npm error   node_modules/@react-three/drei
+npm error     @react-three/drei@"^10.7.7" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error C:\Users\navdh\AppData\Local\npm-cache\_logs\2026-03-28T19_46_20_255Z-eresolve-report.txt
+npm error A complete log of this run can be found in: C:\Users\navdh\AppData\Local\npm-cache\_logs\2026-03-28T19_46_20_255Z-debug-0.log
