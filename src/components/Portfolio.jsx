@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
 import HeroCard from './HeroCard';
 import ProfileCard from './ProfileCard';
-import Wave from './Wave';
+import AboutMe from './AboutMe';
+import DNAAnimation from './DNAAnimation';
 import '../styles/portfolio.css';
 
 /* Nav items with SVG icons */
@@ -17,7 +19,7 @@ const navItems = [
   },
   {
     label: 'Skills',
-    svg: <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>, // layers icon for skills
+    svg: <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>,
   },
   {
     label: 'Projects',
@@ -34,42 +36,131 @@ const navItems = [
 ];
 
 /**
- * Portfolio — Full-screen layout
- * [Sidebar] | [Hero Card + Buttons] | [Profile Card]
- * Sidebar replaces top navbar and left icon buttons.
+ * Portfolio — Full-screen layout with page-flip transitions
+ * Uses GSAP for realistic 3D notebook page-turning effect.
  */
 const Portfolio = () => {
+  const [activePage, setActivePage] = useState('Home');
+  const [isFlipping, setIsFlipping] = useState(false);
+  const flipPageRef = useRef(null);
+  const flipShadowRef = useRef(null);
+
+  /**
+   * Perform the GSAP page flip animation
+   * Flips the current page like a notebook page turning right-to-left,
+   * then reveals the target page behind it.
+   */
+  const performPageFlip = useCallback((targetPage) => {
+    if (isFlipping || targetPage === activePage) return;
+    setIsFlipping(true);
+
+    const flipEl = flipPageRef.current;
+    const shadowEl = flipShadowRef.current;
+    if (!flipEl || !shadowEl) return;
+
+    // Timeline for the flip
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setActivePage(targetPage);
+        setIsFlipping(false);
+        // Reset flip element
+        gsap.set(flipEl, { rotateY: 0, opacity: 0, zIndex: -1 });
+        gsap.set(shadowEl, { opacity: 0 });
+      },
+    });
+
+    // Show flip overlay (snapshot of current page)
+    tl.set(flipEl, {
+      opacity: 1,
+      rotateY: 0,
+      zIndex: 50,
+      transformOrigin: 'left center',
+    })
+    .set(shadowEl, { opacity: 0, zIndex: 49 })
+
+    // Animate the page curl from right to left
+    .to(flipEl, {
+      rotateY: -180,
+      duration: 1,
+      ease: 'power2.inOut',
+    })
+    // Shadow grows then fades during flip
+    .to(
+      shadowEl,
+      {
+        opacity: 0.7,
+        duration: 0.5,
+        ease: 'power2.in',
+      },
+      0
+    )
+    .to(
+      shadowEl,
+      {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+      },
+      0.5
+    );
+  }, [activePage, isFlipping]);
+
+  const handleNavClick = (label) => {
+    if (label === activePage || isFlipping) return;
+
+    if (label === 'About Me' || activePage === 'About Me') {
+      performPageFlip(label);
+    } else {
+      // For other pages, just switch directly (no flip needed yet)
+      setActivePage(label);
+    }
+  };
+
+  // Determine active nav index
+  const activeIndex = navItems.findIndex((n) => n.label === activePage);
+
   return (
     <div className="portfolio-bg">
-      <Wave />
+      <DNAAnimation />
 
-      {/* ── LEFT SIDEBAR ── */}
+      {/* ── PAGE FLIP OVERLAY (animated by GSAP) ── */}
+      <div
+        ref={flipPageRef}
+        className="page-flip-overlay"
+      >
+        {/* This is a visual clone — dark gradient front, lighter back */}
+        <div className="page-flip-front" />
+        <div className="page-flip-back" />
+      </div>
+
+      {/* ── FLIP SHADOW ── */}
+      <div ref={flipShadowRef} className="page-flip-shadow" />
+
+      {/* ── LEFT SIDEBAR (always visible) ── */}
       <motion.aside
         className="sidebar"
         initial={{ x: -60, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Brand / Logo at top of sidebar */}
+        {/* Brand */}
         <div className="sidebar-brand">
           <span className="sidebar-brand-text">DAP</span>
         </div>
-
         <div className="sidebar-divider" />
-
 
         {/* Navigation links */}
         <nav className="sidebar-nav">
           {navItems.map((item, i) => (
             <motion.button
               key={item.label}
-              className={`sidebar-link${i === 0 ? ' active' : ''}`}
+              className={`sidebar-link${i === activeIndex ? ' active' : ''}`}
               whileHover={{ x: 4 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              // stagger each link slightly
               style={{ transitionDelay: `${i * 0.05}s` }}
+              onClick={() => handleNavClick(item.label)}
             >
               {item.svg}
               {item.label}
@@ -77,41 +168,56 @@ const Portfolio = () => {
           ))}
         </nav>
 
-        {/* "Available for work" badge at bottom */}
+        {/* Footer */}
         <div className="sidebar-footer">
           <div className="sidebar-footer-label">Status</div>
           <div className="sidebar-footer-status">Available for Work</div>
         </div>
       </motion.aside>
 
-      {/* ── MAIN CONTENT ── */}
+      {/* ── MAIN CONTENT AREA ── */}
       <div className="portfolio-content">
-
-        {/* Center: Hero + buttons */}
-        <div className="center-content">
-          <HeroCard />
-
-          {/* Action buttons embedded in bottom right */}
+        {activePage === 'Home' && (
           <motion.div
-            className="bottom-buttons white-cutout"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
+            className="page-home"
+            key="home"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            style={{ display: 'contents' }}
           >
-            <button className="cutout-btn contact-btn">
-              Contact us
-            </button>
+            {/* Center: Hero + buttons */}
+            <div className="center-content">
+              <HeroCard />
+              <motion.div
+                className="bottom-buttons white-cutout"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+              >
+                <button className="cutout-btn contact-btn">Contact us</button>
+                <button className="cutout-btn cv-btn">Download CV</button>
+              </motion.div>
+            </div>
 
-            <button className="cutout-btn cv-btn">
-              Download CV
-            </button>
+            {/* Right: Profile card */}
+            <ProfileCard />
           </motion.div>
-        </div>
+        )}
 
-        {/* Right: Profile card */}
-        <ProfileCard />
+        {activePage === 'About Me' && (
+          <motion.div
+            className="page-about"
+            key="about"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            style={{ flex: 1, height: '100%', borderRadius: '28px', overflow: 'hidden' }}
+          >
+            <AboutMe />
+          </motion.div>
+        )}
       </div>
-
     </div>
   );
 };

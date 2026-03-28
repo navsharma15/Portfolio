@@ -1,0 +1,319 @@
+/* =============================================
+   ABOUT ME PAGE — Premium Glassmorphism + Waves
+   ============================================= */
+
+/* ── Full page wrapper ── */
+.aboutme-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  color: #e6f6f0;
+}
+
+/* ── Wavy canvas background ── */
+.aboutme-wave-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Floating particles ── */
+.aboutme-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.aboutme-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 170, 0.6), transparent 70%);
+}
+
+/* =============================================
+   TITLE — Outside glass card, top-left overlap
+   ============================================= */
+.aboutme-title-wrap {
+  position: absolute;
+  top: 60px;
+  left: 80px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.aboutme-title-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aboutme-title-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00ffaa;
+  box-shadow: 0 0 12px rgba(0, 255, 170, 0.7), 0 0 30px rgba(0, 255, 170, 0.3);
+  animation: aboutme-pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes aboutme-pulse-dot {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(0,255,170,0.7), 0 0 30px rgba(0,255,170,0.3); }
+  50% { transform: scale(1.3); box-shadow: 0 0 20px rgba(0,255,170,0.9), 0 0 50px rgba(0,255,170,0.5); }
+}
+
+.aboutme-title-line {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffaa, transparent);
+  border-radius: 2px;
+}
+
+.aboutme-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow:
+    0 0 20px rgba(0, 255, 170, 0.5),
+    0 0 60px rgba(0, 255, 170, 0.2),
+    0 0 100px rgba(0, 255, 170, 0.1);
+  margin: 0;
+}
+
+/* =============================================
+   GLASS CARD
+   ============================================= */
+.aboutme-glass {
+  position: relative;
+  z-index: 5;
+  width: min(620px, 90vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(0, 255, 170, 0.18);
+  border-radius: 28px;
+  padding: 48px 44px;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(0, 255, 170, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: aboutme-float 6s ease-in-out infinite;
+  transition: box-shadow 0.4s ease;
+}
+
+.aboutme-glass:hover {
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(0, 255, 170, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@keyframes aboutme-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Hide scrollbar inside glass card */
+.aboutme-glass::-webkit-scrollbar { width: 4px; }
+.aboutme-glass::-webkit-scrollbar-track { background: transparent; }
+.aboutme-glass::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 170, 0.15);
+  border-radius: 4px;
+}
+
+.aboutme-glass-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* ── Header (Name + Role) ── */
+.aboutme-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aboutme-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.aboutme-role {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #00ffaa;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── Divider ── */
+.aboutme-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 170, 0.2),
+    transparent
+  );
+}
+
+/* ── Bio ── */
+.aboutme-bio {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+/* ── Skills ── */
+.aboutme-skills-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aboutme-skills-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0, 255, 170, 0.7);
+  margin: 0;
+}
+
+.aboutme-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.aboutme-skill-chip {
+  background: rgba(0, 255, 170, 0.04);
+  border: 1px solid rgba(0, 255, 170, 0.1);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.aboutme-skill-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.aboutme-skill-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.aboutme-skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ffaa, #00cc88);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 255, 170, 0.5);
+}
+
+/* ── Interest ── */
+.aboutme-interest {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.aboutme-interest-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0, 255, 170, 0.6);
+}
+
+.aboutme-interest-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.aboutme-interest-icon {
+  font-size: 1.1rem;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 768px) {
+  .aboutme-title-wrap {
+    top: 30px;
+    left: 30px;
+  }
+
+  .aboutme-title {
+    font-size: 1.6rem;
+  }
+
+  .aboutme-glass {
+    padding: 32px 24px;
+    border-radius: 20px;
+    width: 92vw;
+    margin-top: 50px;
+  }
+
+  .aboutme-skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutme-name {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutme-title-wrap {
+    top: 20px;
+    left: 20px;
+    gap: 10px;
+  }
+
+  .aboutme-title {
+    font-size: 1.2rem;
+  }
+
+  .aboutme-glass {
+    padding: 24px 18px;
+    margin-top: 60px;
+  }
+}
