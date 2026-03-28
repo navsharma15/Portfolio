@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import HeroCard from './HeroCard';
 import ProfileCard from './ProfileCard';
+import Wave from './Wave';
 import '../styles/portfolio.css';
 
 /* Nav items with SVG icons */
@@ -36,6 +37,7 @@ const navItems = [
 const Portfolio = () => {
   return (
     <div className="portfolio-bg">
+      <Wave />
 
       {/* ── LEFT SIDEBAR ── */}
       <motion.aside

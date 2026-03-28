@@ -10,10 +10,85 @@
   width: 100vw;
   overflow: hidden;
   display: flex;
-  background-color: #D8E4E4;
+  /* Dark page background */
+  background: linear-gradient(180deg, #071018 0%, #001319 100%);
+  color: #e6f6f0;
   font-family: 'Inter', 'Outfit', sans-serif;
   padding: 20px;
   gap: 20px;
+}
+
+/* Ensure stacking above the wave canvas */
+.portfolio-bg { position: relative; z-index: 3; }
+
+/* =============================================
+   Glassy polish overrides — refine backdrop, borders, and accent glows
+   These rules layer on top of the base styles to produce a refined 'glass' UI
+   ============================================= */
+
+/* Subtle inner sheen and soft border for the sidebar */
+.sidebar {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(184,255,217,0.02), rgba(0,0,0,0.04));
+  mix-blend-mode: overlay;
+}
+
+/* Highlight brand with a subtle gradient text fill */
+.sidebar-brand-text {
+  background: linear-gradient(90deg, #b8ffd9, #8ef0d0 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Slightly larger icon area and hover lift */
+.sidebar-link {
+  transform: translateZ(0);
+}
+.sidebar-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* Make hero and profile cards share glass surface feel */
+.hero-card, .profile-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border: 1px solid rgba(255,255,255,0.04);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* Accent glow behind hero content for depth */
+.hero-card::before {
+  filter: blur(28px) saturate(120%);
+}
+
+/* Tweak profile text colors for contrast on glass */
+.profile-name { color: #ffffff; }
+.profile-role { color: #ffffff; }
+.profile-stat-num { color: #9ff7d6; }
+.profile-intro { color: #ffffff; }
+
+/* Button glass adjustments */
+.neu-btn-contact { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: #bff7df; box-shadow: 0 8px 22px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.04); }
+.neu-btn-cv { background: linear-gradient(135deg, #008a50, #00cfa0); color: #ffffff; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 28px rgba(0,110,60,0.18); }
+
+/* Small responsive tweak: tighten sidebar on narrow screens */
+@media (max-width: 980px) {
+  .sidebar { width: 200px; min-width: 200px; padding: 20px 14px; }
+  .sidebar-brand-text { font-size: 1.6rem; }
 }
 
 /* =============================================
@@ -23,16 +98,16 @@
   width: 220px;
   min-width: 220px;
   height: 100%;
-  background: #E2EAEA;
+  /* Frosted glass look */
+  background: rgba(255,255,255,0.04);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
-  padding: 32px 20px;
-  /* Big card-like border radius */
-  border-radius: 28px;
-  /* Neumorphic card shadow */
-  box-shadow:
-    10px 10px 28px rgba(163, 185, 185, 0.65),
-    -10px -10px 28px rgba(255, 255, 255, 0.9);
+  padding: 28px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 30px rgba(2,8,12,0.7);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -42,7 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 28px;
+  margin-bottom: 40px;
   padding: 8px 0;
 }
 
@@ -50,25 +125,23 @@
   font-size: 2.2rem;
   font-weight: 900;
   letter-spacing: 0.18em;
-  color: #007a55;
+  color: #b8ffd9;
   text-transform: uppercase;
-  text-shadow:
-    2px 2px 5px rgba(163, 185, 185, 0.7),
-    -1px -1px 3px rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
 }
 
 .sidebar-divider {
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(163,185,185,0.5), transparent);
-  margin-bottom: 24px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
+  margin-bottom: 18px;
 }
 
 /* Nav links */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 18px;
   flex: 1;
 }
 
@@ -76,18 +149,19 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border: none;
   background: transparent;
-  border-radius: 14px;
+  border-radius: 12px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #5a7878;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
   text-align: left;
   width: 100%;
+  border: 1px solid rgba(255,255,255,0.02);
 }
 
 .sidebar-link svg {
@@ -102,41 +176,41 @@
 }
 
 .sidebar-link:hover {
-  color: #007a55;
-  background: rgba(0, 180, 120, 0.07);
+  color: #ffffff;
+  background: linear-gradient(135deg, #007a44 0%, #005a33 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0,90,60,0.28);
 }
 
 .sidebar-link.active {
-  color: #007a55;
-  background: #E2EAEA;
-  box-shadow:
-    inset 3px 3px 8px rgba(163, 185, 185, 0.5),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.75);
-  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #006f3b 0%, #008a50 100%);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.45);
+  font-weight: 800;
 }
 
 /* Footer badge at bottom */
 .sidebar-footer {
   margin-top: auto;
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #003a22, #006040);
-  box-shadow: 0 6px 18px rgba(0, 80, 50, 0.28);
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
   text-align: center;
 }
 
 .sidebar-footer-label {
   font-size: 0.62rem;
-  color: rgba(0, 255, 170, 0.6);
-  letter-spacing: 0.1em;
+  color: rgba(184,255,217,0.8);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 2px;
 }
 
 .sidebar-footer-status {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #00ffaa;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #b8ffd9;
 }
 
 /* =============================================
@@ -169,12 +243,12 @@
   padding: 52px 56px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg, #002e1a 0%, #004e30 45%, #006940 100%);
-  box-shadow:
-    10px 10px 30px rgba(0, 60, 40, 0.3),
-    0 0 40px rgba(0, 180, 100, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(0, 200, 130, 0.1);
+  /* glass surface — remove heavy colored background/shadow */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border: 1px solid rgba(255,255,255,0.04);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -282,9 +356,13 @@
   display: flex;
   gap: 14px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 4;
 }
 
 .neu-btn {
+  position: relative;
+  z-index: 4;
   flex: 1;
   padding: 17px 20px;
   border: none;
@@ -312,44 +390,44 @@
 }
 
 .neu-btn-contact {
-  background: #E2EAEA;
-  color: #007a55;
-  box-shadow:
-    7px 7px 16px rgba(163, 185, 185, 0.6),
-    -7px -7px 16px rgba(255, 255, 255, 0.85);
+  background: #ffffff;
+  color: #013028;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: none;
 }
 
 .neu-btn-contact:hover {
   transform: translateY(-3px);
-  box-shadow:
-    4px 4px 10px rgba(163, 185, 185, 0.55),
-    -4px -4px 10px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
 }
 
 .neu-btn-cv {
+  background: linear-gradient(135deg, #008a50, #00cfa0);
   color: #ffffff;
-  background: linear-gradient(135deg, #006a48, #00a06a);
-  box-shadow: 0 8px 20px rgba(0, 100, 70, 0.3);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 22px rgba(0,110,60,0.18);
 }
 
 .neu-btn-cv:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgba(0, 100, 70, 0.4);
+  box-shadow: 0 12px 30px rgba(0,120,70,0.22);
 }
 
 /* =============================================
    RIGHT PROFILE CARD — wider, bigger photo
    ============================================= */
 .profile-card {
-  width: 380px;
-  min-width: 380px;
+  width: 360px;
+  min-width: 300px;
   height: 100%;
-  background: #E2EAEA;
-  border-radius: 28px;
-  padding: 32px 28px;
-  box-shadow:
-    10px 10px 28px rgba(163, 185, 185, 0.65),
-    -10px -10px 28px rgba(255, 255, 255, 0.9);
+  /* transparent glass card like the sidebar */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border-radius: 20px;
+  padding: 28px 22px;
+  border: 1px solid rgba(255,255,255,0.04);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -364,20 +442,17 @@
 
 /* Large square with rounded corners — photo fills it */
 .profile-avatar {
-  width: 190px;
-  height: 190px;
-  border-radius: 28px;
-  background: linear-gradient(135deg, #004a2f, #00aa70);
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;        /* clip photo to rounded square */
-  /* Deep neumorphic shadow ring */
-  box-shadow:
-    8px 8px 20px rgba(163, 185, 185, 0.6),
-    -8px -8px 20px rgba(255, 255, 255, 0.85),
-    0 0 0 4px #E2EAEA,
-    0 0 0 6px rgba(0, 180, 120, 0.25);
+  overflow: hidden;
+  /* Subtle soft shadow and thin border instead of bright rings */
+  box-shadow: 0 8px 22px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .profile-status {
@@ -388,20 +463,20 @@
   height: 16px;
   background: #00cc88;
   border-radius: 50%;
-  border: 3px solid #E2EAEA;
+  border: 2px solid rgba(255,255,255,0.06);
 }
 
 .profile-name {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1a3030;
+  color: #ffffff;
   margin: 0 0 4px 0;
   text-align: center;
 }
 
 .profile-role {
   font-size: 0.73rem;
-  color: #7a9a9a;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-bottom: 22px;
@@ -442,7 +517,7 @@
 .profile-intro {
   font-size: 0.83rem;
   line-height: 1.75;
-  color: #5a7878;
+  color: #ffffff;
   text-align: center;
   margin: 0;
 }
@@ -450,4 +525,31 @@
 .profile-intro strong {
   color: #007a55;
   font-weight: 600;
+}
+
+/* Responsive: make profile avatar at least half the viewport height
+   on medium and larger screens so image appears larger and centered. */
+@media (min-width: 900px) {
+  /* Make right panel narrower while allowing the avatar to be taller */
+  .profile-card {
+    width: 360px;
+    min-width: 300px;
+  }
+
+  /* Keep avatar width compact but increase height (capped with min()) */
+  .profile-avatar {
+    width: 280px;
+    height: min(50vh, 620px);
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 28px;
+  }
+
+  .profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
 }
