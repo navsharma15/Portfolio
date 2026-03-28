@@ -341,8 +341,8 @@
    RIGHT PROFILE CARD — wider, bigger photo
    ============================================= */
 .profile-card {
-  width: 340px;
-  min-width: 340px;
+  width: 380px;
+  min-width: 380px;
   height: 100%;
   background: #E2EAEA;
   border-radius: 28px;
@@ -362,16 +362,16 @@
   margin-bottom: 18px;
 }
 
-/* Large circle — photo fills it */
+/* Large square with rounded corners — photo fills it */
 .profile-avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
+  width: 190px;
+  height: 190px;
+  border-radius: 28px;
   background: linear-gradient(135deg, #004a2f, #00aa70);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;        /* clip photo to circle */
+  overflow: hidden;        /* clip photo to rounded square */
   /* Deep neumorphic shadow ring */
   box-shadow:
     8px 8px 20px rgba(163, 185, 185, 0.6),
@@ -382,8 +382,8 @@
 
 .profile-status {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  bottom: 10px;
+  right: 10px;
   width: 16px;
   height: 16px;
   background: #00cc88;

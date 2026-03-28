@@ -26,7 +26,7 @@ const ProfileCard = () => {
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'center top',
-              borderRadius: '50%',
+              borderRadius: '28px',
               display: 'block',
             }}
           />
@@ -43,16 +43,8 @@ const ProfileCard = () => {
       {/* Stats row */}
       <div className="profile-stats">
         <div className="profile-stat">
-          <div className="profile-stat-num">4+</div>
-          <div className="profile-stat-label">Years</div>
-        </div>
-        <div className="profile-stat">
           <div className="profile-stat-num">50+</div>
           <div className="profile-stat-label">Projects</div>
-        </div>
-        <div className="profile-stat">
-          <div className="profile-stat-num">20+</div>
-          <div className="profile-stat-label">Clients</div>
         </div>
       </div>
 
