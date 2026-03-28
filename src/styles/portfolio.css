@@ -559,105 +559,17 @@
 }
 
 /* =============================================
-   PAGE FLIP TRANSITION — 3D Notebook Effect
+   PAGE SLIDE TRANSITIONS
    ============================================= */
-
-/* 3D perspective on the whole layout */
-.portfolio-bg {
-  perspective: 2000px;
-}
-
-/* The flip overlay — sits on top during animation */
-.page-flip-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0;
-  transform-style: preserve-3d;
-  transform-origin: left center;
-  pointer-events: none;
-  backface-visibility: visible;
-}
-
-/* Front face — looks like the current page */
-.page-flip-front {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #071018 0%, #001319 100%);
-  backface-visibility: hidden;
-  border-radius: 0;
-  /* Subtle page texture */
-  box-shadow: inset -4px 0 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Add a gradient edge highlight to simulate page thickness */
-.page-flip-front::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 255, 170, 0.04),
-    rgba(255, 255, 255, 0.03)
-  );
-  pointer-events: none;
-}
-
-/* Back face — slightly different shade, revealed during flip */
-.page-flip-back {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #0a1a14 0%, #061210 100%);
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-  /* Page back has subtle crease shadow */
-  box-shadow: inset 4px 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.page-flip-back::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.3),
-    transparent
-  );
-  pointer-events: none;
-}
-
-/* Shadow cast during flip */
-.page-flip-shadow {
-  position: fixed;
-  inset: 0;
-  z-index: 49;
-  opacity: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.2) 40%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-/* =============================================
-   PAGE CONTAINERS
-   ============================================= */
-.page-home {
-  display: contents;
-}
-
-.page-about {
-  flex: 1;
-  height: 100%;
-  border-radius: 28px;
+.portfolio-content {
+  position: relative;
   overflow: hidden;
+}
+
+.page-home, .page-about {
+  /* Ensure individual pages take full area if needed */
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
 }

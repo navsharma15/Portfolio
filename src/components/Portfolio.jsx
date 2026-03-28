@@ -1,6 +1,5 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
+import React, { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HeroCard from './HeroCard';
 import ProfileCard from './ProfileCard';
 import AboutMe from './AboutMe';
@@ -36,105 +35,48 @@ const navItems = [
 ];
 
 /**
- * Portfolio — Full-screen layout with page-flip transitions
- * Uses GSAP for realistic 3D notebook page-turning effect.
+ * Portfolio — Full-screen layout with vertical slip transitions
+ * "Slip Up" for forward navigation, "Slip Down" for backward navigation.
  */
 const Portfolio = () => {
   const [activePage, setActivePage] = useState('Home');
-  const [isFlipping, setIsFlipping] = useState(false);
-  const flipPageRef = useRef(null);
-  const flipShadowRef = useRef(null);
+  const [direction, setDirection] = useState(0); // 1 = forward (up), -1 = backward (down)
 
-  /**
-   * Perform the GSAP page flip animation
-   * Flips the current page like a notebook page turning right-to-left,
-   * then reveals the target page behind it.
-   */
-  const performPageFlip = useCallback((targetPage) => {
-    if (isFlipping || targetPage === activePage) return;
-    setIsFlipping(true);
+  const handleNavClick = useCallback((label) => {
+    if (label === activePage) return;
 
-    const flipEl = flipPageRef.current;
-    const shadowEl = flipShadowRef.current;
-    if (!flipEl || !shadowEl) return;
+    const currentIndex = navItems.findIndex((n) => n.label === activePage);
+    const targetIndex = navItems.findIndex((n) => n.label === label);
 
-    // Timeline for the flip
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setActivePage(targetPage);
-        setIsFlipping(false);
-        // Reset flip element
-        gsap.set(flipEl, { rotateY: 0, opacity: 0, zIndex: -1 });
-        gsap.set(shadowEl, { opacity: 0 });
-      },
-    });
+    // 1 means target is ahead of current (Forward) -> SLIP UP
+    // -1 means target is behind current (Backward) -> SLIP DOWN
+    setDirection(targetIndex > currentIndex ? 1 : -1);
+    setActivePage(label);
+  }, [activePage]);
 
-    // Show flip overlay (snapshot of current page)
-    tl.set(flipEl, {
-      opacity: 1,
-      rotateY: 0,
-      zIndex: 50,
-      transformOrigin: 'left center',
-    })
-    .set(shadowEl, { opacity: 0, zIndex: 49 })
-
-    // Animate the page curl from right to left
-    .to(flipEl, {
-      rotateY: -180,
-      duration: 1,
-      ease: 'power2.inOut',
-    })
-    // Shadow grows then fades during flip
-    .to(
-      shadowEl,
-      {
-        opacity: 0.7,
-        duration: 0.5,
-        ease: 'power2.in',
-      },
-      0
-    )
-    .to(
-      shadowEl,
-      {
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.out',
-      },
-      0.5
-    );
-  }, [activePage, isFlipping]);
-
-  const handleNavClick = (label) => {
-    if (label === activePage || isFlipping) return;
-
-    if (label === 'About Me' || activePage === 'About Me') {
-      performPageFlip(label);
-    } else {
-      // For other pages, just switch directly (no flip needed yet)
-      setActivePage(label);
-    }
-  };
-
-  // Determine active nav index
   const activeIndex = navItems.findIndex((n) => n.label === activePage);
+
+  // Transition variants
+  const variants = {
+    initial: (dir) => ({
+      y: dir === 1 ? '100vh' : '-100vh',
+      opacity: 0
+    }),
+    animate: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+    },
+    exit: (dir) => ({
+      y: dir === 1 ? '-100vh' : '100vh',
+      opacity: 0,
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+    })
+  };
 
   return (
     <div className="portfolio-bg">
       <DNAAnimation />
-
-      {/* ── PAGE FLIP OVERLAY (animated by GSAP) ── */}
-      <div
-        ref={flipPageRef}
-        className="page-flip-overlay"
-      >
-        {/* This is a visual clone — dark gradient front, lighter back */}
-        <div className="page-flip-front" />
-        <div className="page-flip-back" />
-      </div>
-
-      {/* ── FLIP SHADOW ── */}
-      <div ref={flipShadowRef} className="page-flip-shadow" />
 
       {/* ── LEFT SIDEBAR (always visible) ── */}
       <motion.aside
@@ -143,13 +85,11 @@ const Portfolio = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        {/* Brand */}
         <div className="sidebar-brand">
           <span className="sidebar-brand-text">DAP</span>
         </div>
         <div className="sidebar-divider" />
 
-        {/* Navigation links */}
         <nav className="sidebar-nav">
           {navItems.map((item, i) => (
             <motion.button
@@ -168,7 +108,6 @@ const Portfolio = () => {
           ))}
         </nav>
 
-        {/* Footer */}
         <div className="sidebar-footer">
           <div className="sidebar-footer-label">Status</div>
           <div className="sidebar-footer-status">Available for Work</div>
@@ -176,47 +115,52 @@ const Portfolio = () => {
       </motion.aside>
 
       {/* ── MAIN CONTENT AREA ── */}
-      <div className="portfolio-content">
-        {activePage === 'Home' && (
+      <div className="portfolio-content" style={{ position: 'relative', overflow: 'hidden' }}>
+        <AnimatePresence initial={false} custom={direction}>
           <motion.div
-            className="page-home"
-            key="home"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            style={{ display: 'contents' }}
+            key={activePage}
+            custom={direction}
+            variants={variants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              gap: '20px',
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'auto'
+            }}
           >
-            {/* Center: Hero + buttons */}
-            <div className="center-content">
-              <HeroCard />
-              <motion.div
-                className="bottom-buttons white-cutout"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.45 }}
-              >
-                <button className="cutout-btn contact-btn">Contact us</button>
-                <button className="cutout-btn cv-btn">Download CV</button>
-              </motion.div>
-            </div>
+            {activePage === 'Home' && (
+              <>
+                <div className="center-content">
+                  <HeroCard />
+                  <div className="bottom-buttons white-cutout">
+                    <button className="cutout-btn contact-btn">Contact us</button>
+                    <button className="cutout-btn cv-btn">Download CV</button>
+                  </div>
+                </div>
+                <ProfileCard />
+              </>
+            )}
 
-            {/* Right: Profile card */}
-            <ProfileCard />
-          </motion.div>
-        )}
+            {activePage === 'About Me' && (
+              <div style={{ flex: 1, height: '100%', borderRadius: '28px', overflow: 'hidden' }}>
+                <AboutMe />
+              </div>
+            )}
 
-        {activePage === 'About Me' && (
-          <motion.div
-            className="page-about"
-            key="about"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            style={{ flex: 1, height: '100%', borderRadius: '28px', overflow: 'hidden' }}
-          >
-            <AboutMe />
+            {/* Placeholder for other pages */}
+            {activePage !== 'Home' && activePage !== 'About Me' && (
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '28px', backdropFilter: 'blur(20px)' }}>
+                <h2 style={{ fontSize: '3rem', color: '#00ffaa' }}>{activePage} Coming Soon</h2>
+              </div>
+            )}
           </motion.div>
-        )}
+        </AnimatePresence>
       </div>
     </div>
   );
