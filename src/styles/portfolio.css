@@ -62,7 +62,7 @@
 }
 
 /* Make hero and profile cards share glass surface feel */
-.hero-card, .profile-card {
+.profile-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
   border: 1px solid rgba(255,255,255,0.04);
   -webkit-backdrop-filter: blur(6px);
@@ -81,9 +81,7 @@
 .profile-stat-num { color: #9ff7d6; }
 .profile-intro { color: #ffffff; }
 
-/* Button glass adjustments */
-.neu-btn-contact { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: #bff7df; box-shadow: 0 8px 22px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.04); }
-.neu-btn-cv { background: linear-gradient(135deg, #008a50, #00cfa0); color: #ffffff; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 28px rgba(0,110,60,0.18); }
+/* Button glass adjustments removed for cutout layout */
 
 /* Small responsive tweak: tighten sidebar on narrow screens */
 @media (max-width: 980px) {
@@ -230,8 +228,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   min-width: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+  border: 1px solid #ffffff;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
 }
 
 /* =============================================
@@ -239,15 +244,11 @@
    ============================================= */
 .hero-card {
   flex: 1;
-  border-radius: 28px;
-  padding: 52px 56px;
+  padding: 52px 56px 100px 56px;
   position: relative;
-  overflow: hidden;
-  /* glass surface — remove heavy colored background/shadow */
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
-  border: 1px solid rgba(255,255,255,0.04);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
   box-shadow: none;
   display: flex;
   flex-direction: column;
@@ -352,65 +353,68 @@
 /* =============================================
    BOTTOM ACTION BUTTONS
    ============================================= */
-.bottom-buttons {
-  display: flex;
-  gap: 14px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 4;
-}
-
-.neu-btn {
-  position: relative;
-  z-index: 4;
-  flex: 1;
-  padding: 17px 20px;
-  border: none;
-  border-radius: 18px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.28s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.neu-btn svg {
-  width: 17px;
-  height: 17px;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-  flex-shrink: 0;
-}
-
-.neu-btn-contact {
+/* =============================================
+   WHITE CUTOUT AT BOTTOM RIGHT
+   ============================================= */
+.white-cutout {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
   background: #ffffff;
-  color: #013028;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: none;
+  padding: 24px 30px 24px 30px;
+  border-top-left-radius: 40px;
+  display: flex;
+  gap: 16px;
+  z-index: 10;
 }
 
-.neu-btn-contact:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+/* Inverted corner illusion for smoothness */
+.white-cutout::before, .white-cutout::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  pointer-events: none;
+  border-bottom-right-radius: 40px;
+  box-shadow: 20px 20px 0 20px #ffffff;
 }
 
-.neu-btn-cv {
-  background: linear-gradient(135deg, #008a50, #00cfa0);
+.white-cutout::before {
+  bottom: 100%;
+  right: 0;
+}
+
+.white-cutout::after {
+  bottom: 0px;
+  right: 100%;
+}
+
+.cutout-btn {
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 50px;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  white-space: nowrap;
+}
+
+.cutout-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.contact-btn {
+  background: #b0ccba; /* Sage green */
+  color: #1a4b29; /* Dark text */
+}
+
+.cv-btn {
+  background: #1a4b29; /* Dark green */
   color: #ffffff;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 22px rgba(0,110,60,0.18);
-}
-
-.neu-btn-cv:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,120,70,0.22);
 }
 
 /* =============================================
