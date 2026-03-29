@@ -7,13 +7,13 @@ function App() {
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <div style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
       {/* Portfolio sits behind, fades in */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={revealed ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: revealed ? 0.4 : 0 }}
-        style={{ height: '100%', position: 'absolute', inset: 0 }}
+        style={{ minHeight: '100%', position: 'relative' }}
       >
         <Portfolio />
       </motion.div>

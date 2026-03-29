@@ -44,10 +44,14 @@ const WavyBackground = () => {
         { amp: 30, freq: 0.0035, speed: 0.5, y: H * 0.78, alpha: 0.06 },
       ];
 
-      waves.forEach(({ amp, freq, speed, y, alpha }) => {
+      const isMobile = window.innerWidth <= 768;
+      const step = isMobile ? 6 : 3;
+      const waveCount = isMobile ? 3 : 5;
+      
+      waves.slice(0, waveCount).forEach(({ amp, freq, speed, y, alpha }) => {
         ctx.beginPath();
         ctx.moveTo(0, H);
-        for (let xNum = 0; xNum <= W; xNum += 3) {
+        for (let xNum = 0; xNum <= W; xNum += step) {
           const yy =
             y +
             Math.sin(xNum * freq + time * speed) * amp +
@@ -166,20 +170,6 @@ Thank you.`;
       <WavyBackground />
       <FloatingParticles />
 
-      {/* ── Title — Outside ── */}
-      <motion.div
-        className="aboutme-title-wrap"
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0 }}
-      >
-        <div className="aboutme-title-indicator">
-          <span className="aboutme-title-dot" />
-          <span className="aboutme-title-line" />
-        </div>
-        <h2 className="aboutme-title">ABOUT ME</h2>
-      </motion.div>
-
       {/* ── Realistic 3D Glass Card ── */}
       <motion.div
         className="aboutme-glass"
@@ -196,6 +186,15 @@ Thank you.`;
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="aboutme-glass-pointer" />
+
+        {/* ── Title — Now Inside ── */}
+        <div className="aboutme-title-wrap">
+          <div className="aboutme-title-indicator">
+            <span className="aboutme-title-dot" />
+            <span className="aboutme-title-line" />
+          </div>
+          <h2 className="aboutme-title">ABOUT ME</h2>
+        </div>
         
         <div className="aboutme-ticker-container" style={{ transform: "translateZ(50px)" }}>
           <div className="aboutme-ticker-text">

@@ -72,12 +72,12 @@
    ============================================= */
 .aboutme-title-wrap {
   position: absolute;
-  top: 60px;
-  left: 80px;
-  z-index: 10;
+  top: 24px;
+  left: 30px;
+  z-index: 20;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .aboutme-title-indicator {
@@ -126,9 +126,8 @@
 .aboutme-glass {
   position: relative;
   z-index: 5;
-  width: 90%;
-  height: 90vh; /* Increased to 90% of viewport height as requested */
-  /* Clean glass theme matching center-content */
+  width: 85%;
+  height: 75vh;
   background: linear-gradient(180deg, rgba(0, 255, 170, 0.08), rgba(0, 180, 120, 0.02));
   border: 1px solid rgba(0, 255, 170, 0.25);
   border-radius: 28px;
@@ -140,7 +139,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 80px;
+  padding: 80px 60px 40px; /* More top padding for title space */
   transform-style: preserve-3d;
   overflow: hidden;
 }
@@ -249,51 +248,52 @@
    ============================================= */
 @media (max-width: 1024px) {
   .aboutme-glass {
-    width: 96%;
-    height: 85vh;
+    width: 92%;
+    height: 80vh;
   }
 }
 
 @media (max-width: 768px) {
-  .aboutme-title-wrap {
-    top: 30px;
-    left: 30px;
-  }
-
-  .aboutme-title {
-    font-size: 1.8rem;
-  }
-
-  .aboutme-glass {
-    width: 97%;
-    height: 82vh;
-    padding: 20px 10px;
-  }
-
-  .aboutme-ticker-text {
-    font-size: 1.1rem;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
   .aboutme-title-wrap {
     top: 20px;
     left: 20px;
   }
 
   .aboutme-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
   .aboutme-glass {
-    width: 98%;
-    height: 80vh;
-    padding: 10px 5px;
+    width: 94%;
+    height: 78vh;
+    padding: 60px 15px 20px;
   }
 
   .aboutme-ticker-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
     padding: 10px;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutme-title-wrap {
+    top: 15px;
+    left: 15px;
+  }
+
+  .aboutme-title {
+    font-size: 1.2rem;
+  }
+
+  .aboutme-glass {
+    width: 96%;
+    height: 80vh;
+    padding: 50px 10px 15px;
+  }
+
+  .aboutme-ticker-text {
+    font-size: 0.9rem;
+    padding: 5px;
   }
 }

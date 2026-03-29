@@ -13,7 +13,7 @@ const ProfileCard = () => {
       className="profile-card"
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
     >
       {/* Large profile photo */}
       <div className="profile-avatar-wrap">

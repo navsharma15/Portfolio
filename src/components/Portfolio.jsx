@@ -40,13 +40,16 @@ const navItems = [
  */
 const Portfolio = () => {
   const [activePage, setActivePage] = useState('Home');
-  const [direction, setDirection] = useState(0); // 1 = forward (up), -1 = backward (down)
+  const [direction, setDirection] = useState(0); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const scrollRef = useRef(null);
+  const sectionRefs = useRef({});
 
+  // Unified nav click handler
   const handleNavClick = useCallback((label) => {
-    if (label === activePage) {
+    const isMobile = window.innerWidth <= 1024;
+    
+    if (label === activePage && !isMobile) {
       if (isMenuOpen) setIsMenuOpen(false);
       return;
     }
@@ -54,12 +57,57 @@ const Portfolio = () => {
     const currentIndex = navItems.findIndex((n) => n.label === activePage);
     const targetIndex = navItems.findIndex((n) => n.label === label);
 
-    setDirection(targetIndex > currentIndex ? 1 : -1);
-    setActivePage(label);
-    if (isMenuOpen) setIsMenuOpen(false);
+    if (isMobile) {
+      // On mobile, scroll to the section
+      const targetSection = sectionRefs.current[label];
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (isMenuOpen) setIsMenuOpen(false);
+      setActivePage(label);
+    } else {
+      // On desktop, use sectional transition
+      setDirection(targetIndex > currentIndex ? 1 : -1);
+      setActivePage(label);
+      if (isMenuOpen) setIsMenuOpen(false);
+    }
   }, [activePage, isMenuOpen]);
 
-  // Scroll to Navigate Logic
+  // Handle intersection for mobile scroll syncing
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 1024;
+    if (!isMobile) return;
+
+    const observerOptions = {
+      root: null,
+      threshold: [0.2, 0.5, 0.8], // Multiple thresholds for better precision
+    };
+
+    const observerCallback = (entries) => {
+      // Find the entry that is most visible in the viewport
+      const mostVisible = entries.reduce((prev, current) => {
+        return (prev.intersectionRatio > current.intersectionRatio) ? prev : current;
+      });
+
+      if (mostVisible && mostVisible.intersectionRatio > 0.3) {
+        const sectionLabel = mostVisible.target.getAttribute('data-section');
+        if (sectionLabel && sectionLabel !== activePage) {
+          setActivePage(sectionLabel);
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Observe all sections
+    Object.values(sectionRefs.current).forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, [activePage]); // Re-run when activePage changes to stay in sync
+
+  // Desktop Scroll (Wheel) to Navigate
   useEffect(() => {
     const handleWheel = (e) => {
       if (isMenuOpen || isScrolling) return;
@@ -68,39 +116,17 @@ const Portfolio = () => {
       const currentIndex = navItems.findIndex((n) => n.label === activePage);
       const isMobile = window.innerWidth <= 1024;
 
-      // On mobile, we only want to switch sections if we're at the very bottom/top
-      // of the scrollable page. This allows users to see the full ProfileCard.
-      if (isMobile && scrollRef.current) {
-        const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+      if (isMobile) return; // Native scroll on mobile
 
-        if (delta > 30 && (scrollTop + clientHeight >= scrollHeight - 10)) {
-          if (currentIndex < navItems.length - 1) {
-            setIsScrolling(true);
-            handleNavClick(navItems[currentIndex + 1].label);
-            setTimeout(() => setIsScrolling(false), 1200);
-          }
-        } else if (delta < -30 && scrollTop <= 10) {
-          if (currentIndex > 0) {
-            setIsScrolling(true);
-            handleNavClick(navItems[currentIndex - 1].label);
-            setTimeout(() => setIsScrolling(false), 1200);
-          }
-        }
-        return; // Exit here for mobile
-      }
-
-      // Desktop logic (Fullscreen sections)
-      if (Math.abs(delta) > 40) {
+      if (Math.abs(delta) > 50) {
         if (delta > 0 && currentIndex < navItems.length - 1) {
-          // Scroll Down -> Next Page
           setIsScrolling(true);
           handleNavClick(navItems[currentIndex + 1].label);
-          setTimeout(() => setIsScrolling(false), 1200);
+          setTimeout(() => setIsScrolling(false), 900);
         } else if (delta < 0 && currentIndex > 0) {
-          // Scroll Up -> Previous Page
           setIsScrolling(true);
           handleNavClick(navItems[currentIndex - 1].label);
-          setTimeout(() => setIsScrolling(false), 1200);
+          setTimeout(() => setIsScrolling(false), 900);
         }
       }
     };
@@ -111,32 +137,63 @@ const Portfolio = () => {
 
   const activeIndex = navItems.findIndex((n) => n.label === activePage);
 
-  // Transition variants
+  // Transition variants — Desktop Sectional transitions
   const variants = {
     initial: (dir) => ({
-      y: dir === 1 ? '100vh' : '-100vh',
-      opacity: 0
+      y: dir === 1 ? '50vh' : '-50vh',
+      opacity: 0,
+      scale: 0.98
     }),
     animate: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+      scale: 1,
+      transition: { 
+        duration: 0.5, 
+        ease: [0.22, 1, 0.36, 1],
+        opacity: { duration: 0.4 }
+      }
     },
     exit: (dir) => ({
-      y: dir === 1 ? '-100vh' : '100vh',
+      y: dir === 1 ? '-50vh' : '50vh',
       opacity: 0,
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+      scale: 0.98,
+      transition: { 
+        duration: 0.4, 
+        ease: [0.22, 1, 0.36, 1] 
+      }
     })
   };
 
+  // Close menu when clicking anywhere on the screen
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const handleGlobalClick = (e) => {
+      // Don't close if clicking the toggle button itself (handled by its own onClick)
+      const isToggleButton = e.target.closest('.hamburger-btn');
+      if (!isToggleButton) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('click', handleGlobalClick);
+    return () => window.removeEventListener('click', handleGlobalClick);
+  }, [isMenuOpen]);
+
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth <= 1024 : false;
+
   return (
-    <div className="portfolio-bg" ref={scrollRef}>
+    <div className="portfolio-bg">
       <DNAAnimation />
 
       {/* Hamburger Toggle */}
       <button 
         className="hamburger-btn"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent the global click from firing immediately
+          setIsMenuOpen(!isMenuOpen);
+        }}
         aria-label="Toggle Menu"
       >
         {isMenuOpen ? (
@@ -149,15 +206,15 @@ const Portfolio = () => {
       {/* Mobile Overlay */}
       <div 
         className={`sidebar-overlay ${isMenuOpen ? 'visible' : ''}`}
-        onClick={() => setIsMenuOpen(false)}
+        /* The global click listener now handles this, but keeping for redundancy/z-index clarity */
       />
 
       {/* ── LEFT SIDEBAR ── */}
       <motion.aside
         className={`sidebar ${isMenuOpen ? 'mobile-open' : ''}`}
-        initial={{ x: -60, opacity: 0 }}
+        initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="sidebar-brand">
           <span className="sidebar-brand-text">DAP</span>
@@ -166,19 +223,14 @@ const Portfolio = () => {
 
         <nav className="sidebar-nav">
           {navItems.map((item, i) => (
-            <motion.button
+            <button
               key={item.label}
-              className={`sidebar-link${i === activeIndex ? ' active' : ''}`}
-              whileHover={{ x: 4 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              style={{ transitionDelay: `${i * 0.05}s` }}
+              className={`sidebar-link${item.label === activePage ? ' active' : ''}`}
               onClick={() => handleNavClick(item.label)}
             >
               {item.svg}
               {item.label}
-            </motion.button>
+            </button>
           ))}
         </nav>
 
@@ -190,56 +242,83 @@ const Portfolio = () => {
 
       {/* ── MAIN CONTENT AREA ── */}
       <div className="portfolio-content">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={activePage}
-            custom={direction}
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="mobile-stack"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              gap: '20px',
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'auto'
-            }}
-          >
-            {activePage === 'Home' && (
-              <>
-                <div className="center-content">
-                  <HeroCard />
-                  <div className="bottom-buttons white-cutout">
-                    <button className="cutout-btn contact-btn">Contact us</button>
-                    <button 
-                      className="cutout-btn cv-btn"
-                      onClick={() => window.open('https://drive.google.com/your-resume-link-here', '_blank')}
-                    >
-                      Download CV
-                    </button>
+        {!isMobile ? (
+          /* Desktop: Section Transitions with AnimatePresence */
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
+            <motion.div
+              key={activePage}
+              custom={direction}
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="page-container"
+            >
+              {activePage === 'Home' && (
+                <div className="desktop-page-layout">
+                  <div className="center-content">
+                    <HeroCard />
+                    <div className="bottom-buttons white-cutout">
+                      <button className="cutout-btn contact-btn">Contact us</button>
+                      <button 
+                        className="cutout-btn cv-btn"
+                        onClick={() => window.open('https://drive.google.com/your-resume-link-here', '_blank')}
+                      >
+                        Download CV
+                      </button>
+                    </div>
                   </div>
+                  <ProfileCard />
                 </div>
-                <ProfileCard />
-              </>
-            )}
+              )}
 
-            {activePage === 'About Me' && (
-              <div style={{ flex: 1, height: '100%', borderRadius: '28px', overflow: 'hidden' }}>
-                <AboutMe />
-              </div>
-            )}
+              {activePage === 'About Me' && (
+                <div className="page-full-width">
+                  <AboutMe />
+                </div>
+              )}
 
-            {activePage !== 'Home' && activePage !== 'About Me' && (
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '28px', backdropFilter: 'blur(20px)' }}>
-                <h2 style={{ fontSize: '3rem', color: '#00ffaa' }}>{activePage} Coming Soon</h2>
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              {activePage !== 'Home' && activePage !== 'About Me' && (
+                <div className="coming-soon-card">
+                  <h2 className="coming-soon-text">{activePage} Coming Soon</h2>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          /* Mobile: Vertical Continuous Scroll */
+          <div className="mobile-scroll-container">
+            {navItems.map((item) => (
+              <section 
+                key={item.label} 
+                data-section={item.label}
+                ref={el => sectionRefs.current[item.label] = el}
+                className="mobile-section"
+              >
+                {item.label === 'Home' && (
+                  <div className="mobile-home-stack">
+                    <div className="center-content">
+                      <HeroCard />
+                      <div className="bottom-buttons white-cutout mobile-white-cutout">
+                        <button className="cutout-btn contact-btn">Contact us</button>
+                        <button className="cutout-btn cv-btn">Download CV</button>
+                      </div>
+                    </div>
+                    <ProfileCard />
+                  </div>
+                )}
+                
+                {item.label === 'About Me' && <AboutMe />}
+                
+                {item.label !== 'Home' && item.label !== 'About Me' && (
+                   <div className="coming-soon-card">
+                     <h2 className="coming-soon-text">{item.label} Coming Soon</h2>
+                   </div>
+                )}
+              </section>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
