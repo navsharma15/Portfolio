@@ -41,18 +41,47 @@ const navItems = [
 const Portfolio = () => {
   const [activePage, setActivePage] = useState('Home');
   const [direction, setDirection] = useState(0); // 1 = forward (up), -1 = backward (down)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const handleNavClick = useCallback((label) => {
-    if (label === activePage) return;
+    if (label === activePage) {
+      if (isMenuOpen) setIsMenuOpen(false);
+      return;
+    }
 
     const currentIndex = navItems.findIndex((n) => n.label === activePage);
     const targetIndex = navItems.findIndex((n) => n.label === label);
 
-    // 1 means target is ahead of current (Forward) -> SLIP UP
-    // -1 means target is behind current (Backward) -> SLIP DOWN
     setDirection(targetIndex > currentIndex ? 1 : -1);
     setActivePage(label);
-  }, [activePage]);
+    if (isMenuOpen) setIsMenuOpen(false);
+  }, [activePage, isMenuOpen]);
+
+  // Scroll to Navigate Logic
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (isMenuOpen || isScrolling) return;
+
+      const delta = e.deltaY;
+      const currentIndex = navItems.findIndex((n) => n.label === activePage);
+
+      if (delta > 50 && currentIndex < navItems.length - 1) {
+        // Scroll Down -> Next Page
+        setIsScrolling(true);
+        handleNavClick(navItems[currentIndex + 1].label);
+        setTimeout(() => setIsScrolling(false), 1000);
+      } else if (delta < -50 && currentIndex > 0) {
+        // Scroll Up -> Previous Page
+        setIsScrolling(true);
+        handleNavClick(navItems[currentIndex - 1].label);
+        setTimeout(() => setIsScrolling(false), 1000);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [activePage, isMenuOpen, isScrolling, handleNavClick]);
 
   const activeIndex = navItems.findIndex((n) => n.label === activePage);
 
@@ -78,9 +107,28 @@ const Portfolio = () => {
     <div className="portfolio-bg">
       <DNAAnimation />
 
-      {/* ── LEFT SIDEBAR (always visible) ── */}
+      {/* Hamburger Toggle */}
+      <button 
+        className="hamburger-btn"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label="Toggle Menu"
+      >
+        {isMenuOpen ? (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        )}
+      </button>
+
+      {/* Mobile Overlay */}
+      <div 
+        className={`sidebar-overlay ${isMenuOpen ? 'visible' : ''}`}
+        onClick={() => setIsMenuOpen(false)}
+      />
+
+      {/* ── LEFT SIDEBAR ── */}
       <motion.aside
-        className="sidebar"
+        className={`sidebar ${isMenuOpen ? 'mobile-open' : ''}`}
         initial={{ x: -60, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -115,7 +163,7 @@ const Portfolio = () => {
       </motion.aside>
 
       {/* ── MAIN CONTENT AREA ── */}
-      <div className="portfolio-content" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="portfolio-content">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={activePage}
@@ -124,6 +172,7 @@ const Portfolio = () => {
             initial="initial"
             animate="animate"
             exit="exit"
+            className="mobile-stack"
             style={{
               position: 'absolute',
               inset: 0,
@@ -158,7 +207,6 @@ const Portfolio = () => {
               </div>
             )}
 
-            {/* Placeholder for other pages */}
             {activePage !== 'Home' && activePage !== 'About Me' && (
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '28px', backdropFilter: 'blur(20px)' }}>
                 <h2 style={{ fontSize: '3rem', color: '#00ffaa' }}>{activePage} Coming Soon</h2>

@@ -217,21 +217,17 @@
 /* ── Ticker Animation ── */
 @keyframes aboutme-scroll-up {
   0% {
-    transform: translateY(80%); /* Starts higher to show up faster */
+    transform: translateY(5%);
     opacity: 0;
   }
-  2% {
-    opacity: 1; /* Fade in quickly */
+  3% {
+    opacity: 1;
   }
   85% {
     opacity: 1;
   }
-  95% {
-    transform: translateY(-80%); /* Adjusted end point */
-    opacity: 0;
-  }
   100% {
-    transform: translateY(-80%);
+    transform: translateY(-100%);
     opacity: 0;
   }
 }
