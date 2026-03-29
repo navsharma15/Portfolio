@@ -13,7 +13,34 @@
   justify-content: center;
   font-family: 'Inter', 'Outfit', sans-serif;
   color: #e6f6f0;
+  perspective: 2000px; /* Essential for 3D Tilt */
 }
+
+/* ── Realistic Glass Texture (Grain) ── */
+.aboutme-glass-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.12;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ── Futuristic Corner Brackets ── */
+.aboutme-corner-tl, .aboutme-corner-tr, .aboutme-corner-bl, .aboutme-corner-br {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #00ffaa;
+  z-index: 10;
+  filter: drop-shadow(0 0 8px #00ffaa);
+}
+
+.aboutme-corner-tl { top: -2px; left: -2px; border-right: 0; border-bottom: 0; border-radius: 12px 0 0 0; }
+.aboutme-corner-tr { top: -2px; right: -2px; border-left: 0; border-bottom: 0; border-radius: 0 12px 0 0; }
+.aboutme-corner-bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
+.aboutme-corner-br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
 
 /* ── Wavy canvas background ── */
 .aboutme-wave-canvas {
@@ -94,187 +121,131 @@
 }
 
 /* =============================================
-   GLASS CARD
+   GLASS CARD (Matched to Homepage Center Card)
    ============================================= */
 .aboutme-glass {
   position: relative;
   z-index: 5;
-  width: min(620px, 90vw);
-  max-height: 80vh;
-  overflow-y: auto;
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.06),
-    rgba(255, 255, 255, 0.02)
-  );
-  border: 1px solid rgba(0, 255, 170, 0.18);
+  width: 80%;
+  height: 520px;
+  /* Clean glass theme matching center-content */
+  background: linear-gradient(180deg, rgba(0, 255, 170, 0.08), rgba(0, 180, 120, 0.02));
+  border: 1px solid rgba(0, 255, 170, 0.25);
   border-radius: 28px;
-  padding: 48px 44px;
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(0, 255, 170, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  animation: aboutme-float 6s ease-in-out infinite;
-  transition: box-shadow 0.4s ease;
-}
-
-.aboutme-glass:hover {
-  box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.5),
-    0 0 60px rgba(0, 255, 170, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-@keyframes aboutme-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-/* Hide scrollbar inside glass card */
-.aboutme-glass::-webkit-scrollbar { width: 4px; }
-.aboutme-glass::-webkit-scrollbar-track { background: transparent; }
-.aboutme-glass::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 170, 0.15);
-  border-radius: 4px;
-}
-
-.aboutme-glass-inner {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 18px 50px rgba(0, 0, 0, 0.6), 
+    inset 0 1px 0 rgba(0, 255, 170, 0.15);
   display: flex;
-  flex-direction: column;
-  gap: 26px;
-}
-
-/* ── Header (Name + Role) ── */
-.aboutme-header {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.aboutme-name {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
-.aboutme-role {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #00ffaa;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-/* ── Divider ── */
-.aboutme-divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 255, 170, 0.2),
-    transparent
-  );
-}
-
-/* ── Bio ── */
-.aboutme-bio {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.65);
-  margin: 0;
-}
-
-/* ── Skills ── */
-.aboutme-skills-section {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.aboutme-skills-heading {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(0, 255, 170, 0.7);
-  margin: 0;
-}
-
-.aboutme-skills-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.aboutme-skill-chip {
-  background: rgba(0, 255, 170, 0.04);
-  border: 1px solid rgba(0, 255, 170, 0.1);
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: all 0.3s ease;
-  cursor: default;
-}
-
-.aboutme-skill-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.aboutme-skill-bar-track {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+  transform-style: preserve-3d;
   overflow: hidden;
 }
 
-.aboutme-skill-bar-fill {
+/* ── Chat-Bubble Pointer ── */
+.aboutme-glass-pointer {
+  position: absolute;
+  top: -11px;
+  left: 100px;
+  width: 22px;
+  height: 22px;
+  background: rgba(0, 255, 170, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(0, 255, 170, 0.25);
+  border-left: 1px solid rgba(0, 255, 170, 0.25);
+  transform: rotate(45deg);
+  z-index: 4;
+}
+
+/* ── Ticker Container ── */
+.aboutme-ticker-container {
+  width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #00ffaa, #00cc88);
-  border-radius: 4px;
-  box-shadow: 0 0 8px rgba(0, 255, 170, 0.5);
-}
-
-/* ── Interest ── */
-.aboutme-interest {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
+  position: relative;
+  z-index: 2;
 }
 
-.aboutme-interest-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(0, 255, 170, 0.6);
-}
-
-.aboutme-interest-value {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.92rem;
-  font-weight: 600;
+.aboutme-ticker-text {
+  text-align: center;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1.4rem;
+  line-height: 2;
   color: #ffffff;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  white-space: pre-wrap;
+  animation: aboutme-scroll-up 24s linear infinite;
+  padding: 0 40px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
-.aboutme-interest-icon {
-  font-size: 1.1rem;
+.aboutme-ticker-text::first-line {
+  color: #00ffaa;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── Home Page Style Fading Masks ── */
+.aboutme-glass-mask-top,
+.aboutme-glass-mask-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50px; /* Reduced height to make more 'light green' visible */
+  z-index: 10;
+  pointer-events: none;
+}
+
+.aboutme-glass-mask-top {
+  top: 0;
+  background: linear-gradient(to bottom, #020d0a 30%, transparent);
+}
+
+.aboutme-glass-mask-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #010806 30%, transparent);
+}
+
+/* ── Ticker Animation ── */
+@keyframes aboutme-scroll-up {
+  0% {
+    transform: translateY(80%); /* Starts higher to show up faster */
+    opacity: 0;
+  }
+  2% {
+    opacity: 1; /* Fade in quickly */
+  }
+  85% {
+    opacity: 1;
+  }
+  95% {
+    transform: translateY(-80%); /* Adjusted end point */
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-80%);
+    opacity: 0;
+  }
 }
 
 /* =============================================
    RESPONSIVE
    ============================================= */
+@media (max-width: 1024px) {
+  .aboutme-glass {
+    width: 90%;
+    height: 450px;
+  }
+}
+
 @media (max-width: 768px) {
   .aboutme-title-wrap {
     top: 30px;
@@ -282,22 +253,17 @@
   }
 
   .aboutme-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
   .aboutme-glass {
-    padding: 32px 24px;
-    border-radius: 20px;
-    width: 92vw;
-    margin-top: 50px;
+    width: 92%;
+    height: 400px;
+    padding: 40px 30px;
   }
 
-  .aboutme-skills-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .aboutme-name {
-    font-size: 1.4rem;
+  .aboutme-ticker-text {
+    font-size: 1.1rem;
   }
 }
 
@@ -305,15 +271,18 @@
   .aboutme-title-wrap {
     top: 20px;
     left: 20px;
-    gap: 10px;
   }
 
   .aboutme-title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .aboutme-glass {
-    padding: 24px 18px;
-    margin-top: 60px;
+    height: 350px;
+    padding: 30px 20px;
+  }
+
+  .aboutme-ticker-text {
+    font-size: 0.95rem;
   }
 }

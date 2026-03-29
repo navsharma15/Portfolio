@@ -1,15 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import '../styles/aboutme.css';
 
 /**
- * AboutMe — Premium glassmorphism About Me page
- * Features:
- *  - Animated wavy background (canvas)
- *  - Glass card with neon green border glow
- *  - Staggered text animations
- *  - Subtle parallax on mouse move
- *  - Floating particles
+ * AboutMe — Hyper-Realistic 3D Glassmorphism Experience
  */
 
 /* ── Wavy Background Canvas ── */
@@ -18,6 +12,7 @@ const WavyBackground = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animId;
     let time = 0;
@@ -33,7 +28,6 @@ const WavyBackground = () => {
       const { width: W, height: H } = canvas;
       ctx.clearRect(0, 0, W, H);
 
-      // Deep dark-green gradient background
       const bg = ctx.createLinearGradient(0, 0, 0, H);
       bg.addColorStop(0, '#020d0a');
       bg.addColorStop(0.5, '#031a12');
@@ -41,7 +35,6 @@ const WavyBackground = () => {
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, W, H);
 
-      // Draw 5 subtle wave layers
       const waves = [
         { amp: 40, freq: 0.003, speed: 0.4, y: H * 0.35, alpha: 0.06 },
         { amp: 55, freq: 0.002, speed: 0.3, y: H * 0.45, alpha: 0.05 },
@@ -53,12 +46,12 @@ const WavyBackground = () => {
       waves.forEach(({ amp, freq, speed, y, alpha }) => {
         ctx.beginPath();
         ctx.moveTo(0, H);
-        for (let x = 0; x <= W; x += 3) {
+        for (let xNum = 0; xNum <= W; xNum += 3) {
           const yy =
             y +
-            Math.sin(x * freq + time * speed) * amp +
-            Math.cos(x * freq * 1.5 - time * speed * 0.7) * amp * 0.4;
-          ctx.lineTo(x, yy);
+            Math.sin(xNum * freq + time * speed) * amp +
+            Math.cos(xNum * freq * 1.5 - time * speed * 0.7) * amp * 0.4;
+          ctx.lineTo(xNum, yy);
         }
         ctx.lineTo(W, H);
         ctx.closePath();
@@ -82,12 +75,7 @@ const WavyBackground = () => {
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="aboutme-wave-canvas"
-    />
-  );
+  return <canvas ref={canvasRef} className="aboutme-wave-canvas" />;
 };
 
 /* ── Floating Particles ── */
@@ -132,59 +120,57 @@ const FloatingParticles = () => {
 /* ── Main AboutMe Component ── */
 const AboutMe = () => {
   const cardRef = useRef(null);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
-  // Parallax on mouse move
+  // 3D Tilt Motion Value Setup
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  // Degrees for tilt
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['12deg', '-12deg']);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-12deg', '12deg']);
+
   const handleMouseMove = (e) => {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    setMouse({
-      x: ((e.clientX - cx) / cx) * 8,
-      y: ((e.clientY - cy) / cy) * 8,
-    });
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
   };
 
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Stagger container
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.3 },
-    },
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
+  const bioText = `Hello everyone, my name is Nav Sharma. I am currently pursuing my B.Tech (3rd year) from GLA University, Mathura. I am passionate about Data Analytics and enjoy working with data to find meaningful insights and solve real-world problems.
 
-  const skills = [
-    { name: 'SQL', level: 90 },
-    { name: 'Excel', level: 85 },
-    { name: 'Power BI', level: 88 },
-    { name: 'Python', level: 80 },
-  ];
+I have hands-on experience with tools like SQL, Excel, and Power BI, and I’ve built projects such as an E-commerce Sales Dashboard and a Car Sales Dashboard. These projects helped me strengthen my skills in data cleaning, visualization, and storytelling through data.
+
+Along with Data Analytics, I am also exploring Web Development, as I believe combining both skills helps in building complete, data-driven solutions. I enjoy learning new technologies and continuously improving myself.
+
+My goal is to become a skilled Data Analyst and contribute to an organization by transforming raw data into valuable insights that support smart decision-making.
+
+Thank you.`;
 
   return (
     <div className="aboutme-page">
       <WavyBackground />
       <FloatingParticles />
 
-      {/* ── Title — Outside the glass card ── */}
+      {/* ── Title — Outside ── */}
       <motion.div
         className="aboutme-title-wrap"
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.7, delay: 0.15 }}
+        transition={{ duration: 0.5, delay: 0 }}
       >
         <div className="aboutme-title-indicator">
           <span className="aboutme-title-dot" />
@@ -193,76 +179,30 @@ const AboutMe = () => {
         <h2 className="aboutme-title">ABOUT ME</h2>
       </motion.div>
 
-      {/* ── Glass Card ── */}
+      {/* ── Realistic 3D Glass Card ── */}
       <motion.div
         className="aboutme-glass"
         ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         style={{
-          transform: `translate(${mouse.x}px, ${mouse.y}px)`,
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
         }}
-        initial={{ opacity: 0, scale: 0.92, y: 40 }}
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <motion.div
-          className="aboutme-glass-inner"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Name + Role */}
-          <motion.div className="aboutme-header" variants={itemVariants}>
-            <h3 className="aboutme-name">Nav Sharma</h3>
-            <span className="aboutme-role">Data Analyst</span>
-          </motion.div>
-
-          <motion.div className="aboutme-divider" variants={itemVariants} />
-
-          {/* Bio */}
-          <motion.p className="aboutme-bio" variants={itemVariants}>
-            Passionate about transforming raw data into meaningful insights.
-            I specialize in building interactive dashboards and crafting
-            data-driven stories that empower smarter business decisions.
-          </motion.p>
-
-          {/* Skills */}
-          <motion.div className="aboutme-skills-section" variants={itemVariants}>
-            <h4 className="aboutme-skills-heading">Core Skills</h4>
-            <div className="aboutme-skills-grid">
-              {skills.map((s, i) => (
-                <motion.div
-                  className="aboutme-skill-chip"
-                  key={s.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
-                  whileHover={{ scale: 1.08, boxShadow: '0 0 20px rgba(0,255,170,0.35)' }}
-                >
-                  <span className="aboutme-skill-name">{s.name}</span>
-                  <div className="aboutme-skill-bar-track">
-                    <motion.div
-                      className="aboutme-skill-bar-fill"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${s.level}%` }}
-                      transition={{ duration: 1.2, delay: 0.6 + i * 0.15, ease: 'easeOut' }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div className="aboutme-divider" variants={itemVariants} />
-
-          {/* Interest */}
-          <motion.div className="aboutme-interest" variants={itemVariants}>
-            <span className="aboutme-interest-label">Interest</span>
-            <span className="aboutme-interest-value">
-              <span className="aboutme-interest-icon">🤖</span>
-              AI / Machine Learning
-            </span>
-          </motion.div>
-        </motion.div>
+        <div className="aboutme-glass-pointer" />
+        <div className="aboutme-glass-mask-top" />
+        <div className="aboutme-glass-mask-bottom" />
+        
+        <div className="aboutme-ticker-container" style={{ transform: "translateZ(50px)" }}>
+          <div className="aboutme-ticker-text">
+            {bioText}
+          </div>
+        </div>
       </motion.div>
     </div>
   );

@@ -140,7 +140,12 @@ const Portfolio = () => {
                   <HeroCard />
                   <div className="bottom-buttons white-cutout">
                     <button className="cutout-btn contact-btn">Contact us</button>
-                    <button className="cutout-btn cv-btn">Download CV</button>
+                    <button 
+                      className="cutout-btn cv-btn"
+                      onClick={() => window.open('https://drive.google.com/your-resume-link-here', '_blank')}
+                    >
+                      Download CV
+                    </button>
                   </div>
                 </div>
                 <ProfileCard />
