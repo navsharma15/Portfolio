@@ -274,7 +274,7 @@ const Portfolio = () => {
 
               {activePage === 'About Me' && (
                 <div className="page-full-width">
-                  <AboutMe />
+                  <AboutMe key={activePage} />
                 </div>
               )}
 
@@ -308,7 +308,7 @@ const Portfolio = () => {
                   </div>
                 )}
                 
-                {item.label === 'About Me' && <AboutMe />}
+                {item.label === 'About Me' && <AboutMe key={activePage === 'About Me' ? 'active' : 'inactive'} />}
                 
                 {item.label !== 'Home' && item.label !== 'About Me' && (
                    <div className="coming-soon-card">
