@@ -1,5 +1,5 @@
 /* =============================================
-   ABOUT ME PAGE — Premium Glassmorphism + Waves
+   ABOUT ME PAGE — Desktop (3D Card) & Mobile (Glass Flow)
    ============================================= */
 
 /* ── Full page wrapper ── */
@@ -11,38 +11,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', 'Outfit', sans-serif;
-  color: #e6f6f0;
-  perspective: 2000px; /* Essential for 3D Tilt */
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  perspective: 2000px; /* Essential for Desktop 3D Tilt */
 }
-
-/* ── Realistic Glass Texture (Grain) ── */
-.aboutme-glass-noise {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.12;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
-/* ── Futuristic Corner Brackets ── */
-.aboutme-corner-tl, .aboutme-corner-tr, .aboutme-corner-bl, .aboutme-corner-br {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  border: 2px solid #00ffaa;
-  z-index: 10;
-  filter: drop-shadow(0 0 8px #00ffaa);
-}
-
-.aboutme-corner-tl { top: -2px; left: -2px; border-right: 0; border-bottom: 0; border-radius: 12px 0 0 0; }
-.aboutme-corner-tr { top: -2px; right: -2px; border-left: 0; border-bottom: 0; border-radius: 0 12px 0 0; }
-.aboutme-corner-bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
-.aboutme-corner-br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
-
-/* Background animations removed to use global DNA animation from Portfolio.jsx */
 
 /* =============================================
    TITLE — Outside glass card, top-left overlap
@@ -91,20 +63,18 @@
   text-transform: uppercase;
   color: #ffffff;
   text-shadow:
-    0 0 20px rgba(0, 255, 170, 0.5),
-    0 0 60px rgba(0, 255, 170, 0.2),
-    0 0 100px rgba(0, 255, 170, 0.1);
+    0 0 20px rgba(0, 255, 170, 0.5);
   margin: 0;
 }
 
 /* =============================================
-   GLASS CARD (Matched to Homepage Center Card)
+   GLASS CARD (Desktop)
    ============================================= */
 .aboutme-glass {
   position: relative;
   z-index: 5;
   width: 85%;
-  height: 88vh; /* Increased from 75vh */
+  height: 85vh; /* Standard desktop card height */
   background: linear-gradient(180deg, rgba(0, 255, 170, 0.08), rgba(0, 180, 120, 0.02));
   border: 1px solid rgba(0, 255, 170, 0.25);
   border-radius: 28px;
@@ -116,7 +86,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 85px 60px 50px; /* More vertical padding for the taller card */
+  padding: 85px 60px 40px; /* Top padding clears the absolute title */
   transform-style: preserve-3d;
   overflow: hidden;
 }
@@ -130,7 +100,6 @@
   height: 22px;
   background: rgba(0, 255, 170, 0.1);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(0, 255, 170, 0.25);
   border-left: 1px solid rgba(0, 255, 170, 0.25);
   transform: rotate(45deg);
@@ -148,7 +117,6 @@
 
 .aboutme-ticker-text {
   text-align: center;
-  font-family: 'Outfit', 'Inter', sans-serif;
   font-size: 1.45rem;
   line-height: 2;
   color: #ffffff;
@@ -159,7 +127,7 @@
   padding: 20px 40px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   position: absolute;
-  top: 100%; /* Start exactly at the bottom border of the card */
+  top: 100%; /* Start exactly at the bottom border of the container */
   width: 100%;
   left: 0;
 }
@@ -177,11 +145,12 @@
   position: absolute;
   left: 0;
   width: 100%;
-  height: 50px; /* Reduced height to make more 'light green' visible */
+  height: 50px;
   z-index: 10;
   pointer-events: none;
 }
 
+/* Dark masks for blendingtext inside the card */
 .aboutme-glass-mask-top {
   top: 0;
   background: linear-gradient(to bottom, #071018 40%, transparent);
@@ -192,85 +161,190 @@
   background: linear-gradient(to top, #001319 40%, transparent);
 }
 
-/* ── Ticker Animation — Starts fast, slows down for reading, resets within 0.5s ── */
+/* ── Ticker Animation — Starts fast, slows down for reading, resets ── */
 @keyframes aboutme-scroll-up {
-  0% {
-    transform: translateY(0); 
-    opacity: 0;
-  }
-  3% {
-    /* Fast entrance into the card */
-    transform: translateY(-10%);
-    opacity: 1;
-  }
-  95% {
-    /* Large slow-scroll phase for reading (covering most of the text height) */
-    transform: translateY(-210%);
-    opacity: 1;
-  }
-  99% {
-    /* Rapid exit at the top */
-    transform: translateY(-250%);
-    opacity: 0;
-  }
-  100% {
-    /* Instant reset for 0.5s loop feel (total duration 40s -> 0.4s gap) */
-    transform: translateY(0);
-    opacity: 0;
-  }
+  0% { transform: translateY(0); opacity: 0; }
+  3% { transform: translateY(-10%); opacity: 1; }
+  85% { transform: translateY(-210%); opacity: 1; }
+  98% { transform: translateY(-250%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
 }
 
+/* ── Mobile Specific Elements (Hidden on Desktop) ── */
+.mobile-glowing-line {
+  display: none;
+}
+
+
 /* =============================================
-   RESPONSIVE
+   RESPONSIVE DESIGN (Strict Mobile Non-Card UI)
    ============================================= */
 @media (max-width: 1024px) {
+  .aboutme-page {
+    height: 100vh; /* Adapts to full mobile scroll window naturally */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    perspective: none; /* Disable 3D tilt perspective */
+    padding: 30px 0;
+  }
+
+  /* Wipe card background, borders, pointers while maintaining the flow */
   .aboutme-glass {
-    width: 92%;
-    height: 80vh;
+    width: 100% !important;
+    height: 100% !important; 
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 10px !important;
+    transform: none !important; /* Cancel 3D tilt hook on mobile */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aboutme-glass-pointer {
+    display: none !important;
+  }
+
+  /* Reposition Title cleanly in center relative to flow */
+  .aboutme-title-wrap {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .aboutme-title {
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 0.15em;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Mobile Glowing Lines */
+  .mobile-glowing-line {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00ffaa, transparent);
+    box-shadow: 0 0 10px rgba(0, 255, 170, 0.5), 0 0 20px rgba(0, 255, 170, 0.2);
+    flex-shrink: 0;
+    z-index: 6;
+  }
+
+  .mobile-glowing-line.top-line {
+    margin-bottom: 15px;
+  }
+
+  .mobile-glowing-line.bottom-line {
+    margin-top: 15px;
+  }
+
+  /* Text Container takes up remaining space and acts as the scroll boundary */
+  .aboutme-ticker-container {
+    flex: 1;
+    height: auto !important;
+    position: relative;
+    overflow: hidden !important; /* Vital for text mask */
+    transform: none !important; /* Remove Z-translate from desktop */
+    margin: 0 10px;
+  }
+
+  .aboutme-ticker-text {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    padding: 0 10px;
+    margin: 0 auto;
+    width: 95%;
+    left: 2.5%; /* Keep centered */
+    /* Ensure scrolling animation persists smoothly */
+    animation: aboutme-scroll-mobile 30s linear infinite !important;
+  }
+
+  /* Distinct Mobile Animation adjusting for varied heights so the loop looks endless */
+  @keyframes aboutme-scroll-mobile {
+    0% { transform: translateY(0); opacity: 0; }
+    3% { opacity: 1; }
+    85% { transform: translateY(calc(-100% - 25vh)); opacity: 1; }
+    90% { transform: translateY(calc(-100% - 25vh)); opacity: 0; } /* 1 second pause */
+    98% { transform: translateY(0); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Fading masks adjust colors and size to match the global mobile backdrop */
+  .aboutme-glass-mask-top,
+  .aboutme-glass-mask-bottom {
+    display: block !important; 
+    height: 40px !important;
+  }
+
+  .aboutme-glass-mask-top {
+    background: linear-gradient(to bottom, rgba(3, 10, 15, 1) 0%, rgba(3, 10, 15, 0) 100%) !important;
+  }
+  .aboutme-glass-mask-bottom {
+    background: linear-gradient(to top, rgba(3, 10, 15, 1) 0%, rgba(3, 10, 15, 0) 100%) !important;
   }
 }
 
 @media (max-width: 768px) {
-  .aboutme-title-wrap {
-    top: 20px;
-    left: 20px;
+  /* Ultra-Premium Override for Mobile specific to About Me */
+  .aboutme-glass {
+    /* Fully transparent background as requested, relying on parent glass */
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important; /* Clean, no edges */
+    padding: 20px 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
   }
 
   .aboutme-title {
-    font-size: 1.5rem;
-  }
-
-  .aboutme-glass {
-    width: 94%;
-    height: 78vh;
-    padding: 60px 15px 20px;
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
   }
 
   .aboutme-ticker-text {
-    font-size: 1rem;
-    padding: 10px;
-    line-height: 1.8;
+    font-size: 1.05rem !important;
+    line-height: 1.8 !important;
+    letter-spacing: 0.03em !important;
+    color: #ffffff !important;
+    padding: 0 15px !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6) !important; /* Text visibility priority */
+  }
+
+  /* Fade masks adjusted for clarity */
+  .aboutme-glass-mask-top {
+    background: linear-gradient(to bottom, rgba(5, 12, 16, 0.9) 0%, transparent 100%) !important;
+  }
+  .aboutme-glass-mask-bottom {
+    background: linear-gradient(to top, rgba(5, 12, 16, 0.9) 0%, transparent 100%) !important;
   }
 }
 
 @media (max-width: 480px) {
-  .aboutme-title-wrap {
-    top: 15px;
-    left: 15px;
-  }
-
   .aboutme-title {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
-
-  .aboutme-glass {
-    width: 96%;
-    height: 80vh;
-    padding: 50px 10px 15px;
-  }
-
   .aboutme-ticker-text {
-    font-size: 0.9rem;
-    padding: 5px;
+    font-size: 0.98rem !important;
+    line-height: 1.7 !important;
+    padding: 0 10px !important;
+  }
+  .aboutme-glass {
+    padding: 20px 5px !important;
   }
 }

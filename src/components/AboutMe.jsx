@@ -6,6 +6,7 @@ import '../styles/aboutme.css';
 /**
  * AboutMe — Hyper-Realistic 3D Glassmorphism Experience
  */
+/* ── Main AboutMe Component ── */
 const AboutMe = () => {
   const cardRef = useRef(null);
 
@@ -38,7 +39,9 @@ const AboutMe = () => {
     y.set(0);
   };
 
-  const bioText = `Hello everyone, my name is Nav Sharma. I am currently pursuing my B.Tech (3rd year) from GLA University, Mathura. I am passionate about Data Analytics and enjoy working with data to find meaningful insights and solve real-world problems.
+  const bioText = `Hello everyone, my name is Nav Sharma. I am currently pursuing my B.Tech (3rd year) from GLA University, Mathura.
+
+I am passionate about Data Analytics and enjoy working with data to find meaningful insights and solve real-world problems.
 
 I have hands-on experience with tools like SQL, Excel, and Power BI, and I’ve built projects such as an E-commerce Sales Dashboard and a Car Sales Dashboard. These projects helped me strengthen my skills in data cleaning, visualization, and storytelling through data.
 
@@ -71,12 +74,15 @@ Thank you.`;
 
         {/* ── Title — Now Inside ── */}
         <div className="aboutme-title-wrap">
-          <div className="aboutme-title-indicator">
+          <div className="aboutme-title-indicator desktop-only">
             <span className="aboutme-title-dot" />
             <span className="aboutme-title-line" />
           </div>
           <h2 className="aboutme-title">ABOUT ME</h2>
         </div>
+        
+        {/* Mobile Top Glowing Line */}
+        <div className="mobile-glowing-line top-line"></div>
         
         <div className="aboutme-ticker-container" style={{ transform: "translateZ(50px)" }}>
           <div className="aboutme-ticker-text">
@@ -84,13 +90,14 @@ Thank you.`;
           </div>
         </div>
 
+        {/* Mobile Bottom Glowing Line */}
+        <div className="mobile-glowing-line bottom-line"></div>
+
         <div className="aboutme-glass-mask-top" />
         <div className="aboutme-glass-mask-bottom" />
       </motion.div>
     </div>
   );
 };
-
-
 
 export default AboutMe;

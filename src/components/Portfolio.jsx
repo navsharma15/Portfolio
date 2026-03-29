@@ -187,20 +187,18 @@ const Portfolio = () => {
     <div className="portfolio-bg">
       <DNAAnimation />
 
-      {/* Hamburger Toggle */}
+      {/* Modern Neon Hamburger Menu Toggle */}
       <button 
-        className="hamburger-btn"
+        className={`hamburger-btn ${isMenuOpen ? 'open' : ''}`}
         onClick={(e) => {
-          e.stopPropagation(); // Prevent the global click from firing immediately
+          e.stopPropagation();
           setIsMenuOpen(!isMenuOpen);
         }}
         aria-label="Toggle Menu"
       >
-        {isMenuOpen ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-        )}
+        <span className="hamburger-line"></span>
+        <span className="hamburger-line"></span>
+        <span className="hamburger-line"></span>
       </button>
 
       {/* Mobile Overlay */}
@@ -286,37 +284,47 @@ const Portfolio = () => {
             </motion.div>
           </AnimatePresence>
         ) : (
-          /* Mobile: Vertical Continuous Scroll */
+          /* Mobile: Single Glassmorphism Full-Screen App Layout */
           <div className="mobile-scroll-container">
-            {navItems.map((item) => (
-              <section 
-                key={item.label} 
-                data-section={item.label}
-                ref={el => sectionRefs.current[item.label] = el}
-                className="mobile-section"
-              >
-                {item.label === 'Home' && (
-                  <div className="mobile-home-stack">
-                    <div className="center-content">
-                      <HeroCard />
-                      <div className="bottom-buttons white-cutout mobile-white-cutout">
-                        <button className="cutout-btn contact-btn">Contact us</button>
-                        <button className="cutout-btn cv-btn">Download CV</button>
+            <div className="mobile-glass-pane">
+              
+              {/* Subtle Glowing Background Particles/Orbs within the glass pane */}
+              <div className="mobile-glow-orb orb-1"></div>
+              <div className="mobile-glow-orb orb-2"></div>
+
+              {navItems.map((item) => (
+                <section 
+                  key={item.label} 
+                  data-section={item.label}
+                  ref={el => sectionRefs.current[item.label] = el}
+                  className="mobile-section"
+                >
+                  {item.label === 'Home' && (
+                    <div className="mobile-home-stack">
+                      <div className="hero-mobile-wrap">
+                        <HeroCard />
+                        <div className="mobile-neon-buttons">
+                          <button className="neon-btn contact-btn">Contact us</button>
+                          <button className="neon-btn cv-btn">Download CV</button>
+                        </div>
                       </div>
+                      <ProfileCard />
                     </div>
-                    <ProfileCard />
-                  </div>
-                )}
-                
-                {item.label === 'About Me' && <AboutMe key={activePage === 'About Me' ? 'active' : 'inactive'} />}
-                
-                {item.label !== 'Home' && item.label !== 'About Me' && (
-                   <div className="coming-soon-card">
-                     <h2 className="coming-soon-text">{item.label} Coming Soon</h2>
-                   </div>
-                )}
-              </section>
-            ))}
+                  )}
+                  
+                  {item.label === 'About Me' && <AboutMe key={activePage === 'About Me' ? 'active' : 'inactive'} />}
+                  
+                  {item.label !== 'Home' && item.label !== 'About Me' && (
+                     <div className="coming-soon-card mobile-transparent-card">
+                       <h2 className="coming-soon-text">{item.label} Coming Soon</h2>
+                     </div>
+                  )}
+
+                  {/* Neon Separator between sections except for last */}
+                  {item.label !== 'Contact' && <div className="mobile-section-separator" />}
+                </section>
+              ))}
+            </div>
           </div>
         )}
       </div>
