@@ -12,8 +12,8 @@
   display: flex;
   /* Dark page background */
   background: linear-gradient(180deg, #071018 0%, #001319 100%);
-  color: #e6f6f0;
-  font-family: 'Inter', 'Outfit', sans-serif;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
   padding: 20px;
   gap: 20px;
 }
@@ -319,7 +319,7 @@
 .hero-welcome-sub {
   font-size: 1rem;
   font-weight: 500;
-  color: rgba(0, 255, 170, 0.75);
+  color: #ffffff;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0 0 16px 0;
@@ -344,7 +344,7 @@
 
 .hero-welcome-desc {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
   line-height: 1.7;
   max-width: 420px;
   margin: 0;
@@ -363,6 +363,7 @@
      font-size: 1.25rem;
      max-width: 550px;
      line-height: 1.8;
+     color: #ffffff;
   }
 }
 
@@ -652,7 +653,6 @@
   width: 100%;
   min-height: 100vh;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   display: flex;
   flex-direction: column;
   padding: 80px 10px 20px;
