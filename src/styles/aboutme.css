@@ -42,30 +42,7 @@
 .aboutme-corner-bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
 .aboutme-corner-br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
 
-/* ── Wavy canvas background ── */
-.aboutme-wave-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* ── Floating particles ── */
-.aboutme-particles {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.aboutme-particle {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 255, 170, 0.6), transparent 70%);
-}
+/* Background animations removed to use global DNA animation from Portfolio.jsx */
 
 /* =============================================
    TITLE — Outside glass card, top-left overlap
@@ -127,7 +104,7 @@
   position: relative;
   z-index: 5;
   width: 85%;
-  height: 75vh;
+  height: 88vh; /* Increased from 75vh */
   background: linear-gradient(180deg, rgba(0, 255, 170, 0.08), rgba(0, 180, 120, 0.02));
   border: 1px solid rgba(0, 255, 170, 0.25);
   border-radius: 28px;
@@ -139,7 +116,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 60px 40px; /* More top padding for title space */
+  padding: 85px 60px 50px; /* More vertical padding for the taller card */
   transform-style: preserve-3d;
   overflow: hidden;
 }
@@ -207,12 +184,12 @@
 
 .aboutme-glass-mask-top {
   top: 0;
-  background: linear-gradient(to bottom, #020d0a 30%, transparent);
+  background: linear-gradient(to bottom, #071018 40%, transparent);
 }
 
 .aboutme-glass-mask-bottom {
   bottom: 0;
-  background: linear-gradient(to top, #010806 30%, transparent);
+  background: linear-gradient(to top, #001319 40%, transparent);
 }
 
 /* ── Ticker Animation — Starts fast, slows down for reading, resets within 0.5s ── */

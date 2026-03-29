@@ -167,8 +167,7 @@ Thank you.`;
 
   return (
     <div className="aboutme-page">
-      <WavyBackground />
-      <FloatingParticles />
+      {/* Background is now global from Portfolio.jsx */}
 
       {/* ── Realistic 3D Glass Card ── */}
       <motion.div
