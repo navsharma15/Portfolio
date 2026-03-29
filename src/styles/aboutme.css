@@ -126,8 +126,8 @@
 .aboutme-glass {
   position: relative;
   z-index: 5;
-  width: 80%;
-  height: 520px;
+  width: 90%;
+  height: 90vh; /* Increased to 90% of viewport height as requested */
   /* Clean glass theme matching center-content */
   background: linear-gradient(180deg, rgba(0, 255, 170, 0.08), rgba(0, 180, 120, 0.02));
   border: 1px solid rgba(0, 255, 170, 0.25);
@@ -165,25 +165,27 @@
 .aboutme-ticker-container {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   position: relative;
   z-index: 2;
+  overflow: hidden; /* Essential for vanishing effect at top/bottom */
 }
 
 .aboutme-ticker-text {
   text-align: center;
   font-family: 'Outfit', 'Inter', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   line-height: 2;
   color: #ffffff;
   font-weight: 400;
   letter-spacing: 0.01em;
   white-space: pre-wrap;
-  animation: aboutme-scroll-up 24s linear infinite;
-  padding: 0 40px;
+  animation: aboutme-scroll-up 40s linear infinite;
+  padding: 20px 40px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  position: absolute;
+  top: 100%; /* Start exactly at the bottom border of the card */
+  width: 100%;
+  left: 0;
 }
 
 .aboutme-ticker-text::first-line {
@@ -214,20 +216,30 @@
   background: linear-gradient(to top, #010806 30%, transparent);
 }
 
-/* ── Ticker Animation ── */
+/* ── Ticker Animation — Starts fast, slows down for reading, resets within 0.5s ── */
 @keyframes aboutme-scroll-up {
   0% {
-    transform: translateY(5%);
+    transform: translateY(0); 
     opacity: 0;
   }
   3% {
+    /* Fast entrance into the card */
+    transform: translateY(-10%);
     opacity: 1;
   }
-  85% {
+  95% {
+    /* Large slow-scroll phase for reading (covering most of the text height) */
+    transform: translateY(-210%);
     opacity: 1;
+  }
+  99% {
+    /* Rapid exit at the top */
+    transform: translateY(-250%);
+    opacity: 0;
   }
   100% {
-    transform: translateY(-100%);
+    /* Instant reset for 0.5s loop feel (total duration 40s -> 0.4s gap) */
+    transform: translateY(0);
     opacity: 0;
   }
 }
@@ -237,8 +249,8 @@
    ============================================= */
 @media (max-width: 1024px) {
   .aboutme-glass {
-    width: 90%;
-    height: 450px;
+    width: 96%;
+    height: 85vh;
   }
 }
 
@@ -253,13 +265,14 @@
   }
 
   .aboutme-glass {
-    width: 92%;
-    height: 400px;
-    padding: 40px 30px;
+    width: 97%;
+    height: 82vh;
+    padding: 20px 10px;
   }
 
   .aboutme-ticker-text {
     font-size: 1.1rem;
+    padding: 20px;
   }
 }
 
@@ -274,11 +287,13 @@
   }
 
   .aboutme-glass {
-    height: 350px;
-    padding: 30px 20px;
+    width: 98%;
+    height: 80vh;
+    padding: 10px 5px;
   }
 
   .aboutme-ticker-text {
     font-size: 0.95rem;
+    padding: 10px;
   }
 }

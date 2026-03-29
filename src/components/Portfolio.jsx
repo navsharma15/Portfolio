@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import HeroCard from './HeroCard';
 import ProfileCard from './ProfileCard';
@@ -43,6 +43,7 @@ const Portfolio = () => {
   const [direction, setDirection] = useState(0); // 1 = forward (up), -1 = backward (down)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const scrollRef = useRef(null);
 
   const handleNavClick = useCallback((label) => {
     if (label === activePage) {
@@ -65,17 +66,42 @@ const Portfolio = () => {
 
       const delta = e.deltaY;
       const currentIndex = navItems.findIndex((n) => n.label === activePage);
+      const isMobile = window.innerWidth <= 1024;
 
-      if (delta > 50 && currentIndex < navItems.length - 1) {
-        // Scroll Down -> Next Page
-        setIsScrolling(true);
-        handleNavClick(navItems[currentIndex + 1].label);
-        setTimeout(() => setIsScrolling(false), 1000);
-      } else if (delta < -50 && currentIndex > 0) {
-        // Scroll Up -> Previous Page
-        setIsScrolling(true);
-        handleNavClick(navItems[currentIndex - 1].label);
-        setTimeout(() => setIsScrolling(false), 1000);
+      // On mobile, we only want to switch sections if we're at the very bottom/top
+      // of the scrollable page. This allows users to see the full ProfileCard.
+      if (isMobile && scrollRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+
+        if (delta > 30 && (scrollTop + clientHeight >= scrollHeight - 10)) {
+          if (currentIndex < navItems.length - 1) {
+            setIsScrolling(true);
+            handleNavClick(navItems[currentIndex + 1].label);
+            setTimeout(() => setIsScrolling(false), 1200);
+          }
+        } else if (delta < -30 && scrollTop <= 10) {
+          if (currentIndex > 0) {
+            setIsScrolling(true);
+            handleNavClick(navItems[currentIndex - 1].label);
+            setTimeout(() => setIsScrolling(false), 1200);
+          }
+        }
+        return; // Exit here for mobile
+      }
+
+      // Desktop logic (Fullscreen sections)
+      if (Math.abs(delta) > 40) {
+        if (delta > 0 && currentIndex < navItems.length - 1) {
+          // Scroll Down -> Next Page
+          setIsScrolling(true);
+          handleNavClick(navItems[currentIndex + 1].label);
+          setTimeout(() => setIsScrolling(false), 1200);
+        } else if (delta < 0 && currentIndex > 0) {
+          // Scroll Up -> Previous Page
+          setIsScrolling(true);
+          handleNavClick(navItems[currentIndex - 1].label);
+          setTimeout(() => setIsScrolling(false), 1200);
+        }
       }
     };
 
@@ -104,7 +130,7 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="portfolio-bg">
+    <div className="portfolio-bg" ref={scrollRef}>
       <DNAAnimation />
 
       {/* Hamburger Toggle */}

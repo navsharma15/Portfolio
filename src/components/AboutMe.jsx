@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import profileImg from '../assets/profile.png';
 import '../styles/aboutme.css';
 
 /**
@@ -195,17 +196,20 @@ Thank you.`;
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="aboutme-glass-pointer" />
-        <div className="aboutme-glass-mask-top" />
-        <div className="aboutme-glass-mask-bottom" />
         
         <div className="aboutme-ticker-container" style={{ transform: "translateZ(50px)" }}>
           <div className="aboutme-ticker-text">
             {bioText}
           </div>
         </div>
+
+        <div className="aboutme-glass-mask-top" />
+        <div className="aboutme-glass-mask-bottom" />
       </motion.div>
     </div>
   );
 };
+
+
 
 export default AboutMe;
