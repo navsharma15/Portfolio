@@ -244,7 +244,7 @@
    ============================================= */
 .hero-card {
   flex: 1;
-  padding: 52px 56px 100px 56px;
+  padding: 25px 56px 100px 56px; /* Shifted up as requested */
   position: relative;
   background: transparent;
   border: none;

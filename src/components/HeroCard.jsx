@@ -12,11 +12,7 @@ const HeroCard = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
     >
-      {/* Decorative label */}
-      <div className="hero-tag">
-        <span className="hero-tag-dot" />
-        Portfolio 2024
-      </div>
+
 
       {/* Welcome text */}
       <div className="hero-welcome">

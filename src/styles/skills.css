@@ -1,0 +1,341 @@
+.skills-main-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove the title styling as it was removed from the component */
+
+/* --- DESKTOP VIEW --- */
+.skills-desktop-view {
+  position: relative;
+  width: 90%;
+  height: 90%; /* Height increased as requested */
+  background: rgba(10, 25, 40, 0.4); /* Massive transparent dark layer */
+  backdrop-filter: blur(15px); /* Blurs DNA background */
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 45px;
+  border: 1px solid rgba(136, 242, 182, 0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .skills-desktop-view {
+    display: none;
+  }
+}
+
+.skills-svg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Removed track so arrows look like pure floating magical snakes */
+
+.tech-arrow-snake {
+  fill: none;
+  stroke: #2ecc71;
+  stroke-width: 5;
+  stroke-linecap: round;
+  /* HUGE snake, sweeps across gracefully */
+  stroke-dasharray: 250 1500;
+  animation: snakeAttack 4s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite; /* Smoother curve */
+  filter: drop-shadow(0 0 12px #2ecc71) drop-shadow(0 0 30px rgba(46, 204, 113, 0.8));
+}
+
+@keyframes snakeAttack {
+  0% {
+    stroke-dashoffset: 1600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.container-3d {
+  perspective: 1200px;
+  animation: containerSwing 10s ease-in-out infinite alternate;
+}
+
+@keyframes containerSwing {
+  0% { transform: rotateY(-4deg) rotateX(2deg); }
+  100% { transform: rotateY(4deg) rotateX(-2deg); }
+}
+
+.skills-diagram-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.diagram-label-wrapper {
+  position: absolute;
+  pointer-events: auto;
+  animation: floatLabel 4s ease-in-out infinite alternate;
+}
+
+.diagram-label-card {
+  color: #fff;
+  font-size: 1.15rem; /* Increased font size */
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: rgba(16, 185, 129, 0.15); /* Transparent green glassy */
+  border: 1px solid rgba(136, 242, 182, 0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(136, 242, 182, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 12px 22px;
+  border-radius: 16px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+}
+
+.diagram-label-card:hover {
+  transform: scale(1.1) translateY(-5px);
+  background: rgba(46, 204, 113, 0.25);
+}
+
+@keyframes floatLabel {
+  0% { transform: translateY(0px) rotate(1deg); }
+  100% { transform: translateY(-8px) rotate(-1deg); }
+}
+
+.glass-grid-box {
+  position: absolute;
+  top: 10%; /* Recentered and enlarged */
+  left: 10%;
+  width: 80%; /* Massive inner grid space */
+  height: 80%; /* Fills the card without overflowing */
+  background: rgba(16, 185, 129, 0.08); /* Green tint */
+  border: 1px solid rgba(136, 242, 182, 0.25);
+  border-radius: 40px;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(136, 242, 182, 0.2);
+  padding: 4%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  animation: floatBoard 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatBoard {
+  0% { transform: translateY(0px) rotateX(0deg); box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(136, 242, 182, 0.1); }
+  100% { transform: translateY(-10px) rotateX(2deg); box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 0 70px rgba(136, 242, 182, 0.3); }
+}
+
+.glass-grid-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2%; /* Responsive gap ensures no overflow */
+  width: 100%;
+  height: 100%;
+}
+
+.tool-app-card {
+  width: 100%;
+  height: 100%; /* Adapts to grid cell to avoid pushing borders */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5vh;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.tool-app-card::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(46, 204, 113, 0.5);
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tool-app-card:hover::before {
+  animation: pingShock 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pingShock {
+  0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
+}
+
+.tool-app-card:hover {
+  transform: translateY(-12px) scale(1.18) rotate(3deg);
+}
+
+.tool-app-icon {
+  width: 80px;
+  max-width: 90%;
+  aspect-ratio: 1;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
+
+.tool-app-card:hover .tool-app-icon {
+  box-shadow: 0 20px 40px rgba(136, 242, 182, 0.4);
+}
+
+.tool-app-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-20deg);
+  transition: 0.6s;
+}
+
+.tool-app-card:hover .tool-app-icon::after {
+  left: 150%;
+}
+
+.app-icon-svg {
+  width: 55%;
+  height: 55%;
+}
+
+.tool-app-name {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* --- MOBILE VIEW --- */
+.skills-mobile-view {
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px 60px; /* Shifted further up */
+  overflow: visible;
+  -webkit-overflow-scrolling: touch;
+}     
+
+@media (max-width: 900px) {
+  .skills-mobile-view {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.mobile-tools-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.mobile-tool-card {
+  width: 100%;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(136, 242, 182, 0.3);
+  border-radius: 20px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  animation: slideUpFade 0.6s ease forwards, borderPulse 3s infinite alternate;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes borderPulse {
+  0% { box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 5px rgba(136, 242, 182, 0.0); }
+  100% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(136, 242, 182, 0.3); }
+}
+
+.mobile-tool-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.mobile-tool-icon .app-icon-svg {
+  width: 22px;
+  height: 22px;
+}
+
+.mobile-tool-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-grow: 1;
+}
+
+.mobile-tool-name {
+  color: white;
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.mobile-tool-desc {
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+@keyframes slideUpFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

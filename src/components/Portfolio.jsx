@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import HeroCard from './HeroCard';
 import ProfileCard from './ProfileCard';
 import AboutMe from './AboutMe';
+import Skills from './Skills';
 import DNAAnimation from './DNAAnimation';
 import '../styles/portfolio.css';
 
@@ -276,7 +277,13 @@ const Portfolio = () => {
                 </div>
               )}
 
-              {activePage !== 'Home' && activePage !== 'About Me' && (
+              {activePage === 'Skills' && (
+                <div className="page-full-width">
+                  <Skills key={activePage} />
+                </div>
+              )}
+
+              {activePage !== 'Home' && activePage !== 'About Me' && activePage !== 'Skills' && (
                 <div className="coming-soon-card">
                   <h2 className="coming-soon-text">{activePage} Coming Soon</h2>
                 </div>
@@ -314,7 +321,9 @@ const Portfolio = () => {
                   
                   {item.label === 'About Me' && <AboutMe key={activePage === 'About Me' ? 'active' : 'inactive'} />}
                   
-                  {item.label !== 'Home' && item.label !== 'About Me' && (
+                  {item.label === 'Skills' && <Skills key={activePage === 'Skills' ? 'active' : 'inactive'} />}
+                  
+                  {item.label !== 'Home' && item.label !== 'About Me' && item.label !== 'Skills' && (
                      <div className="coming-soon-card mobile-transparent-card">
                        <h2 className="coming-soon-text">{item.label} Coming Soon</h2>
                      </div>
