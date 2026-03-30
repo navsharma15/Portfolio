@@ -70,7 +70,7 @@ Thank you.`;
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <div className="aboutme-glass-pointer" />
+        {/* Pointer removed for symmetry */}
 
         {/* ── Title — Now Inside ── */}
         <div className="aboutme-title-wrap">

@@ -6,7 +6,7 @@
 .aboutme-page {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%; /* Changed from 100vh to 100% to fit within portfolio-bg padding */
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -21,8 +21,8 @@
    ============================================= */
 .aboutme-title-wrap {
   position: absolute;
-  top: 24px;
-  left: 30px;
+  top: 20px; /* Lifted up further */
+  left: 40px;
   z-index: 20;
   display: flex;
   align-items: center;
@@ -73,38 +73,26 @@
 .aboutme-glass {
   position: relative;
   z-index: 5;
-  width: 85%;
-  height: 85vh; /* Standard desktop card height */
-  background: linear-gradient(180deg, rgba(0, 255, 170, 0.08), rgba(0, 180, 120, 0.02));
-  border: 1px solid rgba(0, 255, 170, 0.25);
-  border-radius: 28px;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  width: 90%; /* Increased width for more impact */
+  max-width: 1200px; /* Cap width for very large screens */
+  height: 90%; /* Height relative to container now that container is 100% */
+  background: linear-gradient(135deg, rgba(0, 255, 170, 0.12), rgba(0, 50, 40, 0.05));
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  border-radius: 32px;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   box-shadow: 
-    0 18px 50px rgba(0, 0, 0, 0.6), 
-    inset 0 1px 0 rgba(0, 255, 170, 0.15);
+    0 25px 60px rgba(0, 0, 0, 0.65), 
+    inset 0 1px 0 rgba(0, 255, 170, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 85px 60px 40px; /* Top padding clears the absolute title */
+  padding: 60px; /* Unified padding for perfect centering of content area */
   transform-style: preserve-3d;
   overflow: hidden;
 }
 
-/* ── Chat-Bubble Pointer ── */
-.aboutme-glass-pointer {
-  position: absolute;
-  top: -11px;
-  left: 100px;
-  width: 22px;
-  height: 22px;
-  background: rgba(0, 255, 170, 0.1);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(0, 255, 170, 0.25);
-  border-left: 1px solid rgba(0, 255, 170, 0.25);
-  transform: rotate(45deg);
-  z-index: 4;
-}
+/* Pointer removed for symmetrical centering */
 
 /* ── Ticker Container ── */
 .aboutme-ticker-container {
@@ -134,9 +122,10 @@
 
 .aboutme-ticker-text::first-line {
   color: #00ffaa;
-  font-weight: 700;
+  font-weight: 800; /* Heavier weighting */
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 15px rgba(0, 255, 170, 0.4);
 }
 
 /* ── Home Page Style Fading Masks ── */
@@ -150,15 +139,15 @@
   pointer-events: none;
 }
 
-/* Dark masks for blendingtext inside the card */
+/* Darker masks for better blending at edges */
 .aboutme-glass-mask-top {
   top: 0;
-  background: linear-gradient(to bottom, #071018 40%, transparent);
+  background: linear-gradient(to bottom, #071018 20%, transparent);
 }
 
 .aboutme-glass-mask-bottom {
   bottom: 0;
-  background: linear-gradient(to top, #001319 40%, transparent);
+  background: linear-gradient(to top, #001319 20%, transparent);
 }
 
 /* ── Ticker Animation — Starts fast, slows down for reading, resets ── */

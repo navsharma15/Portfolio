@@ -1,6 +1,6 @@
 .skills-main-wrapper {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@
   backdrop-filter: blur(15px); /* Blurs DNA background */
   -webkit-backdrop-filter: blur(15px);
   border-radius: 45px;
-  border: 1px solid rgba(136, 242, 182, 0.15);
+  border: 1px solid rgba(0, 255, 170, 0.2);
   box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   z-index: 5;
   display: flex;
@@ -48,13 +48,13 @@
 
 .tech-arrow-snake {
   fill: none;
-  stroke: #2ecc71;
+  stroke: #00ffaa;
   stroke-width: 5;
   stroke-linecap: round;
   /* HUGE snake, sweeps across gracefully */
   stroke-dasharray: 250 1500;
   animation: snakeAttack 4s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite; /* Smoother curve */
-  filter: drop-shadow(0 0 12px #2ecc71) drop-shadow(0 0 30px rgba(46, 204, 113, 0.8));
+  filter: drop-shadow(0 0 12px #00ffaa) drop-shadow(0 0 30px rgba(0, 255, 170, 0.8));
 }
 
 @keyframes snakeAttack {
@@ -97,9 +97,9 @@
   font-size: 1.15rem; /* Increased font size */
   font-weight: 700;
   letter-spacing: 1px;
-  background: rgba(16, 185, 129, 0.15); /* Transparent green glassy */
-  border: 1px solid rgba(136, 242, 182, 0.3);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(136, 242, 182, 0.15);
+  background: rgba(0, 255, 170, 0.1); /* Neon green glassy */
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(0, 255, 170, 0.15);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 12px 22px;
@@ -113,7 +113,7 @@
 
 .diagram-label-card:hover {
   transform: scale(1.1) translateY(-5px);
-  background: rgba(46, 204, 113, 0.25);
+  background: rgba(0, 255, 170, 0.25);
 }
 
 @keyframes floatLabel {
@@ -127,12 +127,12 @@
   left: 10%;
   width: 80%; /* Massive inner grid space */
   height: 80%; /* Fills the card without overflowing */
-  background: rgba(16, 185, 129, 0.08); /* Green tint */
-  border: 1px solid rgba(136, 242, 182, 0.25);
+  background: rgba(0, 255, 170, 0.08); /* Neon green tint */
+  border: 1px solid rgba(0, 255, 170, 0.25);
   border-radius: 40px;
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(136, 242, 182, 0.2);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(0, 255, 170, 0.2);
   padding: 4%;
   display: flex;
   justify-content: center;
@@ -142,8 +142,8 @@
 }
 
 @keyframes floatBoard {
-  0% { transform: translateY(0px) rotateX(0deg); box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(136, 242, 182, 0.1); }
-  100% { transform: translateY(-10px) rotateX(2deg); box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 0 70px rgba(136, 242, 182, 0.3); }
+  0% { transform: translateY(0px) rotateX(0deg); box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(0, 255, 170, 0.1); }
+  100% { transform: translateY(-10px) rotateX(2deg); box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 0 70px rgba(0, 255, 170, 0.3); }
 }
 
 .glass-grid-inner {
@@ -177,7 +177,7 @@
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: rgba(46, 204, 113, 0.5);
+  background: rgba(0, 255, 170, 0.4);
   z-index: -1;
   opacity: 0;
   pointer-events: none;
@@ -211,7 +211,7 @@
 }
 
 .tool-app-card:hover .tool-app-icon {
-  box-shadow: 0 20px 40px rgba(136, 242, 182, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 255, 170, 0.4);
 }
 
 .tool-app-icon::after {
@@ -275,8 +275,8 @@
 
 .mobile-tool-card {
   width: 100%;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(136, 242, 182, 0.3);
+  background: rgba(0, 255, 170, 0.08);
+  border: 1px solid rgba(0, 255, 170, 0.3);
   border-radius: 20px;
   padding: 14px 20px;
   display: flex;
@@ -291,8 +291,8 @@
 }
 
 @keyframes borderPulse {
-  0% { box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 5px rgba(136, 242, 182, 0.0); }
-  100% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(136, 242, 182, 0.3); }
+  0% { box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 5px rgba(0, 255, 170, 0.0); }
+  100% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 255, 170, 0.3); }
 }
 
 .mobile-tool-icon {
