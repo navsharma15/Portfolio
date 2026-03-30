@@ -2,20 +2,20 @@ import React from 'react';
 import '../styles/skills.css';
 
 const toolkitData = [
-  { id: 1, name: "SQL", icon: <DatabaseIcon />, bgColor: "linear-gradient(135deg, #0f2027, #2c5364)" },
-  { id: 2, name: "Excel", icon: <ExcelIcon />, bgColor: "linear-gradient(135deg, #11998e, #38ef7d)" },
-  { id: 3, name: "Power BI", icon: <PowerBIIcon />, bgColor: "linear-gradient(135deg, #f2c94c, #f2994a)" },
-  { id: 4, name: "Tableau", icon: <TableauIcon />, bgColor: "linear-gradient(135deg, #8E2DE2, #4A00E0)" },
-  { id: 5, name: "Python", icon: <PythonIcon />, bgColor: "linear-gradient(135deg, #000428, #004e92)" },
-  { id: 6, name: "Pandas", icon: <PandasIcon />, bgColor: "linear-gradient(135deg, #c31432, #240b36)" },
-  { id: 7, name: "Jupyter", icon: <JupyterIcon />, bgColor: "linear-gradient(135deg, #fdc830, #f37335)" },
-  { id: 8, name: "Statistics", icon: <StatsIcon />, bgColor: "linear-gradient(135deg, #1CB5E0, #000046)" },
-  { id: 9, name: "GitHub", icon: <GithubIcon />, bgColor: "linear-gradient(135deg, #141E30, #243B55)" },
+  { id: 1, name: "SQL", icon: <DatabaseIcon color="#8ef0d0" />, bgColor: "linear-gradient(135deg, #0f2027, #2c5364)" },
+  { id: 2, name: "Excel", icon: <ExcelIcon color="#2ecc71" />, bgColor: "linear-gradient(135deg, #11998e, #38ef7d)" },
+  { id: 3, name: "Power BI", icon: <PowerBIIcon color="#f2c94c" />, bgColor: "linear-gradient(135deg, #f2c94c, #f2994a)" },
+  { id: 4, name: "Tableau", icon: <TableauIcon color="#4A00E0" />, bgColor: "linear-gradient(135deg, #8E2DE2, #4A00E0)" },
+  { id: 5, name: "Python", icon: <PythonIcon color="#4285f4" />, bgColor: "linear-gradient(135deg, #000428, #004e92)" },
+  { id: 6, name: "Pandas", icon: <PandasIcon color="#150458" />, bgColor: "linear-gradient(135deg, #c31432, #240b36)" },
+  { id: 7, name: "Jupyter", icon: <JupyterIcon color="#f37335" />, bgColor: "linear-gradient(135deg, #fdc830, #f37335)" },
+  { id: 8, name: "Statistics", icon: <StatsIcon color="#1CB5E0" />, bgColor: "linear-gradient(135deg, #1CB5E0, #000046)" },
+  { id: 9, name: "GitHub", icon: <GithubIcon color="#ffffff" />, bgColor: "linear-gradient(135deg, #141E30, #243B55)" },
 ];
 
-function DatabaseIcon() {
+function DatabaseIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
       <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
       <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
@@ -23,9 +23,9 @@ function DatabaseIcon() {
   );
 }
 
-function ExcelIcon() {
+function ExcelIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
       <polyline points="14 2 14 8 20 8"></polyline>
       <path d="M9 12l6 6"></path>
@@ -34,9 +34,9 @@ function ExcelIcon() {
   );
 }
 
-function PowerBIIcon() {
+function PowerBIIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <rect x="15" y="4" width="4" height="16" rx="1"></rect>
       <rect x="9" y="8" width="4" height="12" rx="1"></rect>
       <rect x="3" y="14" width="4" height="6" rx="1"></rect>
@@ -44,10 +44,10 @@ function PowerBIIcon() {
   );
 }
 
-function TableauIcon() {
+function TableauIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <circle cx="12" cy="12" r="3" fill="white"></circle>
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+      <circle cx="12" cy="12" r="3" fill={color}></circle>
       <circle cx="6" cy="12" r="1.5"></circle>
       <circle cx="18" cy="12" r="1.5"></circle>
       <circle cx="12" cy="6" r="1.5"></circle>
@@ -60,22 +60,22 @@ function TableauIcon() {
   );
 }
 
-function PythonIcon() {
+function PythonIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <path d="M12 2c-4 0-4 2-4 2v3h8s0-2-4-2z"></path>
       <path d="M8 7v4s0 2 -2 2H4s-2 0 -2 -4 2 -4 2 -4"></path>
       <path d="M12 22c4 0 4-2 4-2v-3H8s0 2 4 2z"></path>
       <path d="M16 17v-4s0-2 2-2h2s2 0 2 4-2 4-2 4"></path>
-      <circle cx="10" cy="4" r="0.5" fill="white"></circle>
-      <circle cx="14" cy="20" r="0.5" fill="white"></circle>
+      <circle cx="10" cy="4" r="0.5" fill={color}></circle>
+      <circle cx="14" cy="20" r="0.5" fill={color}></circle>
     </svg>
   );
 }
 
-function PandasIcon() {
+function PandasIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
       <line x1="3" y1="9" x2="21" y2="9"></line>
       <line x1="3" y1="15" x2="21" y2="15"></line>
@@ -85,19 +85,19 @@ function PandasIcon() {
   );
 }
 
-function JupyterIcon() {
+function JupyterIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <circle cx="12" cy="12" r="3" fill="white"></circle>
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+      <circle cx="12" cy="12" r="3" fill={color}></circle>
       <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"></ellipse>
       <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"></ellipse>
     </svg>
   );
 }
 
-function StatsIcon() {
+function StatsIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <path d="M2 20h20"></path>
       <path d="M4 16c3-1 4-8 8-8s5 7 8 8" strokeWidth="2" strokeLinejoin="round"></path>
       <line x1="12" y1="20" x2="12" y2="8" strokeDasharray="2 2"></line>
@@ -105,9 +105,9 @@ function StatsIcon() {
   );
 }
 
-function GithubIcon() {
+function GithubIcon({ color = "white" }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
+    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
       <line x1="6" y1="3" x2="6" y2="15"></line>
       <circle cx="18" cy="6" r="3"></circle>
       <circle cx="6" cy="18" r="3"></circle>
@@ -208,8 +208,12 @@ const Skills = () => {
           <div className="glass-grid-box">
             <div className="glass-grid-inner">
               {toolkitData.map((tool) => (
-                <div key={tool.id} className="tool-app-card">
-                  <div className="tool-app-icon" style={{ background: tool.bgColor }}>
+                <div 
+                  key={tool.id} 
+                  className="tool-app-card" 
+                  style={{ "--tool-color": tool.bgColor }}
+                >
+                  <div className="tool-app-icon">
                     {tool.icon}
                   </div>
                   <span className="tool-app-name">{tool.name}</span>
