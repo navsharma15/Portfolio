@@ -1,244 +1,190 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/skills.css';
 
-const toolkitData = [
-  { id: 1, name: "SQL", icon: <DatabaseIcon color="#8ef0d0" />, bgColor: "linear-gradient(135deg, #0f2027, #2c5364)" },
-  { id: 2, name: "Excel", icon: <ExcelIcon color="#2ecc71" />, bgColor: "linear-gradient(135deg, #11998e, #38ef7d)" },
-  { id: 3, name: "Power BI", icon: <PowerBIIcon color="#f2c94c" />, bgColor: "linear-gradient(135deg, #f2c94c, #f2994a)" },
-  { id: 4, name: "Tableau", icon: <TableauIcon color="#4A00E0" />, bgColor: "linear-gradient(135deg, #8E2DE2, #4A00E0)" },
-  { id: 5, name: "Python", icon: <PythonIcon color="#4285f4" />, bgColor: "linear-gradient(135deg, #000428, #004e92)" },
-  { id: 6, name: "Pandas", icon: <PandasIcon color="#150458" />, bgColor: "linear-gradient(135deg, #c31432, #240b36)" },
-  { id: 7, name: "Jupyter", icon: <JupyterIcon color="#f37335" />, bgColor: "linear-gradient(135deg, #fdc830, #f37335)" },
-  { id: 8, name: "Statistics", icon: <StatsIcon color="#1CB5E0" />, bgColor: "linear-gradient(135deg, #1CB5E0, #000046)" },
-  { id: 9, name: "GitHub", icon: <GithubIcon color="#ffffff" />, bgColor: "linear-gradient(135deg, #141E30, #243B55)" },
-];
-
-function DatabaseIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-    </svg>
-  );
-}
-
-function ExcelIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-      <polyline points="14 2 14 8 20 8"></polyline>
-      <path d="M9 12l6 6"></path>
-      <path d="M15 12l-6 6"></path>
-    </svg>
-  );
-}
-
-function PowerBIIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <rect x="15" y="4" width="4" height="16" rx="1"></rect>
-      <rect x="9" y="8" width="4" height="12" rx="1"></rect>
-      <rect x="3" y="14" width="4" height="6" rx="1"></rect>
-    </svg>
-  );
-}
-
-function TableauIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <circle cx="12" cy="12" r="3" fill={color}></circle>
-      <circle cx="6" cy="12" r="1.5"></circle>
-      <circle cx="18" cy="12" r="1.5"></circle>
-      <circle cx="12" cy="6" r="1.5"></circle>
-      <circle cx="12" cy="18" r="1.5"></circle>
-      <circle cx="8" cy="8" r="1"></circle>
-      <circle cx="16" cy="16" r="1"></circle>
-      <circle cx="8" cy="16" r="1"></circle>
-      <circle cx="16" cy="8" r="1"></circle>
-    </svg>
-  );
-}
-
-function PythonIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <path d="M12 2c-4 0-4 2-4 2v3h8s0-2-4-2z"></path>
-      <path d="M8 7v4s0 2 -2 2H4s-2 0 -2 -4 2 -4 2 -4"></path>
-      <path d="M12 22c4 0 4-2 4-2v-3H8s0 2 4 2z"></path>
-      <path d="M16 17v-4s0-2 2-2h2s2 0 2 4-2 4-2 4"></path>
-      <circle cx="10" cy="4" r="0.5" fill={color}></circle>
-      <circle cx="14" cy="20" r="0.5" fill={color}></circle>
-    </svg>
-  );
-}
-
-function PandasIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-      <line x1="3" y1="9" x2="21" y2="9"></line>
-      <line x1="3" y1="15" x2="21" y2="15"></line>
-      <line x1="9" y1="3" x2="9" y2="21"></line>
-      <line x1="15" y1="3" x2="15" y2="21"></line>
-    </svg>
-  );
-}
-
-function JupyterIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <circle cx="12" cy="12" r="3" fill={color}></circle>
-      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"></ellipse>
-      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"></ellipse>
-    </svg>
-  );
-}
-
-function StatsIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <path d="M2 20h20"></path>
-      <path d="M4 16c3-1 4-8 8-8s5 7 8 8" strokeWidth="2" strokeLinejoin="round"></path>
-      <line x1="12" y1="20" x2="12" y2="8" strokeDasharray="2 2"></line>
-    </svg>
-  );
-}
-
-function GithubIcon({ color = "white" }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="app-icon-svg">
-      <line x1="6" y1="3" x2="6" y2="15"></line>
-      <circle cx="18" cy="6" r="3"></circle>
-      <circle cx="6" cy="18" r="3"></circle>
-      <path d="M18 9a9 9 0 0 1-9 9"></path>
-    </svg>
-  );
-}
-
-const labelsData = [
-  { id: "lbl1", text: "Data Querying", pos: { left: "1%", top: "5%" } },
-  { id: "lbl2", text: "Data Cleaning", pos: { left: "50%", top: "1%" }, transform: "translateX(-50%)" },
-  { id: "lbl3", text: "Dashboards", pos: { right: "1%", top: "5%" } },
-  { id: "lbl4", text: "Visualization", pos: { left: "0.5%", top: "35%" } },
-  { id: "lbl5", text: "Scripting & ML", pos: { left: "14%", top: "89%" } },
-  { id: "lbl6", text: "Manipulation", pos: { right: "0.5%", top: "35%" } },
-  { id: "lbl7", text: "Exploration", pos: { left: "1%", top: "76%" } },
-  { id: "lbl8", text: "Modeling", pos: { left: "50%", top: "92%" }, transform: "translateX(-50%)" },
-  { id: "lbl9", text: "Version Control", pos: { right: "1%", top: "76%" } },
-];
-
-const pathsData = [
-  "M 140 90 C 200 90, 200 186, 233 186",  /* 1: SQL center */
-  "M 500 55 C 500 110, 500 150, 500 186", /* 2: Excel center */
-  "M 860 90 C 800 90, 800 186, 766 186",  /* 3: Power BI center */
-  "M 110 320 C 200 320, 200 400, 233 400", /* 4: Tableau center */
-  "M 215 735 C 380 735, 500 580, 500 400", /* 5: Python center */
-  "M 890 320 C 800 320, 800 400, 766 400", /* 6: Pandas center */
-  "M 140 680 C 200 680, 200 613, 233 613", /* 7: Jupyter center */
-  "M 500 765 C 380 740, 620 700, 500 613", /* 8: Stats center */
-  "M 860 680 C 800 680, 800 613, 766 613"  /* 9: Github center */
+/**
+ * Cyber-Diagnostic Skills Dashboard
+ * A game-style interactive hub for showcasing technical proficiencies.
+ */
+const skillCategories = [
+  {
+    id: "query",
+    title: "DATA QUERYING",
+    level: 95,
+    tagline: "Structured logic & retrieval",
+    skills: ["SQL", "PostgreSQL", "Database Ops", "Schema Design"],
+    icon: "🗄️",
+    color: "#00ffaa"
+  },
+  {
+    id: "viz",
+    title: "VISUALIZATION",
+    level: 90,
+    tagline: "Visual storytelling & insights",
+    skills: ["Power BI", "Tableau", "Excel", "Dashboarding"],
+    icon: "📊",
+    color: "#00ccff"
+  },
+  {
+    id: "script",
+    title: "SCRIPTING",
+    level: 85,
+    tagline: "Automation & manipulation",
+    skills: ["Python", "Pandas", "NumPy", "Jupyter"],
+    icon: "🐍",
+    color: "#cc00ff"
+  },
+  {
+    id: "stat",
+    title: "STATISTICS",
+    level: 80,
+    tagline: "Mathematical foundation",
+    skills: ["Probabilities", "Hypothesis Testing", "Regression", "R"],
+    icon: "📈",
+    color: "#ffcc00"
+  }
 ];
 
 const Skills = () => {
+  const [activeTab, setActiveTab] = useState(skillCategories[0]);
+  const [isCorescanning, setIsCoreScanning] = useState(false);
+
+  const handleTabClick = (cat) => {
+    setIsCoreScanning(true);
+    setActiveTab(cat);
+    setTimeout(() => setIsCoreScanning(false), 600);
+  };
+
   return (
-    <div className="skills-main-wrapper">
-      {/* --- DESKTOP VIEW --- */}
-      <div className="skills-desktop-view">
-        <svg viewBox="0 0 1000 800" className="skills-svg-layer" preserveAspectRatio="none">
-          <defs>
-            {/* Neon Glow Filter */}
-            <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-              <feComposite in="blur" in2="SourceGraphic" operator="over" />
-            </filter>
-            
-            {/* Electric Spark Filter */}
-            <filter id="electric-spark">
-              <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="3" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
-            </filter>
-          </defs>
+    <div className="skills-cyber-container">
+      <div className="cyber-header">
+        <motion.div 
+          className="system-tag"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          [SYSTEM DIAGNOSTICS] v2.0
+        </motion.div>
+        <h2 className="cyber-title">TECHNICAL <span className="neon">CAPABILITIES</span></h2>
+      </div>
 
-          {/* Synchronized Data Flow Snakes */}
-          {pathsData.map((d, idx) => (
-            <React.Fragment key={idx}>
-              {/* Subtle Track */}
-              <path d={d} className="tech-track" />
-              
-              {/* Aura (Glow) */}
-              <path d={d} className="tech-aura" filter="url(#neon-glow)" />
-              
-              {/* Core (Bright Pulse) */}
-              <path d={d} className="tech-core" />
-              
-              {/* Electric Pulse Head */}
-              <circle r="4" className="tech-pulse-head" filter="url(#electric-spark)">
-                <animateMotion 
-                  path={d} 
-                  dur="4s" 
-                  repeatCount="indefinite" 
-                  begin="0s"
-                />
-              </circle>
-            </React.Fragment>
-          ))}
-        </svg>
-
-        <div className="skills-diagram-content container-3d">
-          {/* External Labels with Bigger Glassy Cards */}
-          {labelsData.map((lbl, i) => (
-            <div 
-              key={lbl.id} 
-              className="diagram-label-wrapper"
-              style={{ 
-                left: lbl.pos.left, 
-                right: lbl.pos.right, 
-                top: lbl.pos.top, 
-                transform: lbl.transform, 
-              }}
+      <div className="cyber-dashboard-grid">
+        {/* --- LEFT NAVIGATION (LEVEL SELECTOR) --- */}
+        <div className="cyber-selector-area">
+          {skillCategories.map((cat, idx) => (
+            <motion.button
+              key={cat.id}
+              className={`cyber-tab-btn ${activeTab.id === cat.id ? 'active' : ''}`}
+              onClick={() => handleTabClick(cat)}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              whileHover={{ scale: 1.05, x: 10 }}
+              style={{ "--accent": cat.color }}
             >
-              <div className="diagram-label-card">
-                {lbl.text}
-              </div>
-            </div>
-          ))}
-
-          {/* Central Glass Box */}
-          <div className="glass-grid-box">
-            <div className="glass-grid-inner">
-              {toolkitData.map((tool) => (
-                <div 
-                  key={tool.id} 
-                  className="tool-app-card" 
-                  style={{ "--tool-color": tool.bgColor }}
-                >
-                  <div className="tool-app-icon">
-                    {tool.icon}
-                  </div>
-                  <span className="tool-app-name">{tool.name}</span>
+              <div className="tab-icon">{cat.icon}</div>
+              <div className="tab-info">
+                <span className="tab-label">{cat.title}</span>
+                <div className="tab-progress-tiny">
+                  <div className="bar-fill" style={{ width: `${cat.level}%` }} />
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+              <div className="tab-indicator" />
+            </motion.button>
+          ))}
+        </div>
+
+        {/* --- CENTRAL CORE & DIAGNOSTICS --- */}
+        <div className="cyber-main-diagnostic">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeTab.id}
+              className="diagnostic-screen"
+              initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="screen-frame">
+                <div className="scanline" />
+                
+                {/* Header Information */}
+                <div className="diag-header">
+                  <div className="diag-id">CAT_ID: {activeTab.id.toUpperCase()}</div>
+                  <div className="diag-status">STATUS: OPTIMIZED</div>
+                </div>
+
+                <div className="diag-content">
+                  <div className="core-visualization">
+                    <div className={`cyber-circle ${isCorescanning ? 'scanning' : ''}`} style={{ "--accent": activeTab.color }}>
+                      <div className="inner-circle">
+                         <span className="core-icon">{activeTab.icon}</span>
+                      </div>
+                      <svg className="progress-ring" viewBox="0 0 100 100">
+                        <circle 
+                          className="ring-path" 
+                          cx="50" cy="50" r="45" 
+                        />
+                        <motion.circle 
+                          className="ring-fill" 
+                          cx="50" cy="50" r="45"
+                          initial={{ strokeDasharray: "0 283" }}
+                          animate={{ strokeDasharray: `${(activeTab.level / 100) * 283} 283` }}
+                          transition={{ duration: 1.5, ease: "easeOut" }}
+                          style={{ stroke: activeTab.color }}
+                        />
+                      </svg>
+                      <div className="level-text">{activeTab.level}%</div>
+                    </div>
+                  </div>
+
+                  <div className="skills-details">
+                    <h3 className="cat-title" style={{ color: activeTab.color }}>{activeTab.title}</h3>
+                    <p className="cat-tagline">{activeTab.tagline}</p>
+                    
+                    <div className="skill-tags-grid">
+                      {activeTab.skills.map((s, i) => (
+                        <motion.div 
+                          key={s}
+                          className="skill-tag"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.3 + (i * 0.1) }}
+                        >
+                          <span className="tag-dot" style={{ background: activeTab.color }} />
+                          {s}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* System Readout */}
+                <div className="system-readout">
+                   <div className="readout-bar">
+                      <motion.div 
+                        className="readout-fill"
+                        initial={{ width: 0 }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        style={{ background: activeTab.color }}
+                      />
+                   </div>
+                   <div className="readout-text">ANALYZING PROFICIENCY METRICS... SYNC COMPLETE</div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* --- MOBILE VIEW --- */}
-      <div className="skills-mobile-view">
-        <div className="mobile-tools-grid">
-           {toolkitData.map((tool, index) => (
-             <div key={tool.id} className="mobile-tool-card" style={{ animationDelay: `${index * 0.1}s` }}>
-               <div className="mobile-tool-icon" style={{ background: tool.bgColor }}>
-                 {tool.icon}
-               </div>
-               <div className="mobile-tool-info">
-                 <h4 className="mobile-tool-name">{tool.name}</h4>
-                 <p className="mobile-tool-desc">{labelsData[index].text}</p>
-               </div>
-             </div>
-           ))}
-        </div>
+      {/* --- BACKGROUND DECORATION --- */}
+      <div className="cyber-bg-elements">
+        <div className="grid-overlay" />
+        <div className="corner-target top-left" />
+        <div className="corner-target top-right" />
+        <div className="corner-target bottom-left" />
+        <div className="corner-target bottom-right" />
       </div>
     </div>
   );
