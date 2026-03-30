@@ -146,11 +146,41 @@ const Skills = () => {
       {/* --- DESKTOP VIEW --- */}
       <div className="skills-desktop-view">
         <svg viewBox="0 0 1000 800" className="skills-svg-layer" preserveAspectRatio="none">
-          {/* Pure Magical Snakes Without Arrowheads or Tracks */}
+          <defs>
+            {/* Neon Glow Filter */}
+            <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+              <feComposite in="blur" in2="SourceGraphic" operator="over" />
+            </filter>
+            
+            {/* Electric Spark Filter */}
+            <filter id="electric-spark">
+              <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="3" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+            </filter>
+          </defs>
+
+          {/* Synchronized Data Flow Snakes */}
           {pathsData.map((d, idx) => (
             <React.Fragment key={idx}>
-              {/* Bright glowing snake that moves along the exact path */}
-              <path d={d} className="tech-arrow-snake" style={{ animationDelay: `${idx * 0.2}s` }} />
+              {/* Subtle Track */}
+              <path d={d} className="tech-track" />
+              
+              {/* Aura (Glow) */}
+              <path d={d} className="tech-aura" filter="url(#neon-glow)" />
+              
+              {/* Core (Bright Pulse) */}
+              <path d={d} className="tech-core" />
+              
+              {/* Electric Pulse Head */}
+              <circle r="4" className="tech-pulse-head" filter="url(#electric-spark)">
+                <animateMotion 
+                  path={d} 
+                  dur="4s" 
+                  repeatCount="indefinite" 
+                  begin="0s"
+                />
+              </circle>
             </React.Fragment>
           ))}
         </svg>
@@ -166,7 +196,6 @@ const Skills = () => {
                 right: lbl.pos.right, 
                 top: lbl.pos.top, 
                 transform: lbl.transform, 
-                animationDelay: `${i * 0.15}s` 
               }}
             >
               <div className="diagram-label-card">

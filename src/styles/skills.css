@@ -16,12 +16,12 @@
   position: relative;
   width: 90%;
   height: 90%; /* Height increased as requested */
-  background: rgba(10, 25, 40, 0.4); /* Massive transparent dark layer */
-  backdrop-filter: blur(15px); /* Blurs DNA background */
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 45px;
-  border: 1px solid rgba(0, 255, 170, 0.2);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  background: linear-gradient(135deg, rgba(0, 255, 170, 0.12), rgba(0, 50, 40, 0.05));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 32px;
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(0, 255, 170, 0.2);
   z-index: 5;
   display: flex;
   justify-content: center;
@@ -46,24 +46,49 @@
 
 /* Removed track so arrows look like pure floating magical snakes */
 
-.tech-arrow-snake {
+.tech-track {
   fill: none;
-  stroke: #00ffaa;
-  stroke-width: 5;
-  stroke-linecap: round;
-  /* HUGE snake, sweeps across gracefully */
-  stroke-dasharray: 250 1500;
-  animation: snakeAttack 4s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite; /* Smoother curve */
-  filter: drop-shadow(0 0 12px #00ffaa) drop-shadow(0 0 30px rgba(0, 255, 170, 0.8));
+  stroke: rgba(0, 255, 170, 0.04);
+  stroke-width: 2;
 }
 
-@keyframes snakeAttack {
-  0% {
-    stroke-dashoffset: 1600;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
+.tech-aura {
+  fill: none;
+  stroke: #00ffaa;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 100 1500;
+  animation: data-flow 4s linear infinite;
+  opacity: 0.6;
+}
+
+.tech-core {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 40 1560;
+  animation: data-flow 4s linear infinite;
+  z-index: 5;
+}
+
+.tech-pulse-head {
+  fill: #ffffff;
+  box-shadow: 0 0 15px #00ffaa;
+  filter: drop-shadow(0 0 8px #00ffaa);
+  animation: pulse-head-fade 4s linear infinite;
+}
+
+@keyframes pulse-head-fade {
+  0% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes data-flow {
+  0% { stroke-dashoffset: 1600; opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
 }
 
 .container-3d {
