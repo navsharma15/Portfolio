@@ -16,12 +16,14 @@
   position: relative;
   width: 90%;
   height: 90%; /* Height increased as requested */
-  background: linear-gradient(135deg, rgba(0, 255, 170, 0.12), rgba(0, 50, 40, 0.05));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.01), rgba(0, 255, 170, 0.03));
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border-radius: 32px;
-  border: 1px solid rgba(0, 255, 170, 0.3);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(0, 255, 170, 0.2);
+  border: 1px solid rgba(0, 255, 170, 0.15);
+  box-shadow: 
+    0 40px 100px rgba(0, 0, 0, 0.4), 
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
   z-index: 5;
   display: flex;
   justify-content: center;
@@ -122,9 +124,9 @@
   font-size: 1.15rem; /* Increased font size */
   font-weight: 700;
   letter-spacing: 1px;
-  background: rgba(0, 255, 170, 0.1); /* Neon green glassy */
-  border: 1px solid rgba(0, 255, 170, 0.3);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(0, 255, 170, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(0, 255, 170, 0.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 0 10px rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 12px 22px;
@@ -152,12 +154,14 @@
   left: 10%;
   width: 80%; /* Massive inner grid space */
   height: 80%; /* Fills the card without overflowing */
-  background: rgba(0, 255, 170, 0.08); /* Neon green tint */
-  border: 1px solid rgba(0, 255, 170, 0.25);
+  background: linear-gradient(145deg, rgba(0, 255, 170, 0.05), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(0, 255, 170, 0.2);
   border-radius: 40px;
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 50px rgba(0, 255, 170, 0.2);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  box-shadow: 
+    0 15px 45px rgba(0, 0, 0, 0.3), 
+    inset 0 0 40px rgba(255, 255, 255, 0.02);
   padding: 4%;
   display: flex;
   justify-content: center;
@@ -300,15 +304,15 @@
 
 .mobile-tool-card {
   width: 100%;
-  background: rgba(0, 255, 170, 0.08);
-  border: 1px solid rgba(0, 255, 170, 0.3);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(0, 255, 170, 0.2);
   border-radius: 20px;
   padding: 14px 20px;
   display: flex;
   align-items: center;
   gap: 16px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   animation: slideUpFade 0.6s ease forwards, borderPulse 3s infinite alternate;
   opacity: 0;
