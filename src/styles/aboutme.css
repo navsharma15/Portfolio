@@ -196,60 +196,142 @@
   text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
 }
 
-/* ── 3. MOBILE OPTIMIZATIONS (Small cards) ── */
+/* ── 3. MOBILE OPTIMIZATIONS (Centered cards) ── */
 @media (max-width: 900px) {
-  .roadmap-container { padding: 40px 10px 150px; }
+  .aboutme-section {
+    padding-top: 40px;
+    padding-bottom: 100px;
+  }
   
-  /* Stick Roadmap to the Left */
-  .roadmap-path-base { left: 35px; }
-  .roadmap-character { left: -3px; }
+  .roadmap-container { 
+    padding: 20px 15px 120px; 
+  }
+  
+  /* Center Roadmap Path */
+  .roadmap-path-base { 
+    left: 50%; 
+    width: 2px;
+    opacity: 0.6;
+  }
+  .roadmap-character { 
+    left: 50%; 
+    z-index: 60;
+  }
   
   .milestone-item {
-    justify-content: flex-start !important;
-    padding-left: 65px;
-    margin-bottom: 60px; /* Tighter for mobile */
+    justify-content: center !important;
+    padding-left: 0;
+    margin-bottom: 80px;
   }
   
   .milestone-content-wrapper {
-    width: 95%;
-    flex-direction: row !important;
-    gap: 15px;
+    width: 100%;
+    max-width: 450px;
+    flex-direction: column !important;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .milestone-item.left .milestone-content-wrapper,
+  .milestone-item.right .milestone-content-wrapper { 
+    flex-direction: column !important; 
   }
   
   .milestone-card {
-    padding: 18px; /* SMALLER CARDS FOR MOBILE */
-    border-radius: 18px;
+    width: 100%;
+    padding: 22px;
+    border-radius: 20px;
+    text-align: center;
+    background: rgba(3, 10, 15, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
-  .milestone-title { font-size: 1.2rem; }
-  .milestone-year { font-size: 0.75rem; }
-  .milestone-inst { font-size: 1rem; }
-  .milestone-desc { font-size: 0.88rem; margin-bottom: 12px; }
+  .milestone-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .milestone-title { font-size: 1.3rem; margin-top: 5px; }
+  .milestone-year { font-size: 0.8rem; }
+  .milestone-inst { font-size: 1.05rem; }
+  .milestone-desc { font-size: 0.92rem; margin-bottom: 15px; }
+
+  .milestone-points {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .milestone-pt {
+    font-size: 0.8rem;
+    background: rgba(0, 255, 170, 0.05);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 170, 0.1);
+  }
   
   .milestone-icon-box {
-    width: 45px;
-    height: 45px;
-    font-size: 1.4rem;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    font-size: 1.6rem;
+    border-radius: 14px;
+    margin-bottom: -15px; /* Overlap with card */
+    position: relative;
+    z-index: 10;
   }
 
-  .character-emoji { font-size: 2.2rem; }
-  .character-emoji-wrap { width: 45px; height: 45px; }
+  .character-emoji { font-size: 2.5rem; }
+  .character-emoji-wrap { width: 50px; height: 50px; }
+
+  /* Hide connection line on mobile as it looks cluttered with centered layout */
+  .milestone-connection { display: none; }
 }
 
-@media (max-width: 480px) {
-  .milestone-item { padding-left: 55px; }
-  .roadmap-path-base { left: 30px; }
-  .roadmap-character { left: -8px; }
-  
-  .milestone-card {
-    padding: 15px; /* EVEN SMALLER ON TINY SCREENS */
-  }
-  
-  .milestone-title { font-size: 1.1rem; }
-  .milestone-inst { font-size: 0.95rem; }
-  .milestone-desc { font-size: 0.82rem; }
+/* Hologram Effect */
+.hologram-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--neon-green), transparent);
+  opacity: 0.2;
+  z-index: 5;
+  animation: scanline 4s linear infinite;
+  pointer-events: none;
 }
+
+@keyframes scanline {
+  0% { transform: translateY(-10%); }
+  100% { transform: translateY(500%); }
+}
+
+.icon-pulse {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.milestone-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, transparent 40%, rgba(0, 255, 170, 0.03) 50%, transparent 60%);
+  background-size: 200% 200%;
+  animation: shine 6s linear infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@keyframes shine {
+  0% { background-position: 200% 200%; }
+  100% { background-position: -200% -200%; }
+}
+
 
 /* Glow Particle Area */
 .goal-area {

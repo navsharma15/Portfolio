@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import '../styles/aboutme.css';
 
@@ -9,10 +9,31 @@ import '../styles/aboutme.css';
 const AboutMe = () => {
   const containerRef = useRef(null);
   const roadmapRef = useRef(null);
+  const [scrollContainer, setScrollContainer] = useState(null);
+
+  useEffect(() => {
+    // Dynamically find the scrollable parent container for accurate scroll tracking
+    const findScrollParent = (el) => {
+      if (!el) return null;
+      if (el.scrollHeight > el.clientHeight && 
+          (getComputedStyle(el).overflowY === 'auto' || getComputedStyle(el).overflowY === 'scroll')) {
+        return el;
+      }
+      return findScrollParent(el.parentElement);
+    };
+    
+    // Safety check for ref existence
+    if (containerRef.current) {
+      const parent = findScrollParent(containerRef.current);
+      if (parent) {
+        setScrollContainer(parent);
+      }
+    }
+  }, []);
   
-  // Track scroll progress for the roadmap (including Vision at the end)
+  // Track scroll progress for the roadmap
   const { scrollYProgress: roadmapProgress } = useScroll({
-    container: containerRef,
+    container: scrollContainer ? { current: scrollContainer } : undefined,
     target: roadmapRef,
     offset: ["start center", "end center"]
   });
@@ -91,8 +112,9 @@ const AboutMe = () => {
       <div className="roadmap-title-area">
         <motion.h2 
           className="roadmap-heading"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
           My Academic <span className="highlight">Journey</span>
@@ -101,12 +123,13 @@ const AboutMe = () => {
       </div>
 
       <div className="roadmap-container" ref={roadmapRef}>
+        {/* Animated Glow Path */}
         <div className="roadmap-path-base">
           <motion.div 
             className="roadmap-path-glow"
             style={{ height: characterY }}
           />
-          {[0.2, 0.4, 0.6, 0.8].map((pos, i) => (
+          {[0, 0.2, 0.4, 0.6, 0.8, 1].map((pos, i) => (
             <div key={i} className="path-ping" style={{ top: `${pos * 100}%` }} />
           ))}
         </div>
@@ -165,6 +188,7 @@ const Milestone = ({ data, index, total, progress }) => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
   const onMouseMove = (e) => {
+    if (window.innerWidth <= 1024) return;
     const card = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - card.left;
     const y = e.clientY - card.top;
@@ -179,53 +203,67 @@ const Milestone = ({ data, index, total, progress }) => {
     setRotate({ x: 0, y: 0 });
   };
 
-  // Recalibrated Synchronized Glow 
-  // Shifts target positions earlier to account for the goal area footer
-  const totalSteps = total + 0.5; // Adding buffer for the goal area
-  const targetPos = index / totalSteps;
-  const glowRadius = 0.06; 
+  // Improved target position calculation to center the glow on the emoji presence
+  const targetPos = (index + 0.5) / total;
+  const glowEdge = 0.08; 
+  const plateau = 0.03;
   
-  // High-sensitivity glow for the Vision card
-  let range = [targetPos - glowRadius, targetPos, targetPos + glowRadius];
+  // Create a glow profile with a plateau at the center for "perfect" side-by-side glow
+  let glowRange = [
+    targetPos - glowEdge, 
+    targetPos - plateau, 
+    targetPos + plateau, 
+    targetPos + glowEdge
+  ];
+  let glowOutputs = [0.1, 1, 1, 0.4];
+
+  // Specific handling for the last (VISION) card to stay glowing
   if (index === total - 1) {
-    range = [targetPos - 0.1, targetPos, 1.2]; // Stays glowing as you approach the goal
+    glowRange = [targetPos - glowEdge*1.5, targetPos - plateau, 1, 1.2];
+    glowOutputs = [0.1, 1, 1, 1];
+  }
+  // Handling for the first card to start glowing
+  if (index === 0) {
+    glowRange = [-0.1, 0, plateau, glowEdge];
+    glowOutputs = [1, 1, 1, 0.4];
   }
 
-  const glowIntensity = useTransform(
-    progress,
-    range,
-    [0, 1, 1]
-  );
+  const glowIntensity = useTransform(progress, glowRange, glowOutputs);
 
   const shadowGlow = useTransform(
     glowIntensity,
     [0, 1],
-    ["rgba(0, 255, 170, 0)", "0 0 35px rgba(0, 255, 170, 0.7)"]
+    ["rgba(0, 255, 170, 0)", "0 0 45px rgba(0, 255, 170, 0.7)"]
   );
 
   const borderGlow = useTransform(
     glowIntensity,
     [0, 1],
-    ["rgba(0, 255, 170, 0.15)", "rgba(0, 255, 170, 1)"]
+    ["rgba(0, 255, 170, 0.1)", "rgba(0, 255, 170, 1)"]
   );
 
-  // Card opacity and reveal
   const opacity = useTransform(
     progress,
-    [targetPos - 0.2, targetPos],
-    [0.3, 1]
+    [targetPos - 0.2, targetPos - 0.05],
+    [0.1, 1]
   );
   
   const scale = useTransform(
     progress,
-    [targetPos - 0.1, targetPos],
-    [0.9, 1.02]
+    [targetPos - 0.2, targetPos],
+    [0.85, 1]
+  );
+
+  const y = useTransform(
+    progress,
+    [targetPos - 0.2, targetPos],
+    [50, 0]
   );
 
   return (
     <motion.div 
       className={`milestone-item ${data.align} ${data.isVision ? 'vision-milestone' : ''}`}
-      style={{ opacity, scale }}
+      style={{ opacity, scale, y }}
     >
       <div className="milestone-content-wrapper">
         <motion.div 
@@ -236,6 +274,12 @@ const Milestone = ({ data, index, total, progress }) => {
           }}
         >
           <span className="milestone-icon">{data.icon}</span>
+          <motion.div 
+            className="icon-pulse"
+            animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+            style={{ borderColor: borderGlow }}
+          />
         </motion.div>
         
         <motion.div 
@@ -247,19 +291,21 @@ const Milestone = ({ data, index, total, progress }) => {
             rotateY: rotate.y,
             translateZ: 30
           }}
-          transition={{ type: 'spring', stiffness: 250, damping: 25 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
           style={{ 
             transformStyle: 'preserve-3d',
             borderColor: borderGlow,
             boxShadow: shadowGlow
           }}
         >
-          <div className="milestone-header" style={{ transform: 'translateZ(20px)' }}>
+          <div className="hologram-scanline" />
+          
+          <div className="milestone-header" style={{ transform: 'translateZ(30px)' }}>
             <span className="milestone-year">{data.year}</span>
             <h3 className="milestone-title">{data.title}</h3>
           </div>
           
-          <div className="milestone-body" style={{ transform: 'translateZ(10px)' }}>
+          <div className="milestone-body" style={{ transform: 'translateZ(15px)' }}>
             <h4 className="milestone-inst">{data.institution}</h4>
             <div className="milestone-loc">📍 {data.location}</div>
             <p className="milestone-desc">{data.details}</p>
@@ -271,7 +317,13 @@ const Milestone = ({ data, index, total, progress }) => {
               ))}
             </div>
           </div>
-          <motion.div className="card-glare" style={{ opacity: glowIntensity }} />
+          <motion.div 
+            className="card-glare" 
+            style={{ 
+              opacity: glowIntensity,
+              background: 'radial-gradient(circle at center, rgba(0,255,170,0.2) 0%, transparent 70%)' 
+            }} 
+          />
         </motion.div>
       </div>
       <div className="milestone-connection" />
