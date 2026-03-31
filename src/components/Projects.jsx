@@ -3,37 +3,37 @@ import { motion } from 'framer-motion';
 import '../styles/projects.css';
 
 // Importing images from assets
-import project1 from '../assets/project1.png';
-import project2 from '../assets/project2.png';
-import project3 from '../assets/project3.png';
+import project1 from '../assets/credit_card_project.png';
+import project2 from '../assets/car_sales_project.png';
+import project3 from '../assets/fnp_sales_project.png';
 
 const projectsData = [
   {
     id: 1,
-    title: "EcoTrack Analytics",
+    title: "Credit Card Financial Dashboard",
     category: "Data Visualization",
-    description: "A high-performance real-time carbon footprint monitoring dashboard. Visualizing global sustainability metrics with interactive 3D maps and predictive AI modeling.",
+    description: "Interactive dashboard made using SQL and Power BI to monitor and analyze credit card financial transactions, revenue, and customer demographics.",
     image: project1,
-    tags: ["React", "D3.js", "Python", "TensorFlow"],
-    link: "#"
+    tags: ["SQL", "Power BI"],
+    link: "https://github.com/navsharma15/credit-card-financial-dashboard"
   },
   {
     id: 2,
-    title: "NeuroCore AI",
-    category: "Machine Learning",
-    description: "An advanced neural network visualization tool designed for deep learning researchers. Real-time inference monitoring and dynamic architectural path tracing.",
+    title: "Car Sales Dashboard",
+    category: "Data Analytics",
+    description: "Comprehensive car sales analysis dashboard visualizing key metrics like sales by year, fuel type, branding, and transmission using SQL and Power BI.",
     image: project2,
-    tags: ["Next.js", "Three.js", "PyTorch", "GraphQL"],
+    tags: ["SQL", "Power BI"],
     link: "#"
   },
   {
     id: 3,
-    title: "CyberShield OS",
-    category: "Cyber Security",
-    description: "Military-grade network intrusion detection system with a futuristic HUD interface. Real-time packet analysis and automated threat mitigation protocols.",
+    title: "FNP Sales Dashboard",
+    category: "Business Intelligence",
+    description: "A detailed sales analysis dashboard built with MS Excel and Power Query to track orders, revenue, occasion-based trends, and product performance over time.",
     image: project3,
-    tags: ["Rust", "WebAssembly", "Socket.io", "PostgreSQL"],
-    link: "#"
+    tags: ["MS Excel", "Power Query"],
+    link: "https://github.com/navsharma15/FNP_Sales_Analysis_and_Dashboard"
   }
 ];
 
@@ -85,13 +85,25 @@ const ProjectCard = ({ project, index }) => {
             <img src={project.image} alt={project.title} className="project-image" />
             <div className="project-overlay">
               <div className="project-category">{project.category}</div>
-              <motion.button 
-                className="project-view-btn"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                View Case Study
-              </motion.button>
+              {project.link !== "#" ? (
+                <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  <motion.button 
+                    className="project-view-btn"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    View Project
+                  </motion.button>
+                </a>
+              ) : (
+                <motion.button 
+                  className="project-view-btn"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  View Project
+                </motion.button>
+              )}
             </div>
           </div>
           
