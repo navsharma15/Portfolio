@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import '../styles/skills.css';
 
@@ -13,7 +13,7 @@ const skillCategories = [
     level: 95,
     tagline: "Structured logic & retrieval",
     skills: ["SQL", "PostgreSQL", "Database Ops", "Schema Design"],
-    icon: "🗄️",
+    icon: "🔍",
     color: "#00ffaa"
   },
   {
@@ -35,6 +35,15 @@ const skillCategories = [
     color: "#cc00ff"
   },
   {
+    id: "ml",
+    title: "MACHINE LEARNING",
+    level: 85,
+    tagline: "Predictive modeling & AI",
+    skills: ["Scikit-Learn", "TensorFlow", "NLP", "Neural Nets"],
+    icon: "🧠",
+    color: "#ff3366"
+  },
+  {
     id: "stat",
     title: "STATISTICS",
     level: 80,
@@ -48,8 +57,23 @@ const skillCategories = [
 const Skills = () => {
   const [activeTab, setActiveTab] = useState(skillCategories[0]);
   const [isCorescanning, setIsCoreScanning] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-rotation logic for the dashboard
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      const currentIndex = skillCategories.findIndex(cat => cat.id === activeTab.id);
+      const nextIndex = (currentIndex + 1) % skillCategories.length;
+      setActiveTab(skillCategories[nextIndex]);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [activeTab, isAutoPlaying]);
 
   const handleTabClick = (cat) => {
+    setIsAutoPlaying(false); // Pause auto-rotation on user click
     setIsCoreScanning(true);
     setActiveTab(cat);
     setTimeout(() => setIsCoreScanning(false), 600);
@@ -61,33 +85,33 @@ const Skills = () => {
         <motion.div 
           className="system-tag"
           initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
         >
-          [SYSTEM DIAGNOSTICS] v2.0
+          [SYSTEM DIAGNOSTICS] v2.5
         </motion.div>
         <h2 className="cyber-title">TECHNICAL <span className="neon">CAPABILITIES</span></h2>
       </div>
 
       <div className="cyber-dashboard-grid">
-        {/* --- LEFT NAVIGATION (LEVEL SELECTOR) --- */}
+        {/* --- SELECTOR AREA : Grid on Desktop / Mobile --- */}
         <div className="cyber-selector-area">
-          {skillCategories.map((cat, idx) => (
+          {skillCategories
+            .filter(cat => (typeof window !== 'undefined' ? window.innerWidth > 1024 : true) || cat.id !== activeTab.id)
+            .map((cat, idx) => (
             <motion.button
               key={cat.id}
               className={`cyber-tab-btn ${activeTab.id === cat.id ? 'active' : ''}`}
               onClick={() => handleTabClick(cat)}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ scale: 1.05, x: 10 }}
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: idx * 0.05 }}
+              whileHover={{ scale: 1.02 }}
+              layout 
               style={{ "--accent": cat.color }}
             >
               <div className="tab-icon">{cat.icon}</div>
               <div className="tab-info">
                 <span className="tab-label">{cat.title}</span>
-                <div className="tab-progress-tiny">
-                  <div className="bar-fill" style={{ width: `${cat.level}%` }} />
-                </div>
               </div>
               <div className="tab-indicator" />
             </motion.button>
@@ -101,7 +125,7 @@ const Skills = () => {
               key={activeTab.id}
               className="diagnostic-screen"
               initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
               exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
               transition={{ duration: 0.5 }}
             >
@@ -111,7 +135,7 @@ const Skills = () => {
                 {/* Header Information */}
                 <div className="diag-header">
                   <div className="diag-id">CAT_ID: {activeTab.id.toUpperCase()}</div>
-                  <div className="diag-status">STATUS: OPTIMIZED</div>
+                  <div className="diag-status">STATUS: {isAutoPlaying ? 'AUTO-SCAN' : 'READY'}</div>
                 </div>
 
                 <div className="diag-content">
@@ -149,7 +173,7 @@ const Skills = () => {
                           className="skill-tag"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 + (i * 0.1) }}
+                          transition={{ delay: 0.1 + (i * 0.1) }}
                         >
                           <span className="tag-dot" style={{ background: activeTab.color }} />
                           {s}
