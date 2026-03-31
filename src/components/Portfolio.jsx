@@ -5,6 +5,8 @@ import ProfileCard from './ProfileCard';
 import AboutMe from './AboutMe';
 import Skills from './Skills';
 import Projects from './Projects';
+import Dashboard from './Dashboard';
+import Contact from './Contact';
 import Wave from './Wave';
 import '../styles/portfolio.css';
 
@@ -132,7 +134,9 @@ const Portfolio = () => {
               {activePage === 'About Me' && <div className="page-full-width"><AboutMe key={activePage} /></div>}
               {activePage === 'Skills' && <div className="page-full-width"><Skills key={activePage} /></div>}
               {activePage === 'Projects' && <div className="page-full-width"><Projects key={activePage} /></div>}
-              {activePage !== 'Home' && activePage !== 'About Me' && activePage !== 'Skills' && activePage !== 'Projects' && (
+              {activePage === 'Dashboard' && <div className="page-full-width"><Dashboard key={activePage} /></div>}
+              {activePage === 'Contact' && <div className="page-full-width"><Contact key={activePage} /></div>}
+              {activePage !== 'Home' && activePage !== 'About Me' && activePage !== 'Skills' && activePage !== 'Projects' && activePage !== 'Dashboard' && activePage !== 'Contact' && (
                 <div className="coming-soon-card"><h2 className="coming-soon-text">{activePage} Coming Soon</h2></div>
               )}
             </motion.div>
@@ -146,6 +150,8 @@ const Portfolio = () => {
                   {item.label === 'About Me' && <AboutMe key={item.label} />}
                   {item.label === 'Skills' && <Skills key={item.label} />}
                   {item.label === 'Projects' && <Projects key={item.label} />}
+                  {item.label === 'Dashboard' && <Dashboard key={item.label} />}
+                  {item.label === 'Contact' && <Contact key={item.label} />}
                   {item.label !== 'Contact' && <div className="mobile-section-separator" />}
                 </section>
               ))}
