@@ -130,24 +130,16 @@ const ProjectCard = ({ project, index }) => {
 const Projects = () => {
   return (
     <div className="projects-container">
-      <div className="projects-header">
-        <motion.span 
-          className="section-tag"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Selected Works
-        </motion.span>
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Impactful <span className="highlight">Solutions</span>
-        </motion.h2>
-      </div>
+      <motion.div
+        className="section-header-unique"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="header-system-tag">// SELECTED WORKS</div>
+        <h2 className="header-main-title">Impactful <span>Solutions</span></h2>
+        <div className="header-decoration" />
+      </motion.div>
 
       <div className="projects-grid">
         {projectsData.map((project, index) => (

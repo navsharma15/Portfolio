@@ -109,18 +109,16 @@ const AboutMe = () => {
 
   return (
     <div className="aboutme-section" ref={containerRef}>
-      <div className="roadmap-title-area">
-        <motion.h2 
-          className="roadmap-heading"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          My Academic <span className="highlight">Journey</span>
-        </motion.h2>
-        <div className="roadmap-subtitle">Tracing the path to Vision</div>
-      </div>
+      <motion.div
+        className="section-header-unique"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="header-system-tag">// CAREER PATH LOADED</div>
+        <h2 className="header-main-title">My Academic <span>Journey</span></h2>
+        <div className="header-decoration" />
+      </motion.div>
 
       <div className="roadmap-container" ref={roadmapRef}>
         {/* Animated Glow Path */}

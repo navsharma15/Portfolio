@@ -118,24 +118,30 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-wrapper">
-      {/* HEADER & SLICERS */}
-      <div className="dash-header-row">
-        <div className="dash-title-area">
-          <span className="dash-subtitle">DATA ANALYST TELEMETRY</span>
-          <h2 className="dash-main-title">ANALYTICS <span style={{color: '#00ffaa'}}>CORE</span></h2>
-        </div>
-        
-        <div className="dash-slicers">
-          {Object.keys(dashboardData).map(filter => (
-            <button 
-              key={filter} 
-              className={`slicer-btn ${activeFilter === filter ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
+      {/* HEADER */}
+      <motion.div
+        className="section-header-unique"
+        style={{ marginBottom: '20px' }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="header-system-tag">DATA ANALYST TELEMETRY</div>
+        <h2 className="header-main-title">Analytics <span>Core</span></h2>
+        <div className="header-decoration" />
+      </motion.div>
+
+      {/* SLICERS */}
+      <div className="dash-slicers" style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
+        {Object.keys(dashboardData).map(filter => (
+          <button 
+            key={filter} 
+            className={`slicer-btn ${activeFilter === filter ? 'active' : ''}`}
+            onClick={() => setActiveFilter(filter)}
+          >
+            {filter}
+          </button>
+        ))}
       </div>
 
       {/* KPI GRID */}

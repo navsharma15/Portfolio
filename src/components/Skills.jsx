@@ -81,16 +81,16 @@ const Skills = () => {
 
   return (
     <div className="skills-cyber-container">
-      <div className="cyber-header">
-        <motion.div 
-          className="system-tag"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-        >
-          [SYSTEM DIAGNOSTICS] v2.5
-        </motion.div>
-        <h2 className="cyber-title">TECHNICAL <span className="neon">CAPABILITIES</span></h2>
-      </div>
+      <motion.div
+        className="section-header-unique"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="header-system-tag">[SYSTEM DIAGNOSTICS] v2.5</div>
+        <h2 className="header-main-title">Technical <span>Capabilities</span></h2>
+        <div className="header-decoration" />
+      </motion.div>
 
       <div className="cyber-dashboard-grid">
         {/* --- SELECTOR AREA : Grid on Desktop / Mobile --- */}

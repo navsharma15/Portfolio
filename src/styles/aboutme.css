@@ -27,38 +27,6 @@
 .aboutme-section::-webkit-scrollbar { width: 4px; }
 .aboutme-section::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
 
-/* ── 1. HEADER ── */
-.roadmap-title-area {
-  text-align: center;
-  margin: 0 auto 30px;
-  max-width: 600px; /* Reduced width */
-  position: relative;
-  z-index: 10;
-}
-
-.roadmap-heading {
-  font-size: clamp(1.8rem, 4vw, 2.6rem); /* Reduced from 3.2rem */
-  font-weight: 950;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #fff;
-  margin-bottom: 5px;
-  line-height: 1.2;
-}
-
-.roadmap-heading .highlight {
-  color: var(--neon-green);
-  text-shadow: 0 0 20px rgba(0, 255, 170, 0.5);
-}
-
-.roadmap-subtitle {
-  font-size: 0.95rem;
-  color: var(--neon-green);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  opacity: 0.7;
-}
-
 /* ── 2. ROADMAP CONTAINER ── */
 .roadmap-container {
   position: relative;
