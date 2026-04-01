@@ -40,15 +40,7 @@ const ProfileCard = () => {
 
       <div className="profile-divider" />
 
-      {/* Stats row */}
-      <div className="profile-stats">
-        <div className="profile-stat">
-          <div className="profile-stat-num">50+</div>
-          <div className="profile-stat-label">Projects</div>
-        </div>
-      </div>
 
-      <div className="profile-divider" />
 
       {/* Data analyst intro */}
       <p className="profile-intro">

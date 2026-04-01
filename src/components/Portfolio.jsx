@@ -129,7 +129,7 @@ const Portfolio = () => {
                   <div className="center-content">
                     <HeroCard />
                     <div className="bottom-buttons white-cutout">
-                      <button className="cutout-btn contact-btn">Contact us</button>
+                      <button className="cutout-btn contact-btn" onClick={() => handleNavClick('Contact')}>Contact Me</button>
                       <button className="cutout-btn cv-btn" onClick={() => window.open('#')}>Download CV</button>
                     </div>
                   </div>

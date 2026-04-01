@@ -454,13 +454,13 @@
    BOTTOM ACTION BUTTONS
    ============================================= */
 /* =============================================
-   WHITE CUTOUT AT BOTTOM RIGHT
+   DARK CUTOUT AT BOTTOM RIGHT
    ============================================= */
 .white-cutout {
   position: absolute;
   bottom: 0px;
   right: 0px;
-  background: #ffffff;
+  background: #fdf4f6; /* Modern off-white with a slight red/pink tint */
   padding: 24px 30px 24px 30px;
   border-top-left-radius: 40px;
   display: flex;
@@ -477,7 +477,7 @@
   background: transparent;
   pointer-events: none;
   border-bottom-right-radius: 40px;
-  box-shadow: 20px 20px 0 20px #ffffff;
+  box-shadow: 20px 20px 0 20px #fdf4f6;
 }
 
 .white-cutout::before {
@@ -508,10 +508,9 @@
 }
 
 .contact-btn {
-  background: rgba(255, 45, 85, 0.15);
-  color: #ffffff;
-  border: 1px solid rgba(255, 45, 85, 0.4);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 45, 85, 0.1);
+  color: #d11235; /* Darker red so it stands out on the light background */
+  border: 1px solid rgba(255, 45, 85, 0.3);
 }
 
 .cv-btn {

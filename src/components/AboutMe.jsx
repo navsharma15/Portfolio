@@ -323,6 +323,21 @@ const Milestone = ({ data, index, total, progress }) => {
           />
         </motion.div>
       </div>
+
+      {/* NEW ANIMATED WATERMARK TEXT */}
+      <motion.div 
+         className={`milestone-watermark ${data.align === 'left' ? 'right-side' : 'left-side'}`}
+         data-text={data.title}
+         style={{ 
+           opacity: glowIntensity,
+           y: "-50%",
+           x: useTransform(progress, [targetPos - 0.12, targetPos - 0.02], [data.align === 'left' ? -60 : 60, 0]),
+           scale: useTransform(progress, [targetPos - 0.12, targetPos - 0.02], [0.95, 1])
+         }}
+      >
+        {data.title}
+      </motion.div>
+
       <div className="milestone-connection" />
     </motion.div>
   );

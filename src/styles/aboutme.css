@@ -322,3 +322,51 @@
   border-radius: 50%;
   box-shadow: 0 0 15px var(--neon-red);
 }
+
+/* ── WATERMARK TEXT ── */
+.milestone-watermark {
+  position: absolute;
+  top: 50%;
+  font-size: clamp(2.5rem, 4vw, 3.8rem); /* Dynamically shrinks to always perfectly fit */
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(255, 60, 90, 0.35); /* Bright light ruby red core */
+  -webkit-text-stroke: 1.5px rgba(255, 45, 85, 0.8); /* Vibrant neon red outline */
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 0; 
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 25px rgba(255, 45, 85, 0.4); /* Strong light red glow */
+}
+
+.milestone-watermark.right-side {
+  left: 54%;
+}
+
+.milestone-watermark.left-side {
+  right: 54%;
+}
+
+/* Premium gradient filling effect for watermark */
+.milestone-watermark::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  -webkit-text-stroke: 0px;
+  background: linear-gradient(135deg, transparent 35%, rgba(255, 120, 160, 0.95) 50%, transparent 65%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine-watermark 5s linear infinite;
+}
+
+@keyframes shine-watermark {
+  0% { background-position: 200% 200%; }
+  100% { background-position: -200% -200%; }
+}
+
+@media (max-width: 1024px) {
+  .milestone-watermark { display: none; }
+}

@@ -16,11 +16,13 @@ const HeroCard = () => {
 
       {/* Welcome text */}
       <div className="hero-welcome">
-        <p className="hero-welcome-sub">Hello, I'm Nav Sharma</p>
-        <h1 className="hero-welcome-title">Welcome to<br />My Portfolio</h1>
+        <p className="hero-welcome-sub">
+          <span style={{ color: "#ff2d55", fontWeight: "bold" }}>&gt;_ </span> NAV SHARMA // DATA ANALYST
+        </p>
+        <h1 className="hero-welcome-title">Decoding Noise.<br />Driving Decisions.</h1>
         <div className="hero-welcome-line" />
         <p className="hero-welcome-desc">
-          Explore my work, projects, and data-driven insights below.
+          Transforming complex datasets into clear, actionable intelligence. Enter the dashboard to see the data in motion.
         </p>
       </div>
     </motion.div>
