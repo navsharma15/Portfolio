@@ -126,7 +126,6 @@ const Dashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="header-system-tag">DATA ANALYST TELEMETRY</div>
         <h2 className="header-main-title">Analytics <span>Core</span></h2>
         <div className="header-decoration" />
       </motion.div>

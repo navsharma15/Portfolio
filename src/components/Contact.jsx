@@ -123,7 +123,6 @@ const Contact = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="header-system-tag">// SECURE UPLINK ACTIVE</div>
         <h2 className="header-main-title">Join My <span>Adda</span></h2>
         <div className="header-decoration" />
       </motion.div>

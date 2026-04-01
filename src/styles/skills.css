@@ -1,447 +1,323 @@
 /* =============================================
-   SKILLS — CYBER DIAGNOSTIC DASHBOARD
-   Game-style interactive technical proficiency hub
+   SKILLS — DUAL LAYOUT: Desktop Cinematic / Mobile Stack
    ============================================= */
 
-.skills-cyber-container {
-  position: relative;
+.skills-pro-container {
   width: 100%;
   height: 100%;
+  padding: 40px 60px;
+  color: #fff;
+  font-family: 'Inter', monospace;
+  overflow-y: hidden; /* Desktop shouldn't scroll */
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 40px 50px;
-  font-family: 'Inter', monospace;
-  color: #fff;
-  overflow: hidden;
 }
 
-/* ── BACKGROUND ── */
-.cyber-bg-elements {
+/* ── HEADER ── */
+.skills-pro-container .section-header-unique {
+  margin-bottom: 30px;
+  flex-shrink: 0;
+}
+
+/* ── DESKTOP VIEW ── */
+.skills-desktop-view {
+  display: flex;
+  gap: 30px;
+  flex: 1;
+  min-height: 0; /* Ensures flex kids can be contained */
+  padding-bottom: 20px;
+}
+
+/* Left Big Card */
+.skills-desktop-left {
+  flex: 1;
+  position: relative;
+  border-radius: 30px;
+  overflow: hiddne;
+  height: 100%;
+}
+
+.desktop-big-card {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.6));
+  border: 1px solid rgba(255, 45, 85, 0.2);
+  border-radius: 30px;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.big-card-glow {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
 }
 
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 45, 85, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 45, 85, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-
-.corner-target {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-color: rgba(255, 45, 85, 0.4);
-  border-style: solid;
-}
-.corner-target.top-left    { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
-.corner-target.top-right   { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
-.corner-target.bottom-left { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
-.corner-target.bottom-right { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
-
-/* ── HEADER ── */
-.cyber-header {
-  text-align: center;
-  margin-bottom: 40px;
-  position: relative;
+.big-central-icon {
+  font-size: 8rem;
   z-index: 10;
+  margin-bottom: 20px;
 }
 
-.system-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  color: #ff2d55;
-  margin-bottom: 10px;
-  opacity: 0.8;
-  font-family: monospace;
-}
-
-.cyber-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 950;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #fff;
-  margin: 0;
-}
-
-.cyber-title .neon {
-  color: #ff2d55;
-  text-shadow: 0 0 20px rgba(255, 45, 85, 0.5);
-}
-
-/* ── MAIN GRID ── */
-.cyber-dashboard-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  flex: 1;
-  position: relative;
-  z-index: 10;
-  width: 100%;
-}
-
-/* ── TOP: CATEGORY SELECTOR TABS (Desktop Row) ── */
-.cyber-selector-area {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  width: 100%;
-}
-
-.cyber-tab-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 18px 10px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 45, 85, 0.03));
-  border: 1px solid rgba(255, 45, 85, 0.15);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.cyber-tab-btn::before {
-  content: '';
+.big-card-title-area-top-left {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent, var(--accent, #ff2d55) 250%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.cyber-tab-btn:hover::before,
-.cyber-tab-btn.active::before {
-  opacity: 0.15;
-}
-
-.cyber-tab-btn:hover {
-  border-color: rgba(255, 45, 85, 0.35);
-  transform: translateY(-2px);
-}
-
-.cyber-tab-btn.active {
-  border-color: var(--accent, #ff2d55);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 45, 85, 0.06));
-  box-shadow: 0 0 25px rgba(255, 45, 85, 0.2);
-}
-
-.tab-icon {
-  font-size: 1.8rem;
-  margin-bottom: 5px;
-}
-
-.tab-label {
-  font-size: 0.75rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.7);
-  text-transform: uppercase;
-}
-
-.cyber-tab-btn.active .tab-label {
-  color: var(--accent, #ff2d55);
-}
-
-.tab-indicator {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--accent, #ff2d55);
-  opacity: 0;
-  box-shadow: 0 -2px 10px var(--accent, #ff2d55);
-  transition: all 0.3s ease;
-}
-
-.cyber-tab-btn.active .tab-indicator {
-  opacity: 1;
-}
-
-/* ── BOTTOM: MAIN DIAGNOSTIC SCREEN ── */
-.cyber-main-diagnostic {
-  position: relative;
-  width: 100%;
-  min-height: 520px;
-}
-
-.diagnostic-screen {
-  height: 100%;
-}
-
-.screen-frame {
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 45, 85, 0.03), rgba(0, 0, 0, 0.5));
-  border: 1px solid rgba(255, 45, 85, 0.2);
-  border-radius: 24px;
-  padding: 40px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 45, 85, 0.1);
-}
-
-/* CRT Scanline Effect */
-.scanline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, transparent, rgba(255, 45, 85, 0.4), transparent);
-  animation: scan 4s linear infinite;
-  pointer-events: none;
-  z-index: 5;
-}
-
-@keyframes scan {
-  0%   { top: 0; opacity: 1; }
-  90%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-/* Diagnostic Header Bar */
-.diag-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 45, 85, 0.15);
-  padding-bottom: 20px;
-}
-
-.diag-id, .diag-status {
-  font-family: monospace;
-  font-size: 0.8rem;
-  letter-spacing: 0.25em;
-  color: rgba(255, 45, 85, 0.7);
-}
-
-/* Main content layout */
-.diag-content {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-  flex: 1;
-}
-
-/* ── CIRCULAR GAUGE ── */
-.core-visualization {
-  flex-shrink: 0;
-}
-
-.cyber-circle {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cyber-circle.scanning .inner-circle {
-  animation: pulse-scan 0.6s ease;
-}
-
-@keyframes pulse-scan {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.2); filter: blur(4px); }
-  100% { transform: scale(1); }
-}
-
-.inner-circle {
-  position: absolute;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.9);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 45, 85, 0.05);
-}
-
-.core-icon {
-  font-size: 4rem;
-}
-
-.progress-ring {
-  position: absolute;
-  inset: 0;
-  transform: rotate(-90deg);
-}
-
-.ring-path {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.05);
-  stroke-width: 8;
-}
-
-.ring-fill {
-  fill: none;
-  stroke-width: 8;
-  stroke-linecap: round;
-}
-
-.level-text {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--accent, #ff2d55);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 950;
-  padding: 4px 14px;
-  border-radius: 30px;
-  letter-spacing: 1px;
-  z-index: 10;
-}
-
-/* ── SKILL DETAILS ── */
-.skills-details {
-  flex: 1;
-}
-
-.cat-title {
-  font-size: 2.2rem;
-  font-weight: 950;
-  letter-spacing: 0.2em;
-  margin: 0 0 10px 0;
-}
-
-.cat-tagline {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-style: italic;
-  margin: 0 0 30px 0;
-  font-family: monospace;
-}
-
-.skill-tags-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.skill-tag {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 22px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.3));
-  border: 1px solid rgba(255, 45, 85, 0.2);
-  border-radius: 12px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: rgba(255,255,255,0.95);
+  top: 30px;
+  left: 30px;
+  z-index: 20;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  padding: 15px 25px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border-left: 4px solid var(--accent, #ff2d55);
+  text-align: left;
 }
 
-/* ── RESPONSIVENESS (MOBILE) ── */
+.big-card-title-area-top-left h3 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(255, 45, 85, 0.3);
+}
+
+.big-card-title-area-top-left p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Floating Tools / Symbols */
+.floating-symbols-container {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.floating-tool-bubble {
+  position: absolute;
+  padding: 14px 28px;
+  border-radius: 40px;
+  background: rgba(10, 0, 5, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* Radar Sweep Animation */
+.radar-sweep {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  border-radius: 50%;
+  animation: radar 6s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@keyframes radar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Right Side - Nav Cards */
+.skills-desktop-right {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
+  height: 100%;
+}
+
+.desktop-nav-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.4));
+  border: 1px solid rgba(255, 45, 85, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.desktop-nav-card.active {
+  background: linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(0, 0, 0, 0.5));
+  transform: translateX(-5px);
+}
+
+.nav-card-icon {
+  font-size: 2.2rem;
+  transition: all 0.3s ease;
+}
+
+.nav-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-card-text h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.nav-progress-bg {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.nav-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* ── MOBILE VIEW ── */
+.skills-mobile-view {
+  display: none;
+}
+
 @media (max-width: 1024px) {
-  .skills-cyber-container {
+  .skills-pro-container {
+    overflow-y: auto; /* Re-enable scrolling on mobile */
     padding: 20px 15px;
-    height: auto;
-    min-height: 100vh;
-    overflow-y: auto;
   }
-
-  .cyber-header { margin-bottom: 30px; }
-
-  .cyber-dashboard-grid {
-    flex-direction: column;
-    display: flex;
-    gap: 25px;
-  }
-  .cyber-main-diagnostic { order: 1; min-height: 420px; }
-  .cyber-selector-area { 
-    order: 2; 
-    margin-top: 10px; 
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding-bottom: 50px;
-  }
-
-  .cyber-tab-btn {
-    padding: 12px;
-    flex-direction: row;
-    border-radius: 12px;
-  }
-
-  .tab-icon { font-size: 1.4rem; margin-bottom: 0; }
-  .tab-label { font-size: 0.68rem; }
-
-  .diag-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .inner-circle {
-    width: 80px;
-    height: 80px;
-  }
-
-  .core-icon { font-size: 2rem; }
-
-  .cat-title {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-  }
-
-  .cat-tagline {
-    font-size: 0.8rem;
-    margin-bottom: 15px;
-  }
-
-  .skill-tags-grid {
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .skill-tag {
-    font-size: 0.72rem;
-    padding: 5px 10px;
-  }
-
-  .system-readout {
+  .skills-desktop-view {
     display: none;
   }
-}
-
-@media (max-width: 480px) {
-  .cyber-selector-area {
-    gap: 8px;
+  .skills-mobile-view {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
   
-  .cyber-tab-btn {
-    padding: 10px 8px;
+  .skill-mobile-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.5));
+    border: 1px solid rgba(255, 45, 85, 0.15);
+    border-radius: 20px;
+    padding: 20px 25px; /* Shorter padding for mobile */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
-  .cyber-title {
-    font-size: 1.5rem;
+  .skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px; 
+  }
+
+  .skill-icon-mobile {
+    font-size: 2.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 45, 85, 0.2);
+  }
+
+  .skill-header-text h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+  
+  .proficiency-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ff2d55;
+    background: rgba(255, 45, 85, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    align-self: flex-start;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 45, 85, 0.2);
+  }
+
+  /* PROGRESS BAR */
+  .skill-progress-bar-bg {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .skill-progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 20px;
+    background: rgba(255,255,255,0.8);
+    filter: blur(5px);
+  }
+
+  /* TAGS */
+  .skill-tags-mobile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mobile-tag {
+    background: linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(0, 0, 0, 0.2));
+    border: 1px solid rgba(255, 45, 85, 0.3);
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: #fff;
+    font-weight: 600;
   }
 }
+
+

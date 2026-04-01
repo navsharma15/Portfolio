@@ -8,6 +8,7 @@ import Projects from './Projects';
 import Dashboard from './Dashboard';
 import Contact from './Contact';
 import Wave from './Wave';
+import Fish from './Fish';
 import '../styles/portfolio.css';
 
 /* Nav items with SVG icons */
@@ -100,6 +101,7 @@ const Portfolio = () => {
   return (
     <div className="portfolio-bg">
       <Wave />
+      <Fish />
       <button className={`hamburger-btn ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <span className="hamburger-line"></span><span className="hamburger-line"></span><span className="hamburger-line"></span>
       </button>

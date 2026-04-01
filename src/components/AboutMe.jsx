@@ -115,7 +115,6 @@ const AboutMe = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="header-system-tag">// CAREER PATH LOADED</div>
         <h2 className="header-main-title">My Academic <span>Journey</span></h2>
         <div className="header-decoration" />
       </motion.div>
