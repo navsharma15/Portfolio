@@ -399,54 +399,113 @@
   flex-direction: column;
 }
 
+.hero-welcome.center-aligned {
+  align-items: center;
+  text-align: center;
+}
+
 .hero-welcome-sub {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin: 0 0 16px 0;
+  margin: 0 0 20px 0;
+}
+
+.hero-separator {
+  color: #ff2d55;
+  margin: 0 8px;
+  font-weight: 900;
 }
 
 .hero-welcome-title {
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   margin: 0 0 32px 0;
 }
 
+.hero-highlight {
+  color: #ff2d55;
+  text-shadow: 0 0 25px rgba(255,45,85,0.6);
+}
+
 .hero-welcome-line {
-  width: 80px;
   height: 4px;
-  background: linear-gradient(to right, #ff2d55, transparent);
+  background: linear-gradient(to right, transparent, #ff2d55, transparent);
   border-radius: 2px;
   margin-bottom: 24px;
 }
 
 .hero-welcome-desc {
-  font-size: 1.1rem;
-  color: #ffffff;
-  line-height: 1.7;
-  max-width: 420px;
-  margin: 0;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 0 40px 0;
+}
+
+/* Call to Action Buttons */
+.hero-cta-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary-glow {
+  background: linear-gradient(135deg, #ff2d55 0%, #d11235 100%);
+  color: #fff;
+  border: none;
+  padding: 16px 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(255, 45, 85, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn-primary-glow:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(255, 45, 85, 0.6);
+}
+
+.btn-secondary-outline {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 16px 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+.btn-secondary-outline:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: #ff2d55;
+  background: rgba(255, 45, 85, 0.1);
 }
 
 @media (min-width: 500px) {
   .hero-welcome-sub {
-    font-size: 1.35rem;
-    margin-bottom: 20px;
+    font-size: 1rem;
+    margin-bottom: 24px;
   }
   .hero-welcome-title {
-     font-size: clamp(3.5rem, 8vw, 6rem);
+     font-size: clamp(3rem, 6vw, 5rem);
      margin-bottom: 40px;
   }
   .hero-welcome-desc {
      font-size: 1.25rem;
-     max-width: 550px;
-     line-height: 1.8;
-     color: #ffffff;
+     margin-bottom: 48px;
   }
 }
 

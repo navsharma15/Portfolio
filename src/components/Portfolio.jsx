@@ -80,11 +80,11 @@ const Portfolio = () => {
         if (delta > 0 && idx < navItems.length - 1) {
           setIsScrolling(true);
           handleNavClick(navItems[idx + 1].label);
-          setTimeout(() => setIsScrolling(false), 900);
+          setTimeout(() => setIsScrolling(false), 600);
         } else if (delta < 0 && idx > 0) {
           setIsScrolling(true);
           handleNavClick(navItems[idx - 1].label);
-          setTimeout(() => setIsScrolling(false), 900);
+          setTimeout(() => setIsScrolling(false), 600);
         }
       }
     };
@@ -127,7 +127,7 @@ const Portfolio = () => {
               {activePage === 'Home' && (
                 <div className="desktop-page-layout">
                   <div className="center-content">
-                    <HeroCard />
+                    <HeroCard onExplore={() => handleNavClick('Projects')} />
                     <div className="bottom-buttons white-cutout">
                       <button className="cutout-btn contact-btn" onClick={() => handleNavClick('Contact')}>Contact Me</button>
                       <button className="cutout-btn cv-btn" onClick={() => window.open('#')}>Download CV</button>
@@ -151,7 +151,7 @@ const Portfolio = () => {
             <div className="mobile-glass-pane">
               {navItems.map((item) => (
                 <section key={item.label} data-section={item.label} ref={el => sectionRefs.current[item.label] = el} className="mobile-section">
-                  {item.label === 'Home' && <div className="mobile-home-stack"><div className="hero-mobile-wrap"><HeroCard /></div><ProfileCard /></div>}
+                  {item.label === 'Home' && <div className="mobile-home-stack"><div className="hero-mobile-wrap"><HeroCard onExplore={() => handleNavClick('Projects')} /></div><ProfileCard /></div>}
                   {item.label === 'About Me' && <AboutMe key={item.label} />}
                   {item.label === 'Skills' && <Skills key={item.label} />}
                   {item.label === 'Projects' && <Projects key={item.label} />}
