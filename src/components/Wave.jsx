@@ -6,7 +6,7 @@ import React, { useRef, useEffect } from 'react';
  * Features:
  *  - Perspective-based vertical spacing (lines compress toward bottom like 3D)
  *  - Per-line horizontal gradient (dark edges → bright center)
- *  - Teal at top, deep green at bottom
+ *  - Ruby red top, deep crimson at bottom
  *  - A slow-moving "hot" pulse glow that sweeps through line layers
  *  - Subtle top-edge glow line for depth separation
  */
@@ -62,11 +62,11 @@ const Wave = () => {
 
             // --- Top separator glow line ---
             const sepGrad = ctx.createLinearGradient(0, 0, canvas.width, 0);
-            sepGrad.addColorStop(0,   'rgba(0, 255, 200, 0)');
-            sepGrad.addColorStop(0.2, 'rgba(0, 255, 200, 0.15)');
-            sepGrad.addColorStop(0.5, 'rgba(0, 255, 200, 0.35)');
-            sepGrad.addColorStop(0.8, 'rgba(0, 255, 200, 0.15)');
-            sepGrad.addColorStop(1,   'rgba(0, 255, 200, 0)');
+            sepGrad.addColorStop(0,   'rgba(255, 45, 85, 0)');
+            sepGrad.addColorStop(0.2, 'rgba(255, 45, 85, 0.15)');
+            sepGrad.addColorStop(0.5, 'rgba(255, 45, 85, 0.35)');
+            sepGrad.addColorStop(0.8, 'rgba(255, 45, 85, 0.15)');
+            sepGrad.addColorStop(1,   'rgba(255, 45, 85, 0)');
 
             ctx.beginPath();
             for (let i = 0; i <= segments; i++) {
@@ -76,7 +76,7 @@ const Wave = () => {
             ctx.strokeStyle = sepGrad;
             ctx.lineWidth = 1.5;
             ctx.shadowBlur = 18;
-            ctx.shadowColor = 'rgba(0, 255, 200, 0.6)';
+            ctx.shadowColor = 'rgba(255, 45, 85, 0.6)';
             ctx.stroke();
 
             // --- Main wave lines ---
@@ -85,9 +85,10 @@ const Wave = () => {
 
                 const perspT = Math.pow(l / (lineCount - 1), 1.6);
 
-                // Color: teal (0, 220, 180) at top → deep forest green (0, 90, 50) at bottom
-                const g = Math.floor(lerp(220, 90, perspT));
-                const b = Math.floor(lerp(180, 50, perspT));
+                // Color: ruby red (255, 45, 85) at top → deep crimson (90, 0, 20) at bottom
+                const r = Math.floor(lerp(255, 90, perspT));
+                const gValue = Math.floor(lerp(45, 0, perspT));
+                const bValue = Math.floor(lerp(85, 20, perspT));
                 const baseAlpha = lerp(0.78, 0.3, perspT);
 
                 // Pulse glow boost for lines near the moving pulse band
@@ -97,11 +98,11 @@ const Wave = () => {
 
                 // Horizontal gradient: fade at edges, bright in center
                 const lineGrad = ctx.createLinearGradient(0, 0, canvas.width, 0);
-                lineGrad.addColorStop(0,    `rgba(0, ${g}, ${b}, 0)`);
-                lineGrad.addColorStop(0.12, `rgba(0, ${g}, ${b}, ${finalAlpha * 0.55})`);
-                lineGrad.addColorStop(0.5,  `rgba(0, ${g}, ${b}, ${finalAlpha})`);
-                lineGrad.addColorStop(0.88, `rgba(0, ${g}, ${b}, ${finalAlpha * 0.55})`);
-                lineGrad.addColorStop(1,    `rgba(0, ${g}, ${b}, 0)`);
+                lineGrad.addColorStop(0,    `rgba(${r}, ${gValue}, ${bValue}, 0)`);
+                lineGrad.addColorStop(0.12, `rgba(${r}, ${gValue}, ${bValue}, ${finalAlpha * 0.55})`);
+                lineGrad.addColorStop(0.5,  `rgba(${r}, ${gValue}, ${bValue}, ${finalAlpha})`);
+                lineGrad.addColorStop(0.88, `rgba(${r}, ${gValue}, ${bValue}, ${finalAlpha * 0.55})`);
+                lineGrad.addColorStop(1,    `rgba(${r}, ${gValue}, ${bValue}, 0)`);
                 ctx.strokeStyle = lineGrad;
 
                 // Thicker at the top (front), thinner compressed at the bottom
@@ -110,7 +111,7 @@ const Wave = () => {
                 // Glow on top lines and pulse band
                 if (perspT < 0.25 || pulseBoost > 0.5) {
                     ctx.shadowBlur = 10 + pulseBoost * 18;
-                    ctx.shadowColor = `rgba(0, ${g}, ${b}, ${0.4 + pulseBoost * 0.35})`;
+                    ctx.shadowColor = `rgba(${r}, ${gValue}, ${bValue}, ${0.4 + pulseBoost * 0.35})`;
                 } else {
                     ctx.shadowBlur = 0;
                 }

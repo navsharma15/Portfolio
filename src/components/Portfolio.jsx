@@ -105,15 +105,18 @@ const Portfolio = () => {
       </button>
       <div className={`sidebar-overlay ${isMenuOpen ? 'visible' : ''}`} onClick={() => setIsMenuOpen(false)} />
       <aside className={`sidebar ${isMenuOpen ? 'mobile-open' : ''}`}>
-        <div className="sidebar-brand"><span className="sidebar-brand-text">DAP</span></div>
-        <div className="sidebar-divider" />
-        <nav className="sidebar-nav">
-          {navItems.map(item => (
-            <button key={item.label} className={`sidebar-link${item.label === activePage ? ' active' : ''}`} onClick={() => handleNavClick(item.label)}>
-              {item.svg}{item.label}
-            </button>
-          ))}
-        </nav>
+        <div className="vertical-brand-text">HEADER</div>
+        <div className="sidebar-content-wrapper">
+          <div className="sidebar-brand"><span className="sidebar-brand-text">DAP</span></div>
+          <div className="sidebar-divider" />
+          <nav className="sidebar-nav">
+            {navItems.map(item => (
+              <button key={item.label} className={`sidebar-link${item.label === activePage ? ' active' : ''}`} onClick={() => handleNavClick(item.label)}>
+                {item.svg}<span className="link-text">{item.label}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
       </aside>
       <div className="portfolio-content">
         {!isMobile ? (

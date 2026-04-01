@@ -1,7 +1,7 @@
 :root {
   --bg-color: #000000;
-  --neon-green: #00FFAA;
-  --neon-glow: 0 0 10px rgba(0, 255, 170, 0.5), 0 0 20px rgba(0, 255, 170, 0.3);
+  --neon-red: #ff2d55;
+  --neon-glow: 0 0 10px rgba(255, 45, 85, 0.5), 0 0 20px rgba(255, 45, 85, 0.3);
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.5);
   --font-main: 'Outfit', sans-serif;
@@ -45,8 +45,8 @@ h1 {
 .neon-text {
   color: var(--text-primary);
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.2),
-               0 0 30px rgba(0, 255, 170, 0.3), 
-               0 0 60px rgba(0, 255, 170, 0.1);
+               0 0 30px rgba(255, 45, 85, 0.3), 
+               0 0 60px rgba(255, 45, 85, 0.1);
 }
 
 .subtitle {
@@ -63,7 +63,7 @@ h1 {
 .explore-btn {
   padding: 14px 36px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 255, 170, 0.4);
+  border: 1px solid rgba(255, 45, 85, 0.4);
   color: #ffffff;
   font-family: 'Inter', sans-serif;
   font-size: 0.9rem;
@@ -79,10 +79,10 @@ h1 {
 }
 
 .explore-btn:hover {
-  background: var(--neon-green);
-  color: #000000;
-  box-shadow: 0 0 30px rgba(0, 255, 170, 0.5);
-  border-color: var(--neon-green);
+  background: var(--neon-red);
+  color: #ffffff;
+  box-shadow: 0 0 30px rgba(255, 45, 85, 0.5);
+  border-color: var(--neon-red);
   transform: translateY(-2px);
 }
 
@@ -121,16 +121,16 @@ h1 {
 .header-system-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.7rem;
-  color: #00ffaa;
+  color: #ff2d55;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  background: rgba(0, 255, 170, 0.08);
+  background: rgba(255, 45, 85, 0.08);
   padding: 6px 20px;
   border-radius: 50px;
-  border: 1px solid rgba(0, 255, 170, 0.2);
+  border: 1px solid rgba(255, 45, 85, 0.2);
   margin-bottom: 20px;
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(0, 255, 170, 0.05);
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.05);
 }
 
 .header-main-title {
@@ -145,17 +145,17 @@ h1 {
 }
 
 .header-main-title span {
-  background: linear-gradient(90deg, #00ffaa, #00ccff);
+  background: linear-gradient(90deg, #ff2d55, #ff6b8a);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 25px rgba(0, 255, 170, 0.6));
+  filter: drop-shadow(0 0 25px rgba(255, 45, 85, 0.6));
 }
 
 .header-decoration {
   width: 140px;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #00ffaa, transparent);
+  background: linear-gradient(90deg, transparent, #ff2d55, transparent);
   margin-top: 25px;
   position: relative;
   border-radius: 2px;
@@ -169,9 +169,9 @@ h1 {
   transform: translate(-50%, -50%);
   width: 10px;
   height: 10px;
-  background: #00ffaa;
+  background: #ff2d55;
   border-radius: 50%;
-  box-shadow: 0 0 15px #00ffaa;
+  box-shadow: 0 0 15px #ff2d55;
 }
 
 @media (max-width: 1024px) {

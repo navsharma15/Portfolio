@@ -3,10 +3,10 @@
    ============================================= */
 
 :root {
-  --neon-green: #00ffaa;
-  --neon-glow: rgba(0, 255, 170, 0.45);
+  --neon-red: #ff2d55;
+  --neon-glow: rgba(255, 45, 85, 0.45);
   --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(0, 255, 170, 0.2);
+  --glass-border: rgba(255, 45, 85, 0.2);
   --glass-blur: 14px;
 }
 
@@ -20,12 +20,12 @@
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: var(--neon-green) transparent;
+  scrollbar-color: var(--neon-red) transparent;
   padding: 60px 0 150px;
 }
 
 .aboutme-section::-webkit-scrollbar { width: 4px; }
-.aboutme-section::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
+.aboutme-section::-webkit-scrollbar-thumb { background: var(--neon-red); border-radius: 10px; }
 
 /* ── 2. ROADMAP CONTAINER ── */
 .roadmap-container {
@@ -33,7 +33,7 @@
   max-width: 1150px;
   margin: 0 auto;
   padding: 80px 20px 200px;
-  perspective: 2000px; /* Enhanced 3D feel */
+  perspective: 2000px;
 }
 
 /* Central Path */
@@ -53,8 +53,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(to bottom, transparent, var(--neon-green) 10%, var(--neon-green) 90%, transparent);
-  box-shadow: 0 0 15px var(--neon-green), 0 0 30px rgba(0, 255, 170, 0.3);
+  background: linear-gradient(to bottom, transparent, var(--neon-red) 10%, var(--neon-red) 90%, transparent);
+  box-shadow: 0 0 15px var(--neon-red), 0 0 30px rgba(255, 45, 85, 0.3);
 }
 
 /* Emoji Boy Character */
@@ -78,13 +78,13 @@
 .character-emoji { 
   font-size: 3rem; 
   z-index: 2; 
-  filter: drop-shadow(0 0 15px var(--neon-green)); 
+  filter: drop-shadow(0 0 15px var(--neon-red)); 
 }
 
 .character-aura {
   position: absolute;
   inset: -10px;
-  background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--neon-red) 0%, transparent 70%);
   opacity: 0.4;
   filter: blur(12px);
   border-radius: 50%;
@@ -101,7 +101,7 @@
   position: relative;
   width: 100%;
   display: flex;
-  margin-bottom: 100px; /* Reduced gap */
+  margin-bottom: 100px;
 }
 
 .milestone-item.left { justify-content: flex-start; }
@@ -136,7 +136,7 @@
 /* Card Styling */
 .milestone-card {
   flex: 1;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(0, 255, 170, 0.02));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 45, 85, 0.04));
   border: 1px solid var(--glass-border);
   padding: 24px;
   border-radius: 22px;
@@ -149,19 +149,19 @@
 }
 
 .milestone-title { margin: 2px 0 8px; font-weight: 900; font-size: 1.45rem; color: #fff; }
-.milestone-year { color: var(--neon-green); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+.milestone-year { color: var(--neon-red); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 .milestone-inst { font-size: 1.15rem; color: #fff; margin: 0 0 5px 0; font-weight: 750; }
 .milestone-loc { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 15px; }
 .milestone-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 18px; }
 
 /* Vision Card Special Level Style */
 .vision-milestone .milestone-card {
-  background: linear-gradient(135deg, rgba(0, 255, 170, 0.08), rgba(0, 0, 0, 0.3));
+  background: linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(0, 0, 0, 0.3));
   border-width: 2px;
 }
 .vision-milestone .milestone-title {
-  color: var(--neon-green);
-  text-shadow: 0 0 10px rgba(0, 255, 170, 0.3);
+  color: var(--neon-red);
+  text-shadow: 0 0 10px rgba(255, 45, 85, 0.3);
 }
 
 /* ── 3. MOBILE OPTIMIZATIONS (Centered cards) ── */
@@ -210,7 +210,7 @@
     padding: 22px;
     border-radius: 20px;
     text-align: center;
-    background: rgba(3, 10, 15, 0.4);
+    background: rgba(15, 3, 5, 0.4);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
@@ -234,10 +234,10 @@
 
   .milestone-pt {
     font-size: 0.8rem;
-    background: rgba(0, 255, 170, 0.05);
+    background: rgba(255, 45, 85, 0.06);
     padding: 4px 10px;
     border-radius: 6px;
-    border: 1px solid rgba(0, 255, 170, 0.1);
+    border: 1px solid rgba(255, 45, 85, 0.12);
   }
   
   .milestone-icon-box {
@@ -245,7 +245,7 @@
     height: 52px;
     font-size: 1.6rem;
     border-radius: 14px;
-    margin-bottom: -15px; /* Overlap with card */
+    margin-bottom: -15px;
     position: relative;
     z-index: 10;
   }
@@ -264,7 +264,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(to right, transparent, var(--neon-green), transparent);
+  background: linear-gradient(to right, transparent, var(--neon-red), transparent);
   opacity: 0.2;
   z-index: 5;
   animation: scanline 4s linear infinite;
@@ -288,7 +288,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(225deg, transparent 40%, rgba(0, 255, 170, 0.03) 50%, transparent 60%);
+  background: linear-gradient(225deg, transparent 40%, rgba(255, 45, 85, 0.04) 50%, transparent 60%);
   background-size: 200% 200%;
   animation: shine 6s linear infinite;
   pointer-events: none;
@@ -318,7 +318,7 @@
   left: 50%;
   width: 4px;
   height: 4px;
-  background: var(--neon-green);
+  background: var(--neon-red);
   border-radius: 50%;
-  box-shadow: 0 0 15px var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-red);
 }

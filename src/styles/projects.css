@@ -17,7 +17,7 @@
 }
 
 .projects-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 170, 0.2);
+  background: rgba(255, 45, 85, 0.3);
   border-radius: 10px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .section-tag {
-  color: #00ffaa;
+  color: #ff2d55;
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -42,7 +42,7 @@
 }
 
 .section-title .highlight {
-  color: #00ffaa;
+  color: #ff2d55;
 }
 
 /* Three Project Grid */
@@ -73,7 +73,7 @@
   width: 100%;
   height: 480px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 45, 85, 0.12);
   border-radius: 24px;
   overflow: hidden;
   backdrop-filter: blur(14px);
@@ -84,8 +84,8 @@
 }
 
 .project-card:hover {
-  border-color: rgba(0, 255, 170, 0.3);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 170, 0.1);
+  border-color: rgba(255, 45, 85, 0.45);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 45, 85, 0.15);
 }
 
 .project-card-inner {
@@ -102,7 +102,7 @@
   height: 240px;
   width: 100%;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 45, 85, 0.1);
 }
 
 .project-image {
@@ -133,7 +133,7 @@
 }
 
 .project-category {
-  color: #00ffaa;
+  color: #ff2d55;
   font-size: 0.7rem;
   text-transform: uppercase;
   font-weight: 700;
@@ -188,9 +188,9 @@
 .project-tag {
   font-size: 0.65rem;
   padding: 4px 10px;
-  background: rgba(0, 255, 170, 0.1);
-  color: #00ffaa;
-  border: 1px solid rgba(0, 255, 170, 0.2);
+  background: rgba(255, 45, 85, 0.1);
+  color: #ff6b8a;
+  border: 1px solid rgba(255, 45, 85, 0.25);
   border-radius: 50px;
   font-weight: 600;
 }
@@ -202,7 +202,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 45, 85, 0.04) 0%, transparent 40%);
   pointer-events: none;
   z-index: 2;
   transform: translateZ(50px);
