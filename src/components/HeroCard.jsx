@@ -30,9 +30,10 @@ const HeroCard = ({ onExplore }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: "easeOut" }}
+          style={{ letterSpacing: '-0.04em' }}
         >
           Behind every <span className="hero-highlight">number</span>,<br />
-          there’s a <span className="hero-highlight">story</span><br />
+          there’s a <span className="hero-highlight" style={{ fontStyle: 'italic' }}>story</span><br />
           — I bring it to life.
         </motion.h1>
         

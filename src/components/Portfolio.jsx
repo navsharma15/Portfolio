@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import Contact from './Contact';
 import Wave from './Wave';
 import Fish from './Fish';
+import SoundToggle from './SoundToggle';
 import { useSoundManager } from '../context/SoundContext';
 import '../styles/portfolio.css';
 
@@ -123,6 +124,9 @@ const Portfolio = () => {
               </button>
             ))}
           </nav>
+          <div className="sidebar-footer">
+            <SoundToggle />
+          </div>
         </div>
       </aside>
       <div className="portfolio-content">

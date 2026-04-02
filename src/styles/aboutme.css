@@ -3,10 +3,10 @@
    ============================================= */
 
 :root {
-  --neon-red: #ff2d55;
-  --neon-glow: rgba(255, 45, 85, 0.45);
+  --neon-red: var(--accent-color);
+  --neon-glow: rgba(var(--accent-rgb), 0.45);
   --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 45, 85, 0.2);
+  --glass-border: var(--accent-border-alpha);
   --glass-blur: 14px;
 }
 
@@ -54,7 +54,7 @@
   left: 0;
   width: 100%;
   background: linear-gradient(to bottom, transparent, var(--neon-red) 10%, var(--neon-red) 90%, transparent);
-  box-shadow: 0 0 15px var(--neon-red), 0 0 30px rgba(255, 45, 85, 0.3);
+  box-shadow: 0 0 15px var(--neon-red), 0 0 30px rgba(var(--accent-rgb), 0.3);
 }
 
 /* Emoji Boy Character */
@@ -136,7 +136,7 @@
 /* Card Styling */
 .milestone-card {
   flex: 1;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 45, 85, 0.04));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(var(--accent-rgb), 0.04));
   border: 1px solid var(--glass-border);
   padding: 24px;
   border-radius: 22px;
@@ -148,20 +148,42 @@
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
 }
 
-.milestone-title { margin: 2px 0 8px; font-weight: 900; font-size: 1.25rem; color: #fff; }
-.milestone-year { color: var(--neon-red); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-.milestone-inst { font-size: 1.05rem; color: #fff; margin: 0 0 5px 0; font-weight: 750; }
-.milestone-loc { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 15px; }
-.milestone-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 18px; }
+.milestone-title { 
+  margin: 5px 0 12px; 
+  font-weight: 900; 
+  font-size: 1.85rem; 
+  color: #fff; 
+  font-family: var(--font-display); 
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.milestone-year { color: var(--neon-red); font-size: 1.05rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; }
+.milestone-inst { font-size: 1.4rem; color: rgba(255, 255, 255, 1); margin: 0 0 10px 0; font-weight: 800; line-height: 1.3; }
+.milestone-loc { font-size: 1.05rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 25px; }
+.milestone-desc { font-size: 1.25rem; color: rgba(255,255,255,0.95); line-height: 1.6; margin-bottom: 25px; }
+
+/* Points */
+.milestone-points { display: flex; flex-direction: column; gap: 10px; border-left: 1px solid rgba(255, 45, 85, 0.2); padding-left: 18px; }
+.milestone-pt { font-size: 1.15rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 10px; }
+.pt-dot { width: 8px; height: 8px; background: var(--neon-red); border-radius: 50%; box-shadow: 0 0 10px var(--neon-red); }
 
 /* Vision Card Special Level Style */
 .vision-milestone .milestone-card {
-  background: linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(0, 0, 0, 0.3));
+  background: linear-gradient(135deg, rgba(255, 45, 85, 0.15), rgba(40, 0, 10, 0.4));
   border-width: 2px;
+  border-color: var(--neon-red);
+  box-shadow: 0 0 45px rgba(255, 45, 85, 0.2);
 }
 .vision-milestone .milestone-title {
+  font-size: 2.2rem;
   color: var(--neon-red);
-  text-shadow: 0 0 10px rgba(255, 45, 85, 0.3);
+  text-shadow: 0 0 25px rgba(255, 45, 85, 0.5);
+  margin-bottom: 15px;
+}
+.vision-milestone .milestone-inst {
+  font-size: 1.6rem;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 /* ── 3. MOBILE OPTIMIZATIONS (Centered cards) ── */
@@ -234,10 +256,10 @@
 
   .milestone-pt {
     font-size: 0.8rem;
-    background: rgba(255, 45, 85, 0.06);
+    background: rgba(var(--accent-rgb), 0.06);
     padding: 4px 10px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 45, 85, 0.12);
+    border: 1px solid rgba(var(--accent-rgb), 0.12);
   }
   
   .milestone-icon-box {
@@ -288,7 +310,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(225deg, transparent 40%, rgba(255, 45, 85, 0.04) 50%, transparent 60%);
+  background: linear-gradient(225deg, transparent 40%, rgba(var(--accent-rgb), 0.04) 50%, transparent 60%);
   background-size: 200% 200%;
   animation: shine 6s linear infinite;
   pointer-events: none;
@@ -327,39 +349,52 @@
 .milestone-watermark {
   position: absolute;
   top: 50%;
-  font-size: clamp(2rem, 3.5vw, 3rem); /* Dynamically shrinks to always perfectly fit */
+  width: auto;
+  text-align: center;
+  font-family: 'Orbitron', var(--font-display), sans-serif; /* High-end gaming font */
+  font-size: clamp(2rem, 5vw, 3.8rem); /* Slightly increased size for impact */
   font-weight: 900;
   text-transform: uppercase;
-  color: rgba(255, 60, 90, 0.35); /* Bright light ruby red core */
-  -webkit-text-stroke: 1.5px rgba(255, 45, 85, 0.8); /* Vibrant neon red outline */
+  color: rgba(255, 45, 85, 0.4); /* Much more visible red core */
+  -webkit-text-stroke: 1px rgba(255, 45, 85, 0.6); /* Sharper border */
   pointer-events: none;
   white-space: nowrap;
   z-index: 0; 
   letter-spacing: 0.1em;
-  text-shadow: 0 0 25px rgba(255, 45, 85, 0.4); /* Strong light red glow */
+  text-shadow: 0 0 15px rgba(255, 45, 85, 0.3); /* Gaming glow effect */
+  opacity: 0;
 }
 
 .milestone-watermark.right-side {
-  left: 54%;
+  left: calc(50% + 15px); /* Positioned perfectly outside the center line */
+  animation: slide-reveal-right 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .milestone-watermark.left-side {
-  right: 54%;
+  right: calc(50% + 15px); /* Positioned perfectly outside the center line */
+  animation: slide-reveal-left 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* Premium gradient filling effect for watermark */
+@keyframes slide-reveal-right {
+  0% { opacity: 0; transform: translateY(-50%) translateX(-40px); clip-path: inset(0 100% 0 0); filter: blur(5px); }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; transform: translateY(-50%) translateX(15px); clip-path: inset(0 0% 0 0); filter: blur(0px); }
+}
+
+@keyframes slide-reveal-left {
+  0% { opacity: 0; transform: translateY(-50%) translateX(40px); clip-path: inset(0 0 0 100%); filter: blur(5px); }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; transform: translateY(-50%) translateX(-15px); clip-path: inset(0 0 0 0%); filter: blur(0px); }
+}
+
+/* Shine animation removed for cleaner aesthetic */
 .milestone-watermark::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: transparent;
-  -webkit-text-stroke: 0px;
-  background: linear-gradient(135deg, transparent 35%, rgba(255, 120, 160, 0.95) 50%, transparent 65%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: shine-watermark 5s linear infinite;
+  display: none;
+}
+
+/* Shine animation removed for cleaner aesthetic */
+.milestone-watermark::after {
+  display: none;
 }
 
 @keyframes shine-watermark {

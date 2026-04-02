@@ -19,8 +19,6 @@ function App() {
 
   return (
     <div style={{ minHeight: '100vh', position: 'relative', background: '#000' }}>
-      {/* Global Mute Toggle */}
-      <SoundToggle />
 
       {/* Browser Autoplay Interstitial */}
       <AnimatePresence>

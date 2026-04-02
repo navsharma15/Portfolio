@@ -175,12 +175,13 @@
 }
 
 .sidebar-brand-text {
+  font-family: var(--font-display);
   font-size: 2.2rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   color: #ffb0c0;
   text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  text-shadow: 0 4px 15px rgba(255, 45, 85, 0.4);
 }
 
 .sidebar-divider {
@@ -404,12 +405,14 @@
 }
 
 .hero-welcome-sub {
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 .hero-separator {
@@ -580,20 +583,17 @@
 /* =============================================
    RIGHT PROFILE CARD — wider, bigger photo
    ============================================= */
-/* =============================================
-   RIGHT PROFILE CARD — wider, bigger photo
-   ============================================= */
 .profile-card {
-  width: clamp(300px, 28vw, 400px);
+  width: clamp(400px, 34vw, 550px);
   height: 100%;
   /* Ruby-red glass theme */
-  background: linear-gradient(180deg, rgba(255, 45, 85, 0.07), rgba(180, 0, 40, 0.02));
+  background: linear-gradient(180deg, rgba(255, 45, 85, 0.12), rgba(180, 0, 40, 0.05));
   border-radius: 20px;
-  padding: clamp(15px, 2vh, 28px) clamp(10px, 1.5vw, 22px);
-  border: 1px solid rgba(255, 45, 85, 0.18);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 45, 85, 0.08);
+  padding: clamp(25px, 4vh, 36px) clamp(20px, 2.5vw, 30px);
+  border: 1px solid rgba(255, 45, 85, 0.25);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 45, 85, 0.12);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -601,16 +601,28 @@
   overflow-y: auto;
 }
 
+.profile-intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .profile-avatar-wrap {
   position: relative;
-  margin-bottom: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
 }
 
 /* Large square with rounded corners — photo fills it */
 .profile-avatar {
-  width: 270px;
-  height: 270px;
-  border-radius: 24px;
+  width: 100%;
+  aspect-ratio: 1/1.2; /* Taller cinematic profile */
+  max-width: 460px;
+  max-height: 550px;
+  border-radius: 32px;
   background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
   display: flex;
   align-items: center;
@@ -670,11 +682,55 @@
 
 /* Data Analyst intro paragraph */
 .profile-intro {
-  font-size: 0.88rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.8rem, 1.55vh, 1.05rem); /* Reduced for fit */
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
   text-align: center;
   margin: 0;
+}
+
+/* Available for Work Badge */
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 255, 170, 0.08); /* Sophisticated live green tint */
+  border: 1px solid rgba(0, 255, 170, 0.25);
+  padding: 8px 20px;
+  border-radius: 50px;
+  margin-top: 15px; /* Tightened */
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.08);
+}
+
+.status-dot-pulse {
+  width: 10px;
+  height: 10px;
+  background: #00ffaa;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 10px #00ffaa;
+}
+
+.status-dot-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #00ffaa;
+  animation: badge-pulse 1.3s infinite ease-out;
+}
+
+@keyframes badge-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.status-text {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #00ffaa;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .profile-intro strong {

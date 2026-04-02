@@ -14,22 +14,16 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
-    
     setIsSubmitting(true);
 
     try {
-      // AJAX Submission to FormSubmit
       const response = await fetch("https://formsubmit.co/ajax/navsharma989@gmail.com", {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
           message: formData.message,
-          _subject: `New Message for 8791201989 from ${formData.name}`,
-          phone_target: "8791201989"
+          _subject: `Uplink Signal from ${formData.name}`,
         })
       });
 
@@ -39,7 +33,7 @@ const Contact = () => {
         setTimeout(() => setShowToast(false), 4000);
       }
     } catch (error) {
-      console.error("Failed to send message.");
+      console.error("Transmission Failed.");
     } finally {
       setIsSubmitting(false);
     }
@@ -47,11 +41,11 @@ const Contact = () => {
 
   const isReady = formData.name.trim().length > 0 && formData.message.trim().length > 0;
 
-  const socialLinks = [
-    {
-      platform: 'Comm-Link',
-      handle: '+91 87912 01989',
-      link: 'tel:+918791201989',
+  const links = [
+    { 
+      name: 'COMM-LINK', 
+      val: '+91 87912-01989', 
+      link: 'tel:+918791201989', 
       color: '#00ffaa',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -59,10 +53,10 @@ const Contact = () => {
         </svg>
       )
     },
-    {
-      platform: 'LinkedIn',
-      handle: 'in/nav-sharma',
-      link: 'https://www.linkedin.com/in/nav-sharma/',
+    { 
+      name: 'LINKEDIN', 
+      val: 'in/nav-sharma', 
+      link: 'https://www.linkedin.com/in/nav-sharma/', 
       color: '#0a66c2',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -70,10 +64,10 @@ const Contact = () => {
         </svg>
       )
     },
-    {
-      platform: 'GitHub',
-      handle: 'navsharma15',
-      link: 'https://github.com/navsharma15',
+    { 
+      name: 'GITHUB', 
+      val: 'navsharma15', 
+      link: 'https://github.com/navsharma15', 
       color: '#ffffff',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -81,10 +75,10 @@ const Contact = () => {
         </svg>
       )
     },
-    {
-      platform: 'Email',
-      handle: 'navsharma989@gmail.com',
-      link: 'mailto:navsharma989@gmail.com',
+    { 
+      name: 'CORE-EMAIL', 
+      val: 'navsharma989@gmail.com', 
+      link: 'mailto:navsharma989@gmail.com', 
       color: '#ea4335',
       icon: (
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -95,122 +89,126 @@ const Contact = () => {
   ];
 
   return (
-    <div className="contact-container">
-      {/* SUCCESS TOAST */}
+    <div className="contact-viewport">
+      {/* SUCCESS RADIANCE */}
       <AnimatePresence>
         {showToast && (
           <motion.div 
-            className="success-toast"
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
+            className="uplink-success-hud"
+            initial={{ opacity: 0, scale: 1.5, rotateX: 45 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+            exit={{ opacity: 0, scale: 0.5, filter: 'blur(20px)' }}
           >
-            <div className="toast-icon">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#00ffaa" strokeWidth="3">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <div className="toast-content">
-              <h4 style={{ color: '#fff', margin: 0 }}>Success!</h4>
-              <p style={{ color: '#00ffaa', margin: '4px 0 0 0', fontSize: '0.85rem' }}>Message Sent Successfully</p>
-            </div>
+            <div className="hud-success-orb"></div>
+            <h3>TRANSMISSION COMPLETE</h3>
+            <p>DATA SECURED IN CORE</p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.div 
-        className="section-header-unique"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h2 className="header-main-title">Join My <span>Adda</span></h2>
-        <div className="header-decoration" />
-      </motion.div>
-
-      <div className="contact-content-grid">
+      <div className="holographic-contact-grid">
+        {/* LEFT: TRANSMISSION MODULE */}
         <motion.div 
-          className="transmission-form"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          className="transmission-module"
+          initial={{ opacity: 0, x: -100, rotateY: 15 }}
+          whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px', zIndex: 2 }}>
-            <div className="form-group">
-              <label className="form-label">Identifier <span style={{color:"#ff4a4a"}}>*</span></label>
-              <input 
-                type="text" 
-                name="name" 
-                className="form-input" 
-                placeholder="Enter your clearcode name..."
-                required 
-                value={formData.name}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              />
+          <div className="module-header">
+            <div className="glitch-node"></div>
+            <span className="module-label">UPLINK TERMINAL / SIGNAL-X7</span>
+          </div>
+
+          <form onSubmit={handleSubmit} className="terminal-form">
+            <div className="input-block">
+              <label>PILOT IDENTIFIER</label>
+              <div className="input-bracket">
+                <input 
+                  type="text" 
+                  name="name" 
+                  autoComplete="off"
+                  placeholder="INPUT ID_CODE"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            <div className="form-group" style={{ flex: 1 }}>
-              <label className="form-label">Data Packet <span style={{color:"#ff4a4a"}}>*</span></label>
-              <textarea 
-                name="message" 
-                className="form-input" 
-                placeholder="Write your connection request here... Required for deployment."
-                required
-                value={formData.message}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              ></textarea>
+
+            <div className="input-block">
+              <label>ENCRYPTED FREQUENCY MESSAGE</label>
+              <div className="input-bracket">
+                <textarea 
+                  name="message" 
+                  placeholder="ENTER DATA PACKET..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <span style={{ 
-                fontSize: '0.8rem', 
-                color: isReady ? '#00ffaa' : 'rgba(255,255,255,0.4)', 
-                textTransform: 'uppercase', 
-                letterSpacing: '0.1em'
-              }}>
-                Status: {isSubmitting ? 'Transmitting Data...' : (isReady ? 'Ready for Deployment' : 'Awaiting Inputs...')}
-              </span>
-              <button 
-                type="submit" 
-                className="submit-btn"
-                disabled={!isReady || isSubmitting}
-                style={{ 
-                  borderColor: isReady ? '#00ffaa' : 'rgba(255,255,255,0.2)',
-                  opacity: isSubmitting ? 0.7 : 1,
-                }}
-              >
-                {isSubmitting ? 'DEPLOYING...' : 'ESTABLISH CONNECTION'}
-              </button>
+
+            <button 
+              type="submit" 
+              className={`uplink-btn ${isReady ? 'ready' : ''}`}
+              disabled={isSubmitting || !isReady}
+            >
+              <div className="btn-glow"></div>
+              {isSubmitting ? 'UPLINKING...' : 'INITIATE TRANSMISSION'}
+            </button>
+
+            <div className="form-telemetry">
+              <span className="tele-val">STRENGTH: 100%</span>
+              <span className="tele-val">ENC: AES-2048</span>
+              <span className="tele-status">STABLE</span>
             </div>
           </form>
         </motion.div>
 
+        {/* RIGHT: FREQUENCY NODES */}
         <motion.div 
-          className="social-nodes-container"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          className="frequency-nodes"
+          initial={{ opacity: 0, x: 100, rotateY: -15 }}
+          whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-          {socialLinks.map((node, i) => (
-            <motion.a 
-              key={node.platform}
-              href={node.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-node-card"
-              style={{
-                "--hover-color": node.color,
-                transitionDelay: `${i * 100}ms`
-              }}
-            >
-              <div className="node-icon-wrapper">{node.icon}</div>
-              <div className="node-info">
-                <span className="node-platform">{node.platform}</span>
-                <span className="node-handle">{node.handle}</span>
-              </div>
-            </motion.a>
-          ))}
+          <div className="module-header">
+            <span className="module-label">FREQUENCY CHANNELS</span>
+          </div>
+
+          <div className="nodes-stack">
+            {links.map((node, i) => (
+              <motion.a
+                key={node.name}
+                href={node.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="frequency-card"
+                style={{ "--node-color": node.color }}
+                whileHover={{ scale: 1.05, x: 10 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.1 }}
+              >
+                <div className="card-signal-bar"></div>
+                <div className="card-icon-node">{node.icon}</div>
+                <div className="card-info">
+                  <span className="node-tag">{node.name}</span>
+                  <span className="node-val">{node.val}</span>
+                </div>
+                <div className="card-visual-pulse"></div>
+                <div className="card-glitch-line"></div>
+              </motion.a>
+            ))}
+          </div>
+
         </motion.div>
       </div>
+
+      {/* BACKGROUND ELEMENTS */}
+      <div className="contact-bg-glitch"></div>
     </div>
   );
 };

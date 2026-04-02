@@ -12,10 +12,10 @@ const dashboardData = {
       { id: 'k4', title: 'Tools Mastered', value: 7, suffix: '', trend: 10, icon: '🛠️' },
     ],
     learningActivity: [
-      { label: 'Week 1', value: 6.5 }, 
-      { label: 'Week 2', value: 9.0 }, 
-      { label: 'Week 3', value: 5.5 }, 
-      { label: 'Week 4', value: 8.5 }
+      { label: 'Week 1', value: 4.8 }, 
+      { label: 'Week 2', value: 5.5 }, 
+      { label: 'Week 3', value: 4.2 }, 
+      { label: 'Week 4', value: 6.0 }
     ],
     techSpread: [
       { name: 'SQL', value: 45, color: '#00ffaa' },
@@ -32,8 +32,8 @@ const dashboardData = {
       { id: 'k4', title: 'Tools Mastered', value: 7, suffix: '', trend: 5, icon: '🛠️' },
     ],
     learningActivity: [
-      { label: 'Week 5', value: 7.0 }, { label: 'Week 6', value: 8.5 }, 
-      { label: 'Week 7', value: 9.5 }, { label: 'Week 8', value: 6.0 }
+      { label: 'Week 5', value: 5.0 }, { label: 'Week 6', value: 4.5 }, 
+      { label: 'Week 7', value: 6.2 }, { label: 'Week 8', value: 4.8 }
     ],
     techSpread: [
       { name: 'SQL', value: 40, color: '#00ffaa' },
@@ -50,8 +50,8 @@ const dashboardData = {
       { id: 'k4', title: 'Tools Mastered', value: 7, suffix: '', trend: 15, icon: '🛠️' },
     ],
     learningActivity: [
-      { label: 'Q1', value: 7.5 }, { label: 'Q2', value: 8.2 }, 
-      { label: 'Q3', value: 9.8 }, { label: 'Q4', value: 7.0 }
+      { label: 'Q1', value: 4.5 }, { label: 'Q2', value: 5.2 }, 
+      { label: 'Q3', value: 5.8 }, { label: 'Q4', value: 4.0 }
     ],
     techSpread: [
       { name: 'SQL', value: 35, color: '#00ffaa' },
@@ -113,8 +113,17 @@ const Dashboard = () => {
 
   const totalTech = data.techSpread.reduce((acc, curr) => acc + curr.value, 0);
   
-  // Max hours for the bar chart Y-Axis
-  const MAX_HOURS = 10;
+  // Max hours for the bar chart Y-Axis - Adjusted to 8 to highlight 4-6h peak
+  const MAX_HOURS = 8;
+
+  // Pre-calculate paths for morphing
+  const linePath = data.learningActivity.map((item, i) => 
+    `${i === 0 ? 'M' : 'L'} ${(i * 400) / (data.learningActivity.length - 1)},${180 - (item.value / MAX_HOURS) * 180}`
+  ).join(' ');
+
+  const areaPath = `M 0,180 ${data.learningActivity.map((item, i) => 
+    `L ${(i * 400) / (data.learningActivity.length - 1)},${180 - (item.value / MAX_HOURS) * 180}`
+  ).join(' ')} L 400,180 Z`;
 
   return (
     <div className="dashboard-wrapper">
@@ -176,32 +185,93 @@ const Dashboard = () => {
             <h3 className="chart-title">DOMAIN LEARNING MATRIX (HOURS)</h3>
           </div>
           
-          <div className="bar-chart-container">
-            {/* Grid Lines Overlay representing Y-Axis 0, 2, 4, 6, 8, 10 */}
+          <div className="line-chart-container">
+            {/* Grid Lines Overlay */}
             <div className="grid-lines">
-               <div className="grid-line" data-label="10h" style={{bottom: '100%'}}></div>
-               <div className="grid-line" data-label="8h" style={{bottom: '80%'}}></div>
-               <div className="grid-line" data-label="6h" style={{bottom: '60%'}}></div>
-               <div className="grid-line" data-label="4h" style={{bottom: '40%'}}></div>
-               <div className="grid-line" data-label="2h" style={{bottom: '20%'}}></div>
+               <div className="grid-line" data-label="8h" style={{bottom: '100%'}}></div>
+               <div className="grid-line" data-label="6h" style={{bottom: '75%'}}></div>
+               <div className="grid-line" data-label="4h" style={{bottom: '50%'}}></div>
+               <div className="grid-line" data-label="2h" style={{bottom: '25%'}}></div>
                <div className="grid-line" data-label="0h" style={{bottom: '0%'}}></div>
             </div>
 
-            <AnimatePresence mode="popLayout">
-              {data.learningActivity.map((item, idx) => (
-                <div key={`${item.label}-${activeFilter}`} className="bar-wrapper">
-                  <div className="bar-value-tooltip">{item.value} hrs</div>
-                  <motion.div 
-                    className="bar data-analyst-bar"
-                    initial={{ height: 0 }}
-                    animate={{ height: `${(item.value / MAX_HOURS) * 100}%` }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ type: "spring", stiffness: 100, damping: 15, delay: idx * 0.05 }}
-                  />
-                  <div className="bar-label">{item.label}</div>
-                </div>
+            {/* SVG LINE CHART - PRO LEVEL */}
+            <svg viewBox="0 0 400 180" className="pro-line-chart" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="line-gradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(255, 45, 85, 0.3)" />
+                  <stop offset="100%" stopColor="transparent" />
+                </linearGradient>
+              </defs>
+
+              {/* Area under the line */}
+              <motion.path
+                d={areaPath}
+                fill="url(#line-gradient)"
+                initial={false}
+                animate={{ d: areaPath }}
+                transition={{ type: "spring", stiffness: 60, damping: 15 }}
+              />
+
+              {/* The actual line */}
+              <motion.path
+                d={linePath}
+                fill="none"
+                stroke="#ff2d55"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={false}
+                animate={{ d: linePath }}
+                transition={{ type: "spring", stiffness: 60, damping: 15 }}
+              />
+
+              {/* Data points (Morphing nodes) */}
+              {data.learningActivity.map((item, i) => (
+                <motion.circle
+                  key={i} // Constant key for morphing
+                  cx={(i * 400) / (data.learningActivity.length - 1)}
+                  cy={180 - (item.value / MAX_HOURS) * 180}
+                  r="6"
+                  fill="#ff2d55"
+                  stroke="#fff"
+                  strokeWidth="2"
+                  initial={false}
+                  animate={{ 
+                    cx: (i * 400) / (data.learningActivity.length - 1),
+                    cy: 180 - (item.value / MAX_HOURS) * 180 
+                  }}
+                  transition={{ type: "spring", stiffness: 60, damping: 15 }}
+                  className="chart-node"
+                />
               ))}
-            </AnimatePresence>
+            </svg>
+
+            {/* Horizontal Labels */}
+            <div className="line-labels">
+               {data.learningActivity.map(item => (
+                 <div key={item.label} className="line-label-text">{item.label}</div>
+               ))}
+            </div>
+
+            {/* Floating Value Labels (Compulsory Inside) */}
+            <div className="inside-values">
+               {data.learningActivity.map((item, i) => (
+                 <motion.div 
+                   key={i} // Constant key for morphing
+                   className="inside-val-tag"
+                   initial={false}
+                   animate={{ 
+                     left: `${(i * 100) / (data.learningActivity.length - 1)}%`,
+                     bottom: `${(item.value / MAX_HOURS) * 100}%`
+                   }}
+                   style={{ transform: `translate(-50%, -30px)` }}
+                   transition={{ type: "spring", stiffness: 60, damping: 15 }}
+                 >
+                   {item.value}h
+                 </motion.div>
+               ))}
+            </div>
           </div>
         </div>
 

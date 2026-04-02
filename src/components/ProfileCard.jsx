@@ -42,12 +42,20 @@ const ProfileCard = () => {
 
 
       {/* Data analyst intro */}
-      <p className="profile-intro">
-        Passionate about transforming raw data into meaningful insights. 
-        Skilled in <strong>Python</strong>, <strong>SQL</strong>, <strong>Power BI</strong>, 
-        and <strong>data visualization</strong> — helping businesses make 
-        smarter, data-driven decisions.
-      </p>
+      <div className="profile-intro-container">
+        <p className="profile-intro">
+          Passionate about transforming raw data into meaningful insights. 
+          Skilled in <strong>Python</strong>, <strong>SQL</strong>, <strong>Power BI</strong>, 
+          and <strong>data visualization</strong> — helping businesses make 
+          smarter, data-driven decisions.
+        </p>
+        
+        {/* Available for Work Badge */}
+        <div className="status-badge">
+          <span className="status-dot-pulse" />
+          <span className="status-text">Available for Work</span>
+        </div>
+      </div>
     </motion.div>
   );
 };
