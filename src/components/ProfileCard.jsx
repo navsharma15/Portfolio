@@ -31,7 +31,6 @@ const ProfileCard = () => {
             }}
           />
         </div>
-        <div className="profile-status" title="Available for work" />
       </div>
 
       {/* Name & role */}

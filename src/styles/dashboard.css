@@ -86,7 +86,7 @@
 }
 
 .kpi-title {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -98,7 +98,7 @@
 }
 
 .kpi-value {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 900;
   margin: 0;
   color: #fff;
@@ -145,7 +145,7 @@
 }
 
 .chart-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   margin: 0;

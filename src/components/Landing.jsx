@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Wave from './Wave';
+import { useSoundManager } from '../context/SoundContext';
 
 /**
  * Landing Component
@@ -8,6 +9,14 @@ import Wave from './Wave';
  * Props: onExplore — callback fired when "Explore Insights" is clicked
  */
 const Landing = ({ onExplore }) => {
+  const { playSound, startSoundtrack } = useSoundManager();
+
+  const handleExplore = () => {
+    playSound('click');
+    startSoundtrack();
+    onExplore();
+  }
+
   return (
     <div className="app-container" style={{
       height: '100vh',
@@ -53,7 +62,9 @@ const Landing = ({ onExplore }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
           className="explore-btn"
-          onClick={onExplore}
+          onClick={handleExplore}
+          onMouseEnter={() => playSound('uiTick')} // Optional hover
+          style={{ cursor: 'pointer' }}
         >
           Explore Insights
         </motion.button>

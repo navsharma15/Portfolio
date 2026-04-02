@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import Contact from './Contact';
 import Wave from './Wave';
 import Fish from './Fish';
+import { useSoundManager } from '../context/SoundContext';
 import '../styles/portfolio.css';
 
 /* Nav items with SVG icons */
@@ -27,6 +28,7 @@ const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= 1024 : false);
+  const { playSound } = useSoundManager();
   const sectionRefs = useRef({});
 
   // Resize listener
@@ -41,6 +43,9 @@ const Portfolio = () => {
     const currentIndex = navItems.findIndex((n) => n.label === activePage);
     const targetIndex = navItems.findIndex((n) => n.label === label);
 
+    playSound('click'); // Play interaction sound
+    playSound('whoosh'); // Play transition sound
+
     if (isMobile) {
       const section = sectionRefs.current[label];
       if (section) section.scrollIntoView({ behavior: 'smooth' });
@@ -50,7 +55,7 @@ const Portfolio = () => {
       setDirection(targetIndex > currentIndex ? 1 : -1);
       setActivePage(label);
     }
-  }, [activePage, isMobile]);
+  }, [activePage, isMobile, playSound]);
 
   useEffect(() => {
     if (!isMobile) return;
@@ -102,7 +107,7 @@ const Portfolio = () => {
     <div className="portfolio-bg">
       <Wave />
       <Fish />
-      <button className={`hamburger-btn ${isMenuOpen ? 'open' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+      <button className={`hamburger-btn ${isMenuOpen ? 'open' : ''}`} onClick={() => { playSound('click'); setIsMenuOpen(!isMenuOpen); }}>
         <span className="hamburger-line"></span><span className="hamburger-line"></span><span className="hamburger-line"></span>
       </button>
       <div className={`sidebar-overlay ${isMenuOpen ? 'visible' : ''}`} onClick={() => setIsMenuOpen(false)} />
@@ -129,8 +134,8 @@ const Portfolio = () => {
                   <div className="center-content">
                     <HeroCard onExplore={() => handleNavClick('Projects')} />
                     <div className="bottom-buttons white-cutout">
-                      <button className="cutout-btn contact-btn" onClick={() => handleNavClick('Contact')}>Contact Me</button>
-                      <button className="cutout-btn cv-btn" onClick={() => window.open('#')}>Download CV</button>
+                      <button className="cutout-btn contact-btn" onClick={() => { playSound('click'); handleNavClick('Contact'); }}>Contact Me</button>
+                      <button className="cutout-btn cv-btn" onClick={() => { playSound('click'); window.open('#'); }}>Download CV</button>
                     </div>
                   </div>
                   <ProfileCard />

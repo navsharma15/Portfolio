@@ -148,9 +148,9 @@
   transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
 }
 
-.milestone-title { margin: 2px 0 8px; font-weight: 900; font-size: 1.45rem; color: #fff; }
+.milestone-title { margin: 2px 0 8px; font-weight: 900; font-size: 1.25rem; color: #fff; }
 .milestone-year { color: var(--neon-red); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-.milestone-inst { font-size: 1.15rem; color: #fff; margin: 0 0 5px 0; font-weight: 750; }
+.milestone-inst { font-size: 1.05rem; color: #fff; margin: 0 0 5px 0; font-weight: 750; }
 .milestone-loc { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 15px; }
 .milestone-desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 18px; }
 
@@ -220,9 +220,9 @@
     align-items: center;
   }
 
-  .milestone-title { font-size: 1.3rem; margin-top: 5px; }
+  .milestone-title { font-size: 1.15rem; margin-top: 5px; }
   .milestone-year { font-size: 0.8rem; }
-  .milestone-inst { font-size: 1.05rem; }
+  .milestone-inst { font-size: 0.95rem; }
   .milestone-desc { font-size: 0.92rem; margin-bottom: 15px; }
 
   .milestone-points {
@@ -327,7 +327,7 @@
 .milestone-watermark {
   position: absolute;
   top: 50%;
-  font-size: clamp(2.5rem, 4vw, 3.8rem); /* Dynamically shrinks to always perfectly fit */
+  font-size: clamp(2rem, 3.5vw, 3rem); /* Dynamically shrinks to always perfectly fit */
   font-weight: 900;
   text-transform: uppercase;
   color: rgba(255, 60, 90, 0.35); /* Bright light ruby red core */

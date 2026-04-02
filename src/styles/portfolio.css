@@ -10,12 +10,11 @@
   width: 100vw;
   overflow: hidden;
   display: flex;
-  /* Dark page background */
   background: linear-gradient(180deg, #0f0008 0%, #130008 100%);
   color: #ffffff;
   font-family: 'Inter', sans-serif;
-  padding: 20px;
-  gap: 20px;
+  padding: clamp(10px, 2vh, 20px);
+  gap: clamp(10px, 2vw, 20px);
 }
 
 /* Ensure stacking above the wave canvas */
@@ -585,13 +584,12 @@
    RIGHT PROFILE CARD — wider, bigger photo
    ============================================= */
 .profile-card {
-  width: 380px;
-  min-width: 340px;
+  width: clamp(300px, 28vw, 400px);
   height: 100%;
   /* Ruby-red glass theme */
   background: linear-gradient(180deg, rgba(255, 45, 85, 0.07), rgba(180, 0, 40, 0.02));
   border-radius: 20px;
-  padding: 28px 22px;
+  padding: clamp(15px, 2vh, 28px) clamp(10px, 1.5vw, 22px);
   border: 1px solid rgba(255, 45, 85, 0.18);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
@@ -610,8 +608,8 @@
 
 /* Large square with rounded corners — photo fills it */
 .profile-avatar {
-  width: 240px;
-  height: 240px;
+  width: 270px;
+  height: 270px;
   border-radius: 24px;
   background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
   display: flex;
@@ -622,17 +620,6 @@
   border: 1px solid rgba(255, 45, 85, 0.15);
 }
 
-.profile-status {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 18px;
-  height: 18px;
-  background: #ff2d55;
-  border-radius: 50%;
-  border: 3px solid rgba(20, 0, 5, 0.6);
-  box-shadow: 0 0 15px rgba(255, 45, 85, 0.5);
-}
 
 .profile-name {
   font-size: 1.4rem;
@@ -705,10 +692,10 @@
 
   /* Increase width as requested */
   .profile-avatar {
-    width: 320px;
-    height: min(55vh, 650px);
+    width: clamp(240px, 85%, 360px);
+    height: min(55vh, 550px);
     max-width: 100%;
-    max-height: 90vh;
+    max-height: 85vh;
     border-radius: 32px;
   }
 

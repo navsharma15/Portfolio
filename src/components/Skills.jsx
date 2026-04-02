@@ -124,7 +124,9 @@ const Skills = () => {
               <div className="floating-symbols-container">
                 {activeCategory.skills.map((skill, index) => {
                   const angle = (index / activeCategory.skills.length) * Math.PI * 2;
-                  const radius = 170 + Math.random() * 60; 
+                  // Calculate responsive radius based on viewport height to ensure it fits the card
+                  const responsiveBase = typeof window !== 'undefined' ? Math.min(window.innerHeight * 0.2, 170) : 170;
+                  const radius = responsiveBase + Math.random() * (responsiveBase * 0.35); 
                   const xTarget = Math.cos(angle) * radius;
                   const yTarget = Math.sin(angle) * radius;
 

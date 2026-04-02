@@ -4,11 +4,11 @@
 
 .skills-pro-container {
   width: 100%;
-  min-height: 100vh;
-  padding: 40px 60px;
+  height: 100%;
+  padding: clamp(20px, 4vh, 40px) clamp(20px, 4vw, 60px);
   color: #fff;
   font-family: 'Inter', monospace;
-  overflow-y: auto; /* Fully perfectly scrollable */
+  overflow: hidden; /* Prevent double scrollbars */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -43,8 +43,12 @@
   display: flex;
   gap: 30px;
   flex: 1;
-  min-height: 600px; /* Force structure space */
-  padding-bottom: 40px;
+  min-height: 0; /* Allow it to shrink to fit */
+  padding-bottom: 20px;
+}
+@media (max-height: 800px) {
+  .skills-desktop-view { gap: 15px; }
+  .skills-pro-container .section-header-unique { margin-bottom: 15px; }
 }
 
 /* Left Big Card */
@@ -79,7 +83,7 @@
 }
 
 .big-central-icon {
-  font-size: 8rem;
+  font-size: clamp(4rem, 15vh, 8rem);
   z-index: 10;
   margin-bottom: 20px;
 }
@@ -101,7 +105,7 @@
 }
 
 .big-card-title-area-top-left h3 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 900;
   letter-spacing: 0.15em;
   margin: 0 0 5px 0;
@@ -129,14 +133,14 @@
 
 .floating-tool-bubble {
   position: absolute;
-  padding: 14px 28px;
+  padding: clamp(8px, 1.5vh, 14px) clamp(16px, 2vw, 28px);
   border-radius: 40px;
   background: rgba(10, 0, 5, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #fff;
   font-weight: 800;
-  font-size: 1.15rem;
+  font-size: clamp(0.75rem, 1.2vh, 1.15rem);
   letter-spacing: 0.1em;
   white-space: nowrap;
 }
@@ -162,12 +166,15 @@
 
 /* Right Side - Nav Cards */
 .skills-desktop-right {
-  width: 380px;
+  width: clamp(280px, 25vw, 380px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 15px;
   height: 100%;
+}
+@media (max-height: 800px) {
+  .skills-desktop-right { gap: 10px; }
 }
 
 .desktop-nav-card {
@@ -204,7 +211,7 @@
 
 .nav-card-text h4 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
@@ -275,7 +282,7 @@
 
   .skill-header-text h3 {
     margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 800;
     letter-spacing: 0.1em;
   }
